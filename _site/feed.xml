@@ -6,12 +6,12 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 21 Oct 2020 09:54:53 +0800</pubDate>
-    <lastBuildDate>Wed, 21 Oct 2020 09:54:53 +0800</lastBuildDate>
+    <pubDate>Wed, 21 Oct 2020 10:26:28 +0800</pubDate>
+    <lastBuildDate>Wed, 21 Oct 2020 10:26:28 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
-        <title>Your first personal blog!</title>
+        <title>Your first blog</title>
         <description>&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
 
 &lt;p&gt;由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。&lt;/p&gt;
@@ -32,83 +32,95 @@
   &lt;li&gt;new project&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll new helloworld
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jekyll new helloworld
+
 &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;helloworld
-jekyll serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;githubio&quot;&gt;github.io&lt;/h3&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;create-a-repository&quot;&gt;Create a repository&lt;/h4&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;create-a-repository&quot;&gt;Create a repository&lt;/h4&gt;
 
 &lt;p&gt;在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
 
 &lt;p&gt;转到要存储项目的文件夹，然后克隆这个仓库：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/username/username.github.io&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;Hello world&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;hello-world&quot;&gt;Hello world&lt;/h4&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;username.github.io
+
 &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Hello, world&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; index.html&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;personal-blog&quot;&gt;Personal Blog&lt;/h3&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;Run the first blog&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;run-the-first-blog&quot;&gt;Run the first blog&lt;/h4&gt;
 
 &lt;p&gt;目前有很多的jekyll主题和模板，在这里提供一个网站&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;jekyll themes&lt;/a&gt;和一个教程：&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md&quot;&gt;说明文档&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;我个人选择了&lt;a href=&quot;http://jekyllthemes.org/themes/monos/&quot;&gt;monos&lt;/a&gt;这个主题，下载该主题后解压到你的项目文件夹下，运行之后会出现一些依赖不存在的情况，只需要按照它所提示的名称和版本安装即可&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;jekyll-theme-monos-master
+
 username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve
+
 Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last:
-    10: from /usr/bin/jekyll:7:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;main&amp;gt;&lt;span class=&quot;s1&quot;&gt;&#39;
-    9: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:33:in `require_from_bundler&#39;&lt;/span&gt;
-    8: from /usr/local/lib/site_ruby/2.5.0/bundler.rb:149:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;setup&lt;span class=&quot;s1&quot;&gt;&#39;
-    7: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:20:in `setup&#39;&lt;/span&gt;
-    6: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:101:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;definition_method&lt;span class=&quot;s1&quot;&gt;&#39;
-    5: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:226:in `requested_specs&#39;&lt;/span&gt;
-    4: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:237:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;specs_for&lt;span class=&quot;s1&quot;&gt;&#39;
-    3: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:170:in `specs&#39;&lt;/span&gt;
-    2: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;
-    1: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in `map!&#39;&lt;/span&gt;
+
+  10: from /usr/bin/jekyll:7:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;main&amp;gt;&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  9: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:33:in `require_from_bundler&#39;&lt;/span&gt;
+
+  8: from /usr/local/lib/site_ruby/2.5.0/bundler.rb:149:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;setup&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  7: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:20:in `setup&#39;&lt;/span&gt;
+
+  6: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:101:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;definition_method&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  5: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:226:in `requested_specs&#39;&lt;/span&gt;
+
+  4: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:237:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;specs_for&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  3: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:170:in `specs&#39;&lt;/span&gt;
+
+  2: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  1: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in `map!&#39;&lt;/span&gt;
+
 /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:86:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;: Could not find public_suffix-4.0.3 in any of the sources (Bundler::GemNotFound)
+
 username:/jekyll-theme-monos-master$ sudo gem install bundler:1.17.2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;安装过程中可能会出现如下的错误，安装ruby-dev&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;gem install eventmachine &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 1.2.7
-Building native extensions. This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...                             
-ERROR:  Error installing eventmachine:
-    ERROR: Failed to build gem native extension.
+
+Building native extensions. This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...               
+
+ERROR: Error installing eventmachine:
+
+  ERROR: Failed to build gem native extension.
+
 current directory: /var/lib/gems/2.5.0/gems/eventmachine-1.2.7/ext
-/usr/bin/ruby2.5 &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; /usr/local/lib/site_ruby/2.5.0 &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ./siteconf20201020-5764-1v6qrrl.rb extconf.rb    
+
+/usr/bin/ruby2.5 &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; /usr/local/lib/site_ruby/2.5.0 &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ./siteconf20201020-5764-1v6qrrl.rb extconf.rb  
+
 mkmf.rb can&lt;span class=&quot;s1&quot;&gt;&#39;t find header files for ruby at /usr/lib/ruby/include/ruby.h
-        extconf failed, exit code 1
-Gem files will remain installed in /var/lib/gems/2.5.0/gems/eventmachine-1.2.7 for inspection.     
+
+​    extconf failed, exit code 1
+
+Gem files will remain installed in /var/lib/gems/2.5.0/gems/eventmachine-1.2.7 for inspection.   
+
 Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/eventmachine-1.2.7/gem_make.out 
+
 username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;markdown编译器&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;markdown编译器&quot;&gt;markdown编译器&lt;/h4&gt;
 
 &lt;p&gt;我的第一篇博客如下图所示：&lt;/p&gt;
 
@@ -116,27 +128,44 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/
 
 &lt;p&gt;感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;{&lt;/code&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; highlight &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;}&lt;/code&gt;
-your code….
-&lt;code class=&quot;highlighter-rouge&quot;&gt;{&lt;/code&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; endhighlight &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;{&lt;code class=&quot;highlighter-rouge&quot;&gt;%` highlight `%&lt;/code&gt;}&lt;/p&gt;
 
-&lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;_config.yml&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
+&lt;p&gt;your code….&lt;/p&gt;
+
+&lt;p&gt;{&lt;code class=&quot;highlighter-rouge&quot;&gt;%` endhighlight `%&lt;/code&gt;}&lt;/p&gt;
+
+&lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;&lt;em&gt;*_config.yml*&lt;/em&gt;&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
 
 &lt;p&gt;Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;将只支持kramdown作为Markdown引擎&lt;/li&gt;
-  &lt;li&gt;将只支持Rouge作为Markdown代码语法高亮&lt;/li&gt;
-  &lt;li&gt;大幅提升构建速度&lt;/li&gt;
-  &lt;li&gt;不再支持Permalinks和Textile&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持kramdown作为Markdown引擎&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持Rouge作为Markdown代码语法高亮&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;大幅提升构建速度&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不再支持Permalinks和Textile&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;所以之前的配置方法现在不再适用，我们需要对Jekyll的相应配置重新进行修改。&lt;/p&gt;
 
+&lt;h4 id=&quot;配置github&quot;&gt;配置github&lt;/h4&gt;
+
+&lt;p&gt;在你的github仓库中修改settings设置，&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。&lt;/p&gt;
 </description>
-        <pubDate>Tue, 20 Oct 2020 20:05:40 +0800</pubDate>
-        <link>http://yourdomain.com/jekyll/2020/10/20/personal-blog.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/2020/10/20/personal-blog.html</guid>
+        <pubDate>Wed, 21 Oct 2020 10:21:40 +0800</pubDate>
+        <link>http://yourdomain.com/jekyll/2020/10/21/personal-blog.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/jekyll/2020/10/21/personal-blog.html</guid>
         
         
         <category>jekyll</category>
