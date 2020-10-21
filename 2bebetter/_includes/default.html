@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+	{% include head.html %}
+	<style>@import url(/css/syntax/{{ site.highlighter-theme }}.css);</style>
+	<title>{{ site.title }}</title>
+
+	<link href="/css/style.css" rel="stylesheet">
+  	<body>
+		<div class="container"> 
+			<div class="sidebar">
+				{% include sidebar.html %}
+			</div>
+			<div class="content">
+				{{ content }}
+			</div>
+		</div>
+	</body>
+	
+  	{% include footer.html %}
+
+</html>
