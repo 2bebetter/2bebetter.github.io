@@ -142,11 +142,7 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev
 
 感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:
 
-{``%` highlight `%``}
-
-your code....
-
-{``%` endhighlight `%``}
+![image-20201021104402448](/img/2020-10-21-personal-blog/image-20201021104402448.png)
 
 当我们查看配置文件时，发现`Jekyll`使用的`markdown`解析器是默认使用的`kramdown`，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在***\*_config.yml\****文件中修改`markdown: kramdown`和`kramdown:[]`修改markdown解析器的默认设置。
 
