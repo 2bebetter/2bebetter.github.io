@@ -12,7 +12,8 @@ description: > # this means to ignore newlines until "baseurl:"
   to be a better man
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://yourdomain.com" # the base hostname & protocol for your site
-weibo_username: 5731069177
+weibo_id: 5731069177
+weibo_username: 盼西楼雅集
 github_username:  2bebetter
 highlighter-theme: monokai
 category_dir: category/
