@@ -42,7 +42,7 @@ jekyll serve
 
 在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名
 
-![image-20201020190937302](C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201020190937302.png)
+![image-20201020190937302](/img/2020-10-21-personal-blog/image-20201020190937302.png)
 
 #### Clone the repository
 
@@ -138,9 +138,7 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev
 
 我的第一篇博客如下图所示：
 
-![image-20201021092055720](C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201021092055720.png)
-
-
+![image-20201021092055720](/img/2020-10-21-personal-blog/image-20201021092055720.png)
 
 感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:
 
@@ -170,6 +168,23 @@ Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：
 
 在你的github仓库中修改settings设置，
 
-![image-20201021101011843](C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201021101011843.png)
+![image-20201021101011843](/img/2020-10-21-personal-blog/image-20201021101011843.png)
 
 当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。
+
+#### 插入图片
+
+我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：
+
+* typora 
+
+偏好设置->图像->图像插入时，选择"复制到指定位置"并将地址设为 `../img/${filename}`
+
+![image-20201021103739381](/img/2020-10-21-personal-blog/image-20201021103739381.png)
+
+* jekyll
+
+在每一篇post的开头配置行中加入`typora-root-url: ..`
+
+这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似`../img/in-post/post_name/picture_name.png`的图片,通过`/img/post_name/picture_name.png`引用图片的时候typora会去找`../img/post_name/picture_name.png` 能够预览图片，在github pages时`typora-root-url: ..` 无效，找的还是`/img/post_name/picture_name.png`，能够正确显示图片。
+
