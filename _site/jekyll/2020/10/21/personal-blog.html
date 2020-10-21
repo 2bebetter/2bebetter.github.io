@@ -22,11 +22,7 @@
   	<body>
 		<div class="container"> 
 			<div class="sidebar">
-				<!--
- * @,@Author: ,: wmh
- * @,@Date: ,: 2020-10-20 20:21:50
- -->
-<div class="sidebar-item sidebar-header">
+				<div class="sidebar-item sidebar-header">
 	<div class='sidebar-brand'>
 		<a href="/about/">2bebetter</a>
 	</div>
@@ -137,7 +133,7 @@ jekyll serve</code></pre></figure>
 
 <p>在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名</p>
 
-<p><img src="C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201020190937302.png" alt="image-20201020190937302" /></p>
+<p><img src="/img/2020-10-21-personal-blog/image-20201020190937302.png" alt="image-20201020190937302" /></p>
 
 <h4 id="clone-the-repository">Clone the repository</h4>
 
@@ -217,15 +213,11 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev</span></code></pr
 
 <p>我的第一篇博客如下图所示：</p>
 
-<p><img src="C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201021092055720.png" alt="image-20201021092055720" /></p>
+<p><img src="/img/2020-10-21-personal-blog/image-20201021092055720.png" alt="image-20201021092055720" /></p>
 
 <p>感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:</p>
 
-<p>{<code class="highlighter-rouge">%` highlight `%</code>}</p>
-
-<p>your code….</p>
-
-<p>{<code class="highlighter-rouge">%` endhighlight `%</code>}</p>
+<p><img src="/img/2020-10-21-personal-blog/image-20201021104402448.png" alt="image-20201021104402448" /></p>
 
 <p>当我们查看配置文件时，发现<code class="highlighter-rouge">Jekyll</code>使用的<code class="highlighter-rouge">markdown</code>解析器是默认使用的<code class="highlighter-rouge">kramdown</code>，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在<strong><em>*_config.yml*</em></strong>文件中修改<code class="highlighter-rouge">markdown: kramdown</code>和<code class="highlighter-rouge">kramdown:[]</code>修改markdown解析器的默认设置。</p>
 
@@ -252,9 +244,30 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev</span></code></pr
 
 <p>在你的github仓库中修改settings设置，</p>
 
-<p><img src="C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201021101011843.png" alt="image-20201021101011843" /></p>
+<p><img src="/img/2020-10-21-personal-blog/image-20201021101011843.png" alt="image-20201021101011843" /></p>
 
 <p>当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。</p>
+
+<h4 id="插入图片">插入图片</h4>
+
+<p>我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：</p>
+
+<ul>
+  <li>typora</li>
+</ul>
+
+<p>偏好设置-&gt;图像-&gt;图像插入时，选择”复制到指定位置”并将地址设为 <code class="highlighter-rouge">../img/${filename}</code></p>
+
+<p><img src="/img/2020-10-21-personal-blog/image-20201021103739381.png" alt="image-20201021103739381" /></p>
+
+<ul>
+  <li>jekyll</li>
+</ul>
+
+<p>在每一篇post的开头配置行中加入<code class="highlighter-rouge">typora-root-url: ..</code></p>
+
+<p>这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似<code class="highlighter-rouge">../img/in-post/post_name/picture_name.png</code>的图片,通过<code class="highlighter-rouge">/img/post_name/picture_name.png</code>引用图片的时候typora会去找<code class="highlighter-rouge">../img/post_name/picture_name.png</code> 能够预览图片，在github pages时<code class="highlighter-rouge">typora-root-url: ..</code> 无效，找的还是<code class="highlighter-rouge">/img/post_name/picture_name.png</code>，能够正确显示图片。</p>
+
 
 	</div>
 </article>

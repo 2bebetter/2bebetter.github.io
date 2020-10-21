@@ -6,8 +6,8 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 21 Oct 2020 10:26:28 +0800</pubDate>
-    <lastBuildDate>Wed, 21 Oct 2020 10:26:28 +0800</lastBuildDate>
+    <pubDate>Wed, 21 Oct 2020 12:14:31 +0800</pubDate>
+    <lastBuildDate>Wed, 21 Oct 2020 12:14:31 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -44,7 +44,7 @@ jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
 
@@ -124,15 +124,11 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/
 
 &lt;p&gt;我的第一篇博客如下图所示：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201021092055720.png&quot; alt=&quot;image-20201021092055720&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021092055720.png&quot; alt=&quot;image-20201021092055720&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:&lt;/p&gt;
 
-&lt;p&gt;{&lt;code class=&quot;highlighter-rouge&quot;&gt;%` highlight `%&lt;/code&gt;}&lt;/p&gt;
-
-&lt;p&gt;your code….&lt;/p&gt;
-
-&lt;p&gt;{&lt;code class=&quot;highlighter-rouge&quot;&gt;%` endhighlight `%&lt;/code&gt;}&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021104402448.png&quot; alt=&quot;image-20201021104402448&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;&lt;em&gt;*_config.yml*&lt;/em&gt;&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
 
@@ -159,9 +155,30 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/
 
 &lt;p&gt;在你的github仓库中修改settings设置，&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;C:\Users\wmh\AppData\Roaming\Typora\typora-user-images\image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。&lt;/p&gt;
+
+&lt;h4 id=&quot;插入图片&quot;&gt;插入图片&lt;/h4&gt;
+
+&lt;p&gt;我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;typora&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;偏好设置-&amp;gt;图像-&amp;gt;图像插入时，选择”复制到指定位置”并将地址设为 &lt;code class=&quot;highlighter-rouge&quot;&gt;../img/${filename}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021103739381.png&quot; alt=&quot;image-20201021103739381&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;jekyll&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在每一篇post的开头配置行中加入&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/in-post/post_name/picture_name.png&lt;/code&gt;的图片,通过&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;引用图片的时候typora会去找&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/post_name/picture_name.png&lt;/code&gt; 能够预览图片，在github pages时&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt; 无效，找的还是&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;，能够正确显示图片。&lt;/p&gt;
+
 </description>
         <pubDate>Wed, 21 Oct 2020 10:21:40 +0800</pubDate>
         <link>http://yourdomain.com/jekyll/2020/10/21/personal-blog.html</link>
