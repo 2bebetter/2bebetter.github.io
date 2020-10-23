@@ -198,4 +198,4 @@ plugin：[jossets/jekyll-toc](https://github.com/jossets/jekyll-toc)
 
 * 下载最新的[toc.html](https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html)
 * 将该文件拖进_includes文件夹下
-* 在模板布局页面中`{{ content }}`前加入：`{% include toc.html html=content %}`
+* 在模板布局页面中`{\{ content \}}`前加入：`\{\% include toc.html html=content \%\}`
