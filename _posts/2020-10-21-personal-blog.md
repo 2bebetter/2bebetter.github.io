@@ -184,8 +184,6 @@ Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：
 
 这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似`../img/in-post/post_name/picture_name.png`的图片,通过`/img/post_name/picture_name.png`引用图片的时候typora会去找`../img/post_name/picture_name.png` 能够预览图片，在github pages时`typora-root-url: ..` 无效，找的还是`/img/post_name/picture_name.png`，能够正确显示图片。
 
-#### 数学公式
-
 #### 目录
 
 plugin：[jossets/jekyll-toc](https://github.com/jossets/jekyll-toc)
@@ -199,3 +197,6 @@ plugin：[jossets/jekyll-toc](https://github.com/jossets/jekyll-toc)
 * 下载最新的[toc.html](https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html)
 * 将该文件拖进_includes文件夹下
 * 在模板布局页面中`{\{ content \}}`前加入：`\{\% include toc.html html=content \%\}`
+
+#### 数学公式
+

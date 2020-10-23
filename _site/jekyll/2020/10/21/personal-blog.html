@@ -121,8 +121,8 @@
               <li><a href="#markdown编译器">markdown编译器</a></li>
               <li><a href="#配置github">配置github</a></li>
               <li><a href="#插入图片">插入图片</a></li>
-              <li><a href="#数学公式">数学公式</a></li>
               <li><a href="#目录">目录</a></li>
+              <li><a href="#数学公式">数学公式</a></li>
             </ul>
           </li>
         </ul>
@@ -298,8 +298,6 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev</span></code></pr
 
 <p>这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似<code class="highlighter-rouge">../img/in-post/post_name/picture_name.png</code>的图片,通过<code class="highlighter-rouge">/img/post_name/picture_name.png</code>引用图片的时候typora会去找<code class="highlighter-rouge">../img/post_name/picture_name.png</code> 能够预览图片，在github pages时<code class="highlighter-rouge">typora-root-url: ..</code> 无效，找的还是<code class="highlighter-rouge">/img/post_name/picture_name.png</code>，能够正确显示图片。</p>
 
-<h4 id="数学公式">数学公式</h4>
-
 <h4 id="目录">目录</h4>
 
 <p>plugin：<a href="https://github.com/jossets/jekyll-toc">jossets/jekyll-toc</a></p>
@@ -315,6 +313,9 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev</span></code></pr
   <li>将该文件拖进_includes文件夹下</li>
   <li>在模板布局页面中<code class="highlighter-rouge">{\{ content \}}</code>前加入：<code class="highlighter-rouge">\{\% include toc.html html=content \%\}</code></li>
 </ul>
+
+<h4 id="数学公式">数学公式</h4>
+
 
 	</div>
 </article>
