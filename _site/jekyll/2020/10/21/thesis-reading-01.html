@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Recent Advances of Resource Allocation in Network Function Virtualization</title>
-  <meta name="description" content="[TOC]introduction随着新的服务模式(如云计算或虚拟现实)的不断出现，以及对网络服务(如高维视频)的服务质量(QoS)要求越来越高，网络上的IP流量呈指数级增长。根据思科[1]的预测，到2021年全球IP流量将达到3.3 ZB，自2016年以来复合年增长率(CAGR)为24%。在传统的网络服务供应范...">
+  <meta name="description" content="introduction随着新的服务模式(如云计算或虚拟现实)的不断出现，以及对网络服务(如高维视频)的服务质量(QoS)要求越来越高，网络上的IP流量呈指数级增长。根据思科[1]的预测，到2021年全球IP流量将达到3.3 ZB，自2016年以来复合年增长率(CAGR)为24%。在传统的网络服务供应范式中，网络...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://yourdomain.com/jekyll/2020/10/21/thesis-reading-01.html">
@@ -102,9 +102,35 @@
 	</header>
 
 	<div class="post-content">
-		<p>[TOC]</p>
+		<ul>
+  <li><a href="#introduction">introduction</a></li>
+  <li><a href="#preliminary">Preliminary</a>
+    <ul>
+      <li><a href="#basic-problem-definition-and-analysis">Basic Problem Definition and Analysis</a></li>
+      <li><a href="#examples">examples</a></li>
+      <li><a href="#problem-goals">Problem Goals</a></li>
+      <li><a href="#problem-formulation">Problem Formulation</a></li>
+      <li><a href="#mainly-adopted-approaches">Mainly Adopted Approaches</a></li>
+    </ul>
+  </li>
+  <li><a href="#qos-models-in-nfv">QoS Models in NFV</a>
+    <ul>
+      <li><a href="#delay-calculation-of-an-sfc">Delay Calculation of an SFC</a></li>
+      <li><a href="#nfv-resilience">NFV Resilience</a></li>
+    </ul>
+  </li>
+  <li><a href="#resource-allocation-in-nfv">Resource Allocation in NFV</a>
+    <ul>
+      <li><a href="#cost-aware-resource-allocation">Cost-Aware Resource Allocation</a>
+        <ul>
+          <li><a href="#vptr-problem">VPTR Problem</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-<h2 id="introduction">introduction</h2>
+		<h2 id="introduction">introduction</h2>
 
 <p>随着新的服务模式(如云计算或虚拟现实)的不断出现，以及对网络服务(如高维视频)的服务质量(QoS)要求越来越高，网络上的IP流量呈指数级增长。根据思科[1]的预测，到2021年全球IP流量将达到3.3 ZB，自2016年以来复合年增长率(CAGR)为24%。在传统的网络服务供应范式中，网络功能(如防火墙或负载均衡器)也称为中间件，通常由专用硬件设备实现。由于设计和生产成本较高，部署硬件中间件的成本很高，而且这些中间件需要手动配置和管理，这进一步增加了服务提供商的成本。因此，从资本支出(CAPEX)和运营支出(OPEX)来看，传统的网络服务模式无法满足不断增长的用户QoS要求，这给网络服务提供商带来了很大的挑战。</p>
 

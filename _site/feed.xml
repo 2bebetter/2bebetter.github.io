@@ -6,15 +6,13 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 23 Oct 2020 16:00:15 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Oct 2020 16:00:15 +0800</lastBuildDate>
+    <pubDate>Fri, 23 Oct 2020 16:16:39 +0800</pubDate>
+    <lastBuildDate>Fri, 23 Oct 2020 16:16:39 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>Recent Advances of Resource Allocation in Network Function Virtualization</title>
-        <description>&lt;p&gt;[TOC]&lt;/p&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;introduction&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;introduction&lt;/h2&gt;
 
 &lt;p&gt;随着新的服务模式(如云计算或虚拟现实)的不断出现，以及对网络服务(如高维视频)的服务质量(QoS)要求越来越高，网络上的IP流量呈指数级增长。根据思科[1]的预测，到2021年全球IP流量将达到3.3 ZB，自2016年以来复合年增长率(CAGR)为24%。在传统的网络服务供应范式中，网络功能(如防火墙或负载均衡器)也称为中间件，通常由专用硬件设备实现。由于设计和生产成本较高，部署硬件中间件的成本很高，而且这些中间件需要手动配置和管理，这进一步增加了服务提供商的成本。因此，从资本支出(CAPEX)和运营支出(OPEX)来看，传统的网络服务模式无法满足不断增长的用户QoS要求，这给网络服务提供商带来了很大的挑战。&lt;/p&gt;
 
@@ -396,6 +394,56 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/
 
 &lt;p&gt;这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/in-post/post_name/picture_name.png&lt;/code&gt;的图片,通过&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;引用图片的时候typora会去找&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/post_name/picture_name.png&lt;/code&gt; 能够预览图片，在github pages时&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt; 无效，找的还是&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;，能够正确显示图片。&lt;/p&gt;
 
+&lt;h4 id=&quot;数学公式&quot;&gt;数学公式&lt;/h4&gt;
+
+&lt;h4 id=&quot;目录&quot;&gt;目录&lt;/h4&gt;
+
+&lt;p&gt;plugin：&lt;a href=&quot;https://github.com/jossets/jekyll-toc&quot;&gt;jossets/jekyll-toc&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这种方法可以兼容github-page：&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;A GitHub Pages compatible Table of Contents generator without a plugin or JavaScript :octocat: https://pure-liquid.allejo.org/&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;下载最新的&lt;a href=&quot;https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html&quot;&gt;toc.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;将该文件拖进_includes文件夹下&lt;/li&gt;
+  &lt;li&gt;在模板布局页面中`&amp;lt;article class=&quot;post&quot;&amp;gt;
+    &lt;header class=&quot;post-header&quot;&gt;
+      &lt;div class=&quot;post-title&quot;&gt; 
+          Welcome to Jekyll!
+      &lt;/div&gt;
+      &lt;time class=&quot;post-date dt-published&quot; datetime=&quot;2020-10-20T20:05:40+08:00&quot; itemprop=&quot;datePublished&quot;&gt;
+			
+          2020/10/20
+      &lt;/time&gt;		
+  &lt;/header&gt;
+
+    &lt;div class=&quot;post-content&quot;&gt;
+		
+
+      &lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&amp;lt;/article&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;前加入：&lt;/code&gt;
+`&lt;/p&gt;
 </description>
         <pubDate>Wed, 21 Oct 2020 10:21:40 +0800</pubDate>
         <link>http://yourdomain.com/jekyll/2020/10/21/personal-blog.html</link>

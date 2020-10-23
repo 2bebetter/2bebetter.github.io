@@ -102,6 +102,35 @@
 	</header>
 
 	<div class="post-content">
+		<ul>
+  <li><a href="#first-post使用githubio和jekyll搭建个人博客">First Post——使用github.io和jekyll搭建个人博客</a>
+    <ul>
+      <li><a href="#配置环境">配置环境</a>
+        <ul>
+          <li><a href="#jekyll">jekyll</a></li>
+          <li><a href="#githubio">github.io</a>
+            <ul>
+              <li><a href="#create-a-repository">Create a repository</a></li>
+              <li><a href="#clone-the-repository">Clone the repository</a></li>
+              <li><a href="#hello-world">Hello world</a></li>
+            </ul>
+          </li>
+          <li><a href="#personal-blog">Personal Blog</a>
+            <ul>
+              <li><a href="#run-the-first-blog">Run the first blog</a></li>
+              <li><a href="#markdown编译器">markdown编译器</a></li>
+              <li><a href="#配置github">配置github</a></li>
+              <li><a href="#插入图片">插入图片</a></li>
+              <li><a href="#数学公式">数学公式</a></li>
+              <li><a href="#目录">目录</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
 		<h1 id="first-post使用githubio和jekyll搭建个人博客">First Post——使用github.io和jekyll搭建个人博客</h1>
 
 <p>由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。</p>
@@ -269,6 +298,56 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev</span></code></pr
 
 <p>这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似<code class="highlighter-rouge">../img/in-post/post_name/picture_name.png</code>的图片,通过<code class="highlighter-rouge">/img/post_name/picture_name.png</code>引用图片的时候typora会去找<code class="highlighter-rouge">../img/post_name/picture_name.png</code> 能够预览图片，在github pages时<code class="highlighter-rouge">typora-root-url: ..</code> 无效，找的还是<code class="highlighter-rouge">/img/post_name/picture_name.png</code>，能够正确显示图片。</p>
 
+<h4 id="数学公式">数学公式</h4>
+
+<h4 id="目录">目录</h4>
+
+<p>plugin：<a href="https://github.com/jossets/jekyll-toc">jossets/jekyll-toc</a></p>
+
+<p>这种方法可以兼容github-page：</p>
+
+<p><em>A GitHub Pages compatible Table of Contents generator without a plugin or JavaScript :octocat: https://pure-liquid.allejo.org/</em></p>
+
+<p>使用方法：</p>
+
+<ul>
+  <li>下载最新的<a href="https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html">toc.html</a></li>
+  <li>将该文件拖进_includes文件夹下</li>
+  <li>在模板布局页面中`&lt;article class="post"&gt;
+    <header class="post-header">
+      <div class="post-title"> 
+          Welcome to Jekyll!
+      </div>
+      <time class="post-date dt-published" datetime="2020-10-20T20:05:40+08:00" itemprop="datePublished">
+			
+          2020/10/20
+      </time>		
+  </header>
+
+    <div class="post-content">
+		
+
+      <p>You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+
+</div>
+  </li>
+</ul>
+<p>To add new posts, simply add a file in the <code class="highlighter-rouge">_posts</code> directory that follows the convention <code class="highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+
+<p>Jekyll also offers powerful support for code snippets:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
+<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+
+<p>Check out the <a href="http://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;/div&gt;
+</code></pre></div></div>
+<p>&lt;/article&gt;<code class="highlighter-rouge">前加入：</code>
+`</p>
 
 	</div>
 </article>
