@@ -6,8 +6,8 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 23 Oct 2020 15:53:00 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Oct 2020 15:53:00 +0800</lastBuildDate>
+    <pubDate>Fri, 23 Oct 2020 16:00:15 +0800</pubDate>
+    <lastBuildDate>Fri, 23 Oct 2020 16:00:15 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -36,7 +36,7 @@
   &lt;li&gt;定义一：&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;In a given network G(N,L) and for each request r(α,F,w⃗ )∈R, the VNF Placement and Traffic Routing (VPTR) problem is to place its requested VNFs on N and find routes among each adjacent VNF pair without violating the node capacity and link bandwidth such that the requirement vector w⃗  is satisfied.&lt;/p&gt;
+&lt;p&gt;In a given network G(N,L) and for each request r(α,F,w⃗ )∈R, the VNF Placement and Traffic Routing (VPTR) problem is to place its requested VNFs on N and find routes among each adjacent VNF pair without violating the node capacity and link bandwidth such that the requirement vector w is satisfied.&lt;/p&gt;
 
 &lt;p&gt;给定网络G和请求r，VNF的放置和VPTR问题就是讲请求的VNFs放置在N节点上并且为每一对相邻VNF在不违反节点容量和满足链路带宽的需求向量w的情况下找到路由&lt;/p&gt;
 
@@ -46,7 +46,7 @@
   &lt;li&gt;定义二：&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;For a network G(N,L) and a set of requests R, suppose that the path between any node pair in the network is known/given, and each adjacent VNF pair chooses the given path to route the traffic. For each request r(α,F,w⃗ )∈R, the VNF Placement (VNFP) problem is to place its requested VNFs on N without violating the node capacity such that w⃗  is satisfied.&lt;/p&gt;
+&lt;p&gt;For a network G(N,L) and a set of requests R, suppose that the path between any node pair in the network is known/given, and each adjacent VNF pair chooses the given path to route the traffic. For each request r(α,F,w)∈R, the VNF Placement (VNFP) problem is to place its requested VNFs on N without violating the node capacity such that w is satisfied.&lt;/p&gt;
 
 &lt;p&gt;对于给定的网络G和请求集合R，假设任意一对节点之间的路径是已知的，并且每一对相邻VNF都会选择给定的路径去转发流量。对于每一个请求r，VNFP问题就是将它请求的VNFs在不超过节点容量和满足向量w的情况下放置在N上&lt;/p&gt;
 
@@ -56,7 +56,7 @@
   &lt;li&gt;定义三：&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;In a given network G(N,L) where a set of existing SFCs are already deployed in the network, the VNF Redeployment and Consolidation (VRC) problem is to redeploy the already existing SFCs such that the requirement vector w  is satisfied.&lt;/p&gt;
+&lt;p&gt;In a given network G(N,L) where a set of existing SFCs are already deployed in the network, the VNF Redeployment and Consolidation (VRC) problem is to redeploy the already existing SFCs such that the requirement vector w is satisfied.&lt;/p&gt;
 
 &lt;p&gt;在给定网络G (N, L)，一组现有的SFCs已经部署在网络中，VNF调动和整合(VRC)问题是重新部署现有SFCs以满足要求向量w。值得注意的是，在虚拟网络嵌入(VNE)[14]问题中，虚拟网络请求(VNR)由一组所需的虚拟节点和虚拟链接组成。VNE问题是将每个VNR映射到基底(物理)网络，以便每个虚拟节点被放置在具有足够容量的不同基底节点上，并为每个虚拟链路分配一条具有足够带宽的路径。虽然VNE问题与VPTR问题有一些相似之处，但有以下不同之处:&lt;/p&gt;
 
@@ -107,12 +107,17 @@
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
 \begin{equation*} \sum _{(u,v) \in \mathcal {L}} Y_{f_i,f_j,r}^{(u,v)}=1 ~~ v \in \mathcal {N}: X^{f_j,r}_v=1 \&amp;\&amp; X^{f_i,r}_v \ne 1, r \in R \quad\quad \tag{2} \end{equation*} %]]&gt;&lt;/script&gt;
 
-&lt;p&gt;&lt;em&gt;Placement Constraint.&lt;/em&gt;
-&lt;script type=&quot;math/tex&quot;&gt;\begin{equation*} \sum _{n \in \mathcal {N}} X^{f,r}_n = 1~~ \forall r \in R, f \in r. \tag{4} \end{equation*}&lt;/script&gt;
-&lt;em&gt;Link Capacity Constraint.&lt;/em&gt;
-&lt;script type=&quot;math/tex&quot;&gt;\begin{equation*} \sum _{r(\alpha, F, \vec{w}) \in R, (f_i,f_j) \in r} Y_{f_i,f_j,r}^{(u,v)} \cdot \alpha \leq c(u,v)~~\forall (u,v) \in \mathcal {L}. \tag{5} \end{equation*}&lt;/script&gt;
-&lt;em&gt;Node Processing Capacity Constraint.&lt;/em&gt;
-&lt;script type=&quot;math/tex&quot;&gt;\begin{equation*} \sum _{r(\alpha, F, \vec{w}) \in R, f \in r} X^{f,r}_n \cdot \eta (f) \leq \pi (n) ~~ \forall n \in \mathcal {N}. \tag{6} \end{equation*}&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Placement Constraint.&lt;/em&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation*} \sum _{n \in \mathcal {N}} X^{f,r}_n = 1~~ \forall r \in R, f \in r. \tag{4} \end{equation*}&lt;/script&gt;
+
+&lt;p&gt;&lt;em&gt;Link Capacity Constraint.&lt;/em&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation*} \sum _{r(\alpha, F, \vec{w}) \in R, (f_i,f_j) \in r} Y_{f_i,f_j,r}^{(u,v)} \cdot \alpha \leq c(u,v)~~\forall (u,v) \in \mathcal {L}. \tag{5} \end{equation*}&lt;/script&gt;
+
+&lt;p&gt;&lt;em&gt;Node Processing Capacity Constraint.&lt;/em&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation*} \sum _{r(\alpha, F, \vec{w}) \in R, f \in r} X^{f,r}_n \cdot \eta (f) \leq \pi (n) ~~ \forall n \in \mathcal {N}. \tag{6} \end{equation*}&lt;/script&gt;
 
 &lt;p&gt;这个公式没有目标(需要)，但我们可以加上最小化，例如，节点或链接的数量，总成本等，这取决于特定的网络必需品。方程式(1)、(2)和(3)是流守恒约束，负责从源到目的地的路由并且确保找到一条从u到v的路径。更特别，Eq(1)确保如果fi放在节点u和fj没有放在节点u上，从u出站的流量的总和等于1。Eq(2)保证fj放置在节点v上而fi没有放置在节点v上，则v的传入流量之和为1。Eq(3)保证如果fi和fj不在节点v上，则v的输入流量和v的输出流量相等。Eq(4)保证每个所需的VNF f必须放置在网络中的一个节点上。Eq.(5)保证每个链路上分配的总带宽不超过其最大容量，用c(u,v)表示。Eq(6)保证每个节点分配的总处理能力不超过其最大处理能力，其中，$\eta (f)$表示f所需要的资源，而$\pi (n)$表示节点n的总可用资源。&lt;/p&gt;
 
@@ -170,13 +175,17 @@
 
 &lt;p&gt;我们区分并分析了两种不同情况下的VNF放置可用性，即:(1)不受保护的SFC:只允许在网络中放置一个SFC;(2)受保护的SFC:网络中最多可以放置k≥2个SFCs。&lt;/p&gt;
 
-&lt;p&gt;假设一个不受保护的SFC将VNFs放在w个节点n1, n2，…， nw，遍历m个连接l1, l2，…， lm，其可用性计算为：
-&lt;script type=&quot;math/tex&quot;&gt;\begin{equation*} \prod _{i=1}^w A_{n_i} \cdot \prod _{j=1}^m A_{l_j}, \tag{9} \end{equation*}&lt;/script&gt;
-其中$ \prod &lt;em&gt;{i=1}^w A&lt;/em&gt;{n_i} $表示所有节点的可用性，$ \prod &lt;em&gt;{j=1}^m A&lt;/em&gt;{l_j} $表示所有遍历链接的可用性&lt;/p&gt;
+&lt;p&gt;假设一个不受保护的SFC将VNFs放在w个节点n1, n2，…， nw，遍历m个连接l1, l2，…， lm，其可用性计算为：&lt;/p&gt;
 
-&lt;p&gt;在受保护的SFC中，我们强调它是由(最大)k个不受保护的SFCs组成。为便于澄清，我们进一步将受保护放置中k不受保护的SFC分别称为placement组$p_i$。我们用第一个放置组表示。因为不同的放置组可能将一个或多个VNFs放在相同的节点和/或遍历链接，我们将保护放置分为两种情况,即(1)完全保护SFC：k放置组的每一个都把VNF放置在不同的节点、遍历不同的链接和(2)部分保护SFC：至少两个放置组在相同的节点上放置一个或多个VNFs或遍历相同的链接。在完全保护的放置情况下，可用性可以计算为
-&lt;script type=&quot;math/tex&quot;&gt;\begin{equation*} 1-\prod _{i=1}^k(1-A_{\rho _i}). \tag{10} \end{equation*}&lt;/script&gt;
-式(10)表示k个SFCs的可用性等于至少有一个SFC能够正常工作(不失败)的概率。例如，在图5a中，节点和链接的可用性是相关联的，我们使用s和d来表示进入和出口节点。为了便于表达，它们的可用性总是1。SFC的s-a-b-d和s-c-g-d是完全保护的，因为它们不包含任何相同的链路或节点。因此，这两种SFCs的总可用性为:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation*} \prod _{i=1}^w A_{n_i} \cdot \prod _{j=1}^m A_{l_j}, \tag{9} \end{equation*}&lt;/script&gt;
+
+&lt;p&gt;其中$\prod &lt;em&gt;{i=1}^w A&lt;/em&gt;{n_i}$表示所有节点的可用性，$\prod &lt;em&gt;{j=1}^m A&lt;/em&gt;{l_j}$表示所有遍历链接的可用性&lt;/p&gt;
+
+&lt;p&gt;在受保护的SFC中，我们强调它是由(最大)k个不受保护的SFCs组成。为便于澄清，我们进一步将受保护放置中k不受保护的SFC分别称为placement组$p_i$。我们用第一个放置组表示。因为不同的放置组可能将一个或多个VNFs放在相同的节点和/或遍历链接，我们将保护放置分为两种情况,即(1)完全保护SFC：k放置组的每一个都把VNF放置在不同的节点、遍历不同的链接和(2)部分保护SFC：至少两个放置组在相同的节点上放置一个或多个VNFs或遍历相同的链接。在完全保护的放置情况下，可用性可以计算为&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation*} 1-\prod _{i=1}^k(1-A_{\rho _i}). \tag{10} \end{equation*}&lt;/script&gt;
+
+&lt;p&gt;式(10)表示k个SFCs的可用性等于至少有一个SFC能够正常工作(不失败)的概率。例如，在图5a中，节点和链接的可用性是相关联的，我们使用s和d来表示进入和出口节点。为了便于表达，它们的可用性总是1。SFC的s-a-b-d和s-c-g-d是完全保护的，因为它们不包含任何相同的链路或节点。因此，这两种SFCs的总可用性为:&lt;/p&gt;
 
 &lt;p&gt;1−(1−0.9⋅0.99⋅0.8⋅0.85⋅0.95)⋅(1−0.95⋅0.98⋅0.75⋅0.99⋅0.88)≈0.8338&lt;/p&gt;
 
@@ -188,10 +197,12 @@
 
 &lt;p&gt;在此，连接可用性的∘计算可被类似地定义。&lt;/p&gt;
 
-&lt;p&gt;让∐表示连续∘操作的不同,交换,关联和分配。因此，k个部分保护的SFCs的可用性现在可以表示为
-&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+&lt;p&gt;让∐表示连续∘操作的不同,交换,关联和分配。因此，k个部分保护的SFCs的可用性现在可以表示为&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
 \begin{align*} &amp;1-\coprod _{i=1}^{k} (1-A_{\rho _{i}}) \\ =&amp;1- (1-A_{\rho _{1}})\circ (1-A_{\rho _{2}}) \circ \cdots \circ (1-A_{\rho _{k}}) \\ =&amp;\sum _{i=1}^{k}A_{\rho _{i}}-\sum _{0&lt;i&lt;j\leq k} A_{\rho _{i}} \circ A_{\rho _{j}}+ \\ &amp;\sum _{ 0&lt;i&lt;j&lt;u \leq k}A_{\rho _{i}} \circ A_{\rho _{j}} \circ A_{\rho _{u}}+\cdots +(-1)^{k-1}\coprod _{i=1}^{k}A_{\rho _{i}}, \tag{12} \end{align*} %]]&gt;&lt;/script&gt;
-式中$A_{p_i}$表示安置组的可用性，可由式(9)计算，以图5b为例。SFCs s-a-b-d和s-c-b-d部分受到保护，因为它们共同将VNF f2放在节点b上，并且它们也通过相同的链路(b,d)。因此，总可用性计算为&lt;/p&gt;
+
+&lt;p&gt;式中$A_{p_i}$表示安置组的可用性，可由式(9)计算，以图5b为例。SFCs s-a-b-d和s-c-b-d部分受到保护，因为它们共同将VNF f2放在节点b上，并且它们也通过相同的链路(b,d)。因此，总可用性计算为&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/2020-10-21-thesis-reading-01/image-20201023152536021.png&quot; alt=&quot;image-20201023152536021&quot; /&gt;&lt;/p&gt;
 

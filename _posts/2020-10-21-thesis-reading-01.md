@@ -3,15 +3,10 @@ layout: post
 title:  "Recent Advances of Resource Allocation in Network Function Virtualization"
 date:   2020-10-21 12:51:40 +0800
 typora-root-url: ..
-katex: yes
 categories: jekyll
 ---
 
-
-
 [TOC]
-
-
 
 ## introduction
 
@@ -33,7 +28,7 @@ categories: jekyll
 
 1. 定义一：
 
-In a given network G(N,L) and for each request r(α,F,w⃗ )∈R, the VNF Placement and Traffic Routing (VPTR) problem is to place its requested VNFs on N and find routes among each adjacent VNF pair without violating the node capacity and link bandwidth such that the requirement vector w⃗  is satisfied.
+In a given network G(N,L) and for each request r(α,F,w⃗ )∈R, the VNF Placement and Traffic Routing (VPTR) problem is to place its requested VNFs on N and find routes among each adjacent VNF pair without violating the node capacity and link bandwidth such that the requirement vector w is satisfied.
 
 给定网络G和请求r，VNF的放置和VPTR问题就是讲请求的VNFs放置在N节点上并且为每一对相邻VNF在不违反节点容量和满足链路带宽的需求向量w的情况下找到路由
 
@@ -41,7 +36,7 @@ VNF布局(VNFP)问题，不考虑流量路由(sub)问题，定义如下：
 
 2. 定义二：
 
-For a network G(N,L) and a set of requests R, suppose that the path between any node pair in the network is known/given, and each adjacent VNF pair chooses the given path to route the traffic. For each request r(α,F,w⃗ )∈R, the VNF Placement (VNFP) problem is to place its requested VNFs on N without violating the node capacity such that w⃗  is satisfied.
+For a network G(N,L) and a set of requests R, suppose that the path between any node pair in the network is known/given, and each adjacent VNF pair chooses the given path to route the traffic. For each request r(α,F,w)∈R, the VNF Placement (VNFP) problem is to place its requested VNFs on N without violating the node capacity such that w is satisfied.
 
 对于给定的网络G和请求集合R，假设任意一对节点之间的路径是已知的，并且每一对相邻VNF都会选择给定的路径去转发流量。对于每一个请求r，VNFP问题就是将它请求的VNFs在不超过节点容量和满足向量w的情况下放置在N上
 
@@ -49,7 +44,7 @@ For a network G(N,L) and a set of requests R, suppose that the path between any 
 
 3. 定义三：
 
-In a given network G(N,L) where a set of existing SFCs are already deployed in the network, the VNF Redeployment and Consolidation (VRC) problem is to redeploy the already existing SFCs such that the requirement vector w  is satisfied.
+In a given network G(N,L) where a set of existing SFCs are already deployed in the network, the VNF Redeployment and Consolidation (VRC) problem is to redeploy the already existing SFCs such that the requirement vector w is satisfied.
 
 在给定网络G (N, L)，一组现有的SFCs已经部署在网络中，VNF调动和整合(VRC)问题是重新部署现有SFCs以满足要求向量w。值得注意的是，在虚拟网络嵌入(VNE)[14]问题中，虚拟网络请求(VNR)由一组所需的虚拟节点和虚拟链接组成。VNE问题是将每个VNR映射到基底(物理)网络，以便每个虚拟节点被放置在具有足够容量的不同基底节点上，并为每个虚拟链路分配一条具有足够带宽的路径。虽然VNE问题与VPTR问题有一些相似之处，但有以下不同之处:
 
@@ -94,14 +89,19 @@ $$
 $$
 
 *Placement Constraint.*
+
 $$
 \begin{equation*} \sum _{n \in \mathcal {N}} X^{f,r}_n = 1~~ \forall r \in R, f \in r. \tag{4} \end{equation*}
 $$
+
 *Link Capacity Constraint.*
+
 $$
 \begin{equation*} \sum _{r(\alpha, F, \vec{w}) \in R, (f_i,f_j) \in r} Y_{f_i,f_j,r}^{(u,v)} \cdot \alpha \leq c(u,v)~~\forall (u,v) \in \mathcal {L}. \tag{5} \end{equation*}
 $$
+
 *Node Processing Capacity Constraint.*
+
 $$
 \begin{equation*} \sum _{r(\alpha, F, \vec{w}) \in R, f \in r} X^{f,r}_n \cdot \eta (f) \leq \pi (n) ~~ \forall n \in \mathcal {N}. \tag{6} \end{equation*}
 $$
@@ -164,15 +164,19 @@ $$
 我们区分并分析了两种不同情况下的VNF放置可用性，即:(1)不受保护的SFC:只允许在网络中放置一个SFC;(2)受保护的SFC:网络中最多可以放置k≥2个SFCs。
 
 假设一个不受保护的SFC将VNFs放在w个节点n1, n2，…， nw，遍历m个连接l1, l2，…， lm，其可用性计算为：
+
 $$
 \begin{equation*} \prod _{i=1}^w A_{n_i} \cdot \prod _{j=1}^m A_{l_j}, \tag{9} \end{equation*}
 $$
-其中$ \prod _{i=1}^w A_{n_i} $表示所有节点的可用性，$ \prod _{j=1}^m A_{l_j} $表示所有遍历链接的可用性
+
+其中$\prod _{i=1}^w A_{n_i}$表示所有节点的可用性，$\prod _{j=1}^m A_{l_j}$表示所有遍历链接的可用性
 
 在受保护的SFC中，我们强调它是由(最大)k个不受保护的SFCs组成。为便于澄清，我们进一步将受保护放置中k不受保护的SFC分别称为placement组$p_i$。我们用第一个放置组表示。因为不同的放置组可能将一个或多个VNFs放在相同的节点和/或遍历链接，我们将保护放置分为两种情况,即(1)完全保护SFC：k放置组的每一个都把VNF放置在不同的节点、遍历不同的链接和(2)部分保护SFC：至少两个放置组在相同的节点上放置一个或多个VNFs或遍历相同的链接。在完全保护的放置情况下，可用性可以计算为
+
 $$
 \begin{equation*} 1-\prod _{i=1}^k(1-A_{\rho _i}). \tag{10} \end{equation*}
 $$
+
 式(10)表示k个SFCs的可用性等于至少有一个SFC能够正常工作(不失败)的概率。例如，在图5a中，节点和链接的可用性是相关联的，我们使用s和d来表示进入和出口节点。为了便于表达，它们的可用性总是1。SFC的s-a-b-d和s-c-g-d是完全保护的，因为它们不包含任何相同的链路或节点。因此，这两种SFCs的总可用性为:
 
 1−(1−0.9⋅0.99⋅0.8⋅0.85⋅0.95)⋅(1−0.95⋅0.98⋅0.75⋅0.99⋅0.88)≈0.8338
@@ -186,9 +190,11 @@ $$
 在此，连接可用性的∘计算可被类似地定义。
 
 让∐表示连续∘操作的不同,交换,关联和分配。因此，k个部分保护的SFCs的可用性现在可以表示为
+
 $$
 \begin{align*} &1-\coprod _{i=1}^{k} (1-A_{\rho _{i}}) \\ =&1- (1-A_{\rho _{1}})\circ (1-A_{\rho _{2}}) \circ \cdots \circ (1-A_{\rho _{k}}) \\ =&\sum _{i=1}^{k}A_{\rho _{i}}-\sum _{0<i<j\leq k} A_{\rho _{i}} \circ A_{\rho _{j}}+ \\ &\sum _{ 0<i<j<u \leq k}A_{\rho _{i}} \circ A_{\rho _{j}} \circ A_{\rho _{u}}+\cdots +(-1)^{k-1}\coprod _{i=1}^{k}A_{\rho _{i}}, \tag{12} \end{align*}
 $$
+
 式中$A_{p_i}$表示安置组的可用性，可由式(9)计算，以图5b为例。SFCs s-a-b-d和s-c-b-d部分受到保护，因为它们共同将VNF f2放在节点b上，并且它们也通过相同的链路(b,d)。因此，总可用性计算为
 
 ![image-20201023152536021](/img/2020-10-21-thesis-reading-01/image-20201023152536021.png)
