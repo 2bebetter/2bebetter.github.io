@@ -1,1 +1,22 @@
-{% include default.html %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+    
+    <div class="container"> 
+        <div class="sidebar">
+            {% include sidebar.html %}
+        </div>
+        <div class="content">
+            {{ content }}
+        </div>
+    </div>
+
+    {% include footer.html %}
+    
+</body>
+
+</html>

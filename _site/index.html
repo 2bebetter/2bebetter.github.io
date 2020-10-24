@@ -1,30 +1,43 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
-	<head>
+<head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>2bebetter</title>
   <meta name="description" content="to be a better man
 ">
+  <meta name="keyword"  content="">
+
+  <title>2bebetter</title>
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://yourdomain.com/">
-  <link rel="alternate" type="application/rss+xml" title="2bebetter" href="http://yourdomain.com/feed.xml">
+  <link rel="canonical" href="http://2bebetter.github.io/">
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 </head>
 
-	<style>@import url(/css/syntax/monokai.css);</style>
-	<title>2bebetter</title>
 
-	<link href="/css/style.css" rel="stylesheet">
-  	<body>
-		<div class="container"> 
-			<div class="sidebar">
-				<div class="sidebar-item sidebar-header">
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+    
+    <div class="container"> 
+        <div class="sidebar">
+            <div class="sidebar-item sidebar-header">
 	<div class='sidebar-brand'>
 		<a href="/about/">2bebetter</a>
 	</div>
@@ -59,29 +72,27 @@
 	  
 	    
 	  
-	    
-	  
 	</ul>
 </div>
 
 <div class="sidebar-item sidebar-nav">
   	<ul class="nav">
-			<li class="nav-title">Categories</li>
-	    
-	    <li>
-	    	<a class="nav-item" href="/category/#jekyll">
-				<span class="name">jekyll</span>
-				<span class="badge">3</span>
-	    	</a>
- 		</li>
-	    
-	    <li>
-	    	<a class="nav-item" href="/category/#update">
-				<span class="name">update</span>
-				<span class="badge">1</span>
-	    	</a>
- 		</li>
-	    
+		<li class="nav-title">Categories</li>
+			
+			<li>
+				<a class="nav-item" href="/category/#jekyll">
+					<span class="name">jekyll</span>
+					<span class="badge">1</span>
+				</a>
+			</li>
+			
+			<li>
+				<a class="nav-item" href="/category/#thesis">
+					<span class="name">thesis</span>
+					<span class="badge">1</span>
+				</a>
+			</li>
+			
 	  </nav>
 	</ul>
 </div>
@@ -89,49 +100,67 @@
 <div class="sidebar-item sidebar-footer">
 	<p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a></p>
 </div>
-			</div>
-			<div class="content">
-				<div class="home">
+        </div>
+        <div class="content">
+            <article class="post">
+    <header class="post-header home">
+        <div class="post-title">Articles</div>
+    </header>
+  
+    <div class="post-content">
+        
+            
+                <div class="post-preview">
+                    <a href="/thesis/2020/10/21/thesis-reading-01/">
+                        <h2 class="post-title">
+                            Recent Advances of Resource Allocation in Network Function Virtualization
+                        </h2>
+                        
+                        <div class="post-content-preview">
+                            introduction
 
-  <h1 class="page-heading">Posts</h1>
+随着新的服务模式(如云计算或虚拟现实)的不断出现，以及对网络服务(如高维视频)的服务质量(QoS)要求越来越高，网络上的IP流量呈指数级增长。根据思科[1]的预测，到2021年全球IP流量将达到3.3 ZB，自2016年以来复合年增长率(CAGR)为24%。在传统的网络服务供应范式中，网络功能(如防火墙或负载均衡器)也称为中间件，通常由专用硬件设备实现。由于设计和...
+                        </div>
+                    </a>
+                    <p class="post-meta">
+                        Posted by 2bebetter on October 21, 2020
+                    </p>
+                </div>
+            
+                <div class="post-preview">
+                    <a href="/jekyll/2020/10/21/personal-blog/">
+                        <h2 class="post-title">
+                            Your first blog
+                        </h2>
+                        
+                        <div class="post-content-preview">
+                            First Post——使用github.io和jekyll搭建个人博客
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Oct 21, 2020</span>
+由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。
 
-        <h2>
-          <a class="post-link" href="/jekyll/2020/10/21/thesis-reading-01.html">Recent Advances of Resource Allocation in Network Function Virtualization</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Oct 21, 2020</span>
+配置环境
 
-        <h2>
-          <a class="post-link" href="/jekyll/2020/10/21/personal-blog.html">Your first blog</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Oct 20, 2020</span>
+jekyll
 
-        <h2>
-          <a class="post-link" href="/jekyll/update/2020/10/20/welcome-to-jekyll.html">Welcome to Jekyll!</a>
-        </h2>
-      </li>
-    
-  </ul>
 
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+  install
 
-</div>
 
-			</div>
-		</div>
-	</body>
-	
-  	<footer class="site-footer">
+因为win10内嵌了linux子系统，而使用linux...
+                        </div>
+                    </a>
+                    <p class="post-meta">
+                        Posted by 2bebetter on October 21, 2020
+                    </p>
+                </div>
+            
+        
+    </div>
+</article>
+        </div>
+    </div>
+
+    <footer class="site-footer">
 
   <div class="wrapper">
 
@@ -173,5 +202,7 @@
 
 </footer>
 
+    
+</body>
 
 </html>

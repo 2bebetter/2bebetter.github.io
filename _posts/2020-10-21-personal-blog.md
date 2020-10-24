@@ -200,3 +200,18 @@ plugin：[jossets/jekyll-toc](https://github.com/jossets/jekyll-toc)
 
 #### 数学公式
 
+使用latex编写数学公式是十分方便的，但是markdown本身并不支持latex公式，因此需要一些拓展，或者使用Typora编辑器自带的latex公式编辑。
+
+虽然jekyll并不支持latex，但是可以通过工具来实现，是一个开源的基于 Ajax 的数学公式显示的解决方案，结合多种先进的Web技术，支持主流的浏览器。需要把下面的JS调用代码以及配置插入到你Jekyll博客的header文件中：
+
+{% highlight HTML %}
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+{% endhighlight %}

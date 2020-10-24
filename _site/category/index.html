@@ -1,30 +1,43 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
-	<head>
+<head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Category</title>
   <meta name="description" content="to be a better man
 ">
+  <meta name="keyword"  content="">
+
+  <title>Category</title>
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://yourdomain.com/category/">
-  <link rel="alternate" type="application/rss+xml" title="2bebetter" href="http://yourdomain.com/feed.xml">
+  <link rel="canonical" href="http://2bebetter.github.io/category/">
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 </head>
 
-	<style>@import url(/css/syntax/monokai.css);</style>
-	<title>2bebetter</title>
 
-	<link href="/css/style.css" rel="stylesheet">
-  	<body>
-		<div class="container"> 
-			<div class="sidebar">
-				<div class="sidebar-item sidebar-header">
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+    
+    <div class="container"> 
+        <div class="sidebar">
+            <div class="sidebar-item sidebar-header">
 	<div class='sidebar-brand'>
 		<a href="/about/">2bebetter</a>
 	</div>
@@ -59,29 +72,27 @@
 	  
 	    
 	  
-	    
-	  
 	</ul>
 </div>
 
 <div class="sidebar-item sidebar-nav">
   	<ul class="nav">
-			<li class="nav-title">Categories</li>
-	    
-	    <li>
-	    	<a class="nav-item" href="/category/#jekyll">
-				<span class="name">jekyll</span>
-				<span class="badge">3</span>
-	    	</a>
- 		</li>
-	    
-	    <li>
-	    	<a class="nav-item" href="/category/#update">
-				<span class="name">update</span>
-				<span class="badge">1</span>
-	    	</a>
- 		</li>
-	    
+		<li class="nav-title">Categories</li>
+			
+			<li>
+				<a class="nav-item" href="/category/#jekyll">
+					<span class="name">jekyll</span>
+					<span class="badge">1</span>
+				</a>
+			</li>
+			
+			<li>
+				<a class="nav-item" href="/category/#thesis">
+					<span class="name">thesis</span>
+					<span class="badge">1</span>
+				</a>
+			</li>
+			
 	  </nav>
 	</ul>
 </div>
@@ -89,21 +100,21 @@
 <div class="sidebar-item sidebar-footer">
 	<p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a></p>
 </div>
-			</div>
-			<div class="content">
-				<article class="post">
+        </div>
+        <div class="content">
+            <article class="post">
 	<header class="post-header home">
 		<div class="post-title">Category - <span id='category-name'></span></div>
-	</header>
+    </header>
 
 	<div class="post-content">
 		
 		<ul class="post-list">
 			
-			<li class="post-list-item post-category-jekyll">
+			<li class="post-list-item post-category-thesis">
 				
 				<span class="post-date">2020/10/21</span>
-				<a class="post-link" href="/jekyll/2020/10/21/thesis-reading-01.html">
+				<a class="post-link" href="/thesis/2020/10/21/thesis-reading-01/">
 					Recent Advances of Resource Allocation in Network Function Virtualization
 				</a>
 				
@@ -112,17 +123,8 @@
 			<li class="post-list-item post-category-jekyll">
 				
 				<span class="post-date">2020/10/21</span>
-				<a class="post-link" href="/jekyll/2020/10/21/personal-blog.html">
+				<a class="post-link" href="/jekyll/2020/10/21/personal-blog/">
 					Your first blog
-				</a>
-				
-			</li>
-		  	
-			<li class="post-list-item post-category-jekyllupdate">
-				
-				<span class="post-date">2020/10/20</span>
-				<a class="post-link" href="/jekyll/update/2020/10/20/welcome-to-jekyll.html">
-					Welcome to Jekyll!
 				</a>
 				
 			</li>
@@ -156,12 +158,10 @@
 	})
 	
 </script>
+        </div>
+    </div>
 
-			</div>
-		</div>
-	</body>
-	
-  	<footer class="site-footer">
+    <footer class="site-footer">
 
   <div class="wrapper">
 
@@ -203,5 +203,7 @@
 
 </footer>
 
+    
+</body>
 
 </html>

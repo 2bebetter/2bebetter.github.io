@@ -10,8 +10,11 @@ title: 2bebetter
 email: tbebetter@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   to be a better man
+keyword: ""
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://2bebetter.github.io"           # your host, for absolute URL
+
+#Social settings
 weibo_id: 5731069177
 weibo_username: 盼西楼雅集
 github_username:  2bebetter
@@ -20,9 +23,13 @@ category_dir: category/
 tag_dir: tag/
 
 # Build settings
-#markdown: redcarpet
-#redcarpet:
-#    extensions: [ "hard_wrap","autolink", "tables", "strikethrough", "superscript", "with_toc_data", "highlight", "prettify","no_intra_emphasis"]
+highlighter-theme: monokai
+
+date_format: "%Y-%M-%D"
+highlighter: rouge
+permalink: pretty
+paginate: 10
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 markdown: kramdown
 kramdown:
@@ -34,6 +41,9 @@ kramdown:
   smart_quotes:              lsquo,rsquo,ldquo,rdquo
   enable_coderay:            false
   hard_wrap:                 false
-  syntax_highlighter:        rouge
   transliterated_header_ids: true
   footnote_backlink:         "&#8617;&#xfe0e;"
+
+
+category_dir: category/
+tag_dir: tag/
