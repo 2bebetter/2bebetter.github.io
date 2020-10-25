@@ -38,7 +38,9 @@ highlighter-theme: monokai
 date_format: "%Y-%M-%D"
 highlighter: rouge
 permalink: pretty
+gems: [jekyll-paginate]
 paginate: 10
+paginate_path: "/page/:num/"
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 markdown: kramdown
@@ -53,7 +55,6 @@ kramdown:
   hard_wrap:                 false
   transliterated_header_ids: true
   footnote_backlink:         "&#8617;&#xfe0e;"
-
 
 category_dir: category/
 tag_dir: tag/

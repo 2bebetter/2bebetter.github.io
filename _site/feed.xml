@@ -6,9 +6,479 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 25 Oct 2020 17:19:49 +0800</pubDate>
-    <lastBuildDate>Sun, 25 Oct 2020 17:19:49 +0800</lastBuildDate>
+    <pubDate>Sun, 25 Oct 2020 18:36:01 +0800</pubDate>
+    <lastBuildDate>Sun, 25 Oct 2020 18:36:01 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Your first blog</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#first-post使用githubio和jekyll搭建个人博客&quot; id=&quot;markdown-toc-first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#配置环境&quot; id=&quot;markdown-toc-配置环境&quot;&gt;配置环境&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#jekyll&quot; id=&quot;markdown-toc-jekyll&quot;&gt;jekyll&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#githubio&quot; id=&quot;markdown-toc-githubio&quot;&gt;github.io&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#create-a-repository&quot; id=&quot;markdown-toc-create-a-repository&quot;&gt;Create a repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#clone-the-repository&quot; id=&quot;markdown-toc-clone-the-repository&quot;&gt;Clone the repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#hello-world&quot; id=&quot;markdown-toc-hello-world&quot;&gt;Hello world&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#personal-blog&quot; id=&quot;markdown-toc-personal-blog&quot;&gt;Personal Blog&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#run-the-first-blog&quot; id=&quot;markdown-toc-run-the-first-blog&quot;&gt;Run the first blog&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#markdown编译器&quot; id=&quot;markdown-toc-markdown编译器&quot;&gt;markdown编译器&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#配置github&quot; id=&quot;markdown-toc-配置github&quot;&gt;配置github&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#插入图片&quot; id=&quot;markdown-toc-插入图片&quot;&gt;插入图片&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#目录&quot; id=&quot;markdown-toc-目录&quot;&gt;目录&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#数学公式&quot; id=&quot;markdown-toc-数学公式&quot;&gt;数学公式&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
+
+&lt;p&gt;由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。&lt;/p&gt;
+
+&lt;h2 id=&quot;配置环境&quot;&gt;配置环境&lt;/h2&gt;
+
+&lt;h3 id=&quot;jekyll&quot;&gt;jekyll&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;install&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;因为win10内嵌了linux子系统，而使用linux安装jekyll个人觉得要比windows系统相对来说更为容易，因此决定在该linux子系统内配置环境。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt install ruby jekyll&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;new project&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jekyll new helloworld
+
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;helloworld
+
+jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;githubio&quot;&gt;github.io&lt;/h3&gt;
+
+&lt;h4 id=&quot;create-a-repository&quot;&gt;Create a repository&lt;/h4&gt;
+
+&lt;p&gt;在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
+
+&lt;p&gt;转到要存储项目的文件夹，然后克隆这个仓库：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/username/username.github.io&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;hello-world&quot;&gt;Hello world&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;username.github.io
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Hello, world&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; index.html&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;personal-blog&quot;&gt;Personal Blog&lt;/h3&gt;
+
+&lt;h4 id=&quot;run-the-first-blog&quot;&gt;Run the first blog&lt;/h4&gt;
+
+&lt;p&gt;目前有很多的jekyll主题和模板，在这里提供一个网站&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;jekyll themes&lt;/a&gt;和一个教程：&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md&quot;&gt;说明文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我个人选择了&lt;a href=&quot;http://jekyllthemes.org/themes/monos/&quot;&gt;monos&lt;/a&gt;这个主题，下载该主题后解压到你的项目文件夹下，运行之后会出现一些依赖不存在的情况，只需要按照它所提示的名称和版本安装即可&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;jekyll-theme-monos-master
+
+username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve
+
+Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last:
+
+  10: from /usr/bin/jekyll:7:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;main&amp;gt;&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  9: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:33:in `require_from_bundler&#39;&lt;/span&gt;
+
+  8: from /usr/local/lib/site_ruby/2.5.0/bundler.rb:149:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;setup&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  7: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:20:in `setup&#39;&lt;/span&gt;
+
+  6: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:101:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;definition_method&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  5: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:226:in `requested_specs&#39;&lt;/span&gt;
+
+  4: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:237:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;specs_for&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  3: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:170:in `specs&#39;&lt;/span&gt;
+
+  2: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  1: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in `map!&#39;&lt;/span&gt;
+
+/usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:86:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;: Could not find public_suffix-4.0.3 in any of the sources (Bundler::GemNotFound)
+
+username:/jekyll-theme-monos-master$ sudo gem install bundler:1.17.2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;安装过程中可能会出现如下的错误，安装ruby-dev&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;gem install eventmachine &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 1.2.7
+
+Building native extensions. This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...               
+
+ERROR: Error installing eventmachine:
+
+  ERROR: Failed to build gem native extension.
+
+current directory: /var/lib/gems/2.5.0/gems/eventmachine-1.2.7/ext
+
+/usr/bin/ruby2.5 &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; /usr/local/lib/site_ruby/2.5.0 &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ./siteconf20201020-5764-1v6qrrl.rb extconf.rb  
+
+mkmf.rb can&lt;span class=&quot;s1&quot;&gt;&#39;t find header files for ruby at /usr/lib/ruby/include/ruby.h
+
+​    extconf failed, exit code 1
+
+Gem files will remain installed in /var/lib/gems/2.5.0/gems/eventmachine-1.2.7 for inspection.   
+
+Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/eventmachine-1.2.7/gem_make.out 
+
+username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;markdown编译器&quot;&gt;markdown编译器&lt;/h4&gt;
+
+&lt;p&gt;我的第一篇博客如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021092055720.png&quot; alt=&quot;image-20201021092055720&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021104402448.png&quot; alt=&quot;image-20201021104402448&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;&lt;em&gt;*_config.yml*&lt;/em&gt;&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
+
+&lt;p&gt;Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持kramdown作为Markdown引擎&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持Rouge作为Markdown代码语法高亮&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;大幅提升构建速度&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不再支持Permalinks和Textile&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以之前的配置方法现在不再适用，我们需要对Jekyll的相应配置重新进行修改。&lt;/p&gt;
+
+&lt;h4 id=&quot;配置github&quot;&gt;配置github&lt;/h4&gt;
+
+&lt;p&gt;在你的github仓库中修改settings设置，&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。&lt;/p&gt;
+
+&lt;h4 id=&quot;插入图片&quot;&gt;插入图片&lt;/h4&gt;
+
+&lt;p&gt;我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;typora&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;偏好设置-&amp;gt;图像-&amp;gt;图像插入时，选择”复制到指定位置”并将地址设为 &lt;code class=&quot;highlighter-rouge&quot;&gt;../img/${filename}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021103739381.png&quot; alt=&quot;image-20201021103739381&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;jekyll&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在每一篇post的开头配置行中加入&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/in-post/post_name/picture_name.png&lt;/code&gt;的图片,通过&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;引用图片的时候typora会去找&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/post_name/picture_name.png&lt;/code&gt; 能够预览图片，在github pages时&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt; 无效，找的还是&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;，能够正确显示图片。&lt;/p&gt;
+
+&lt;h4 id=&quot;目录&quot;&gt;目录&lt;/h4&gt;
+
+&lt;p&gt;plugin：&lt;a href=&quot;https://github.com/jossets/jekyll-toc&quot;&gt;jossets/jekyll-toc&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这种方法可以兼容github-page：&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;A GitHub Pages compatible Table of Contents generator without a plugin or JavaScript :octocat: https://pure-liquid.allejo.org/&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;下载最新的&lt;a href=&quot;https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html&quot;&gt;toc.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;将该文件拖进_includes文件夹下&lt;/li&gt;
+  &lt;li&gt;在模板布局页面中&lt;code class=&quot;highlighter-rouge&quot;&gt;{\{ content \}}&lt;/code&gt;前加入：&lt;code class=&quot;highlighter-rouge&quot;&gt;\{\% include toc.html html=content \%\}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;数学公式&quot;&gt;数学公式&lt;/h4&gt;
+
+&lt;p&gt;使用latex编写数学公式是十分方便的，但是markdown本身并不支持latex公式，因此需要一些拓展，或者使用Typora编辑器自带的latex公式编辑。&lt;/p&gt;
+
+&lt;p&gt;虽然jekyll并不支持latex，但是可以通过工具来实现，是一个开源的基于 Ajax 的数学公式显示的解决方案，结合多种先进的Web技术，支持主流的浏览器。需要把下面的JS调用代码以及配置插入到你Jekyll博客的header文件中：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/x-mathjax-config&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;MathJax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Hub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;tex2jax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;skipTags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;script&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;noscript&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;style&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;textarea&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pre&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;inlineMath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Fri, 23 Oct 2020 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/jekyll/2020/10/23/test2/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/jekyll/2020/10/23/test2/</guid>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>Your first blog</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#first-post使用githubio和jekyll搭建个人博客&quot; id=&quot;markdown-toc-first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#配置环境&quot; id=&quot;markdown-toc-配置环境&quot;&gt;配置环境&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#jekyll&quot; id=&quot;markdown-toc-jekyll&quot;&gt;jekyll&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#githubio&quot; id=&quot;markdown-toc-githubio&quot;&gt;github.io&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#create-a-repository&quot; id=&quot;markdown-toc-create-a-repository&quot;&gt;Create a repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#clone-the-repository&quot; id=&quot;markdown-toc-clone-the-repository&quot;&gt;Clone the repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#hello-world&quot; id=&quot;markdown-toc-hello-world&quot;&gt;Hello world&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#personal-blog&quot; id=&quot;markdown-toc-personal-blog&quot;&gt;Personal Blog&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#run-the-first-blog&quot; id=&quot;markdown-toc-run-the-first-blog&quot;&gt;Run the first blog&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#markdown编译器&quot; id=&quot;markdown-toc-markdown编译器&quot;&gt;markdown编译器&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#配置github&quot; id=&quot;markdown-toc-配置github&quot;&gt;配置github&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#插入图片&quot; id=&quot;markdown-toc-插入图片&quot;&gt;插入图片&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#目录&quot; id=&quot;markdown-toc-目录&quot;&gt;目录&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#数学公式&quot; id=&quot;markdown-toc-数学公式&quot;&gt;数学公式&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
+
+&lt;p&gt;由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。&lt;/p&gt;
+
+&lt;h2 id=&quot;配置环境&quot;&gt;配置环境&lt;/h2&gt;
+
+&lt;h3 id=&quot;jekyll&quot;&gt;jekyll&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;install&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;因为win10内嵌了linux子系统，而使用linux安装jekyll个人觉得要比windows系统相对来说更为容易，因此决定在该linux子系统内配置环境。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt install ruby jekyll&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;new project&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jekyll new helloworld
+
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;helloworld
+
+jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;githubio&quot;&gt;github.io&lt;/h3&gt;
+
+&lt;h4 id=&quot;create-a-repository&quot;&gt;Create a repository&lt;/h4&gt;
+
+&lt;p&gt;在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
+
+&lt;p&gt;转到要存储项目的文件夹，然后克隆这个仓库：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/username/username.github.io&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;hello-world&quot;&gt;Hello world&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;username.github.io
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Hello, world&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; index.html&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;personal-blog&quot;&gt;Personal Blog&lt;/h3&gt;
+
+&lt;h4 id=&quot;run-the-first-blog&quot;&gt;Run the first blog&lt;/h4&gt;
+
+&lt;p&gt;目前有很多的jekyll主题和模板，在这里提供一个网站&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;jekyll themes&lt;/a&gt;和一个教程：&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md&quot;&gt;说明文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我个人选择了&lt;a href=&quot;http://jekyllthemes.org/themes/monos/&quot;&gt;monos&lt;/a&gt;这个主题，下载该主题后解压到你的项目文件夹下，运行之后会出现一些依赖不存在的情况，只需要按照它所提示的名称和版本安装即可&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;jekyll-theme-monos-master
+
+username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve
+
+Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last:
+
+  10: from /usr/bin/jekyll:7:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;main&amp;gt;&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  9: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:33:in `require_from_bundler&#39;&lt;/span&gt;
+
+  8: from /usr/local/lib/site_ruby/2.5.0/bundler.rb:149:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;setup&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  7: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:20:in `setup&#39;&lt;/span&gt;
+
+  6: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:101:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;definition_method&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  5: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:226:in `requested_specs&#39;&lt;/span&gt;
+
+  4: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:237:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;specs_for&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  3: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:170:in `specs&#39;&lt;/span&gt;
+
+  2: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  1: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in `map!&#39;&lt;/span&gt;
+
+/usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:86:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;: Could not find public_suffix-4.0.3 in any of the sources (Bundler::GemNotFound)
+
+username:/jekyll-theme-monos-master$ sudo gem install bundler:1.17.2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;安装过程中可能会出现如下的错误，安装ruby-dev&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;gem install eventmachine &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 1.2.7
+
+Building native extensions. This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...               
+
+ERROR: Error installing eventmachine:
+
+  ERROR: Failed to build gem native extension.
+
+current directory: /var/lib/gems/2.5.0/gems/eventmachine-1.2.7/ext
+
+/usr/bin/ruby2.5 &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; /usr/local/lib/site_ruby/2.5.0 &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ./siteconf20201020-5764-1v6qrrl.rb extconf.rb  
+
+mkmf.rb can&lt;span class=&quot;s1&quot;&gt;&#39;t find header files for ruby at /usr/lib/ruby/include/ruby.h
+
+​    extconf failed, exit code 1
+
+Gem files will remain installed in /var/lib/gems/2.5.0/gems/eventmachine-1.2.7 for inspection.   
+
+Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/eventmachine-1.2.7/gem_make.out 
+
+username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;markdown编译器&quot;&gt;markdown编译器&lt;/h4&gt;
+
+&lt;p&gt;我的第一篇博客如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021092055720.png&quot; alt=&quot;image-20201021092055720&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021104402448.png&quot; alt=&quot;image-20201021104402448&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;&lt;em&gt;*_config.yml*&lt;/em&gt;&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
+
+&lt;p&gt;Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持kramdown作为Markdown引擎&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持Rouge作为Markdown代码语法高亮&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;大幅提升构建速度&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不再支持Permalinks和Textile&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以之前的配置方法现在不再适用，我们需要对Jekyll的相应配置重新进行修改。&lt;/p&gt;
+
+&lt;h4 id=&quot;配置github&quot;&gt;配置github&lt;/h4&gt;
+
+&lt;p&gt;在你的github仓库中修改settings设置，&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。&lt;/p&gt;
+
+&lt;h4 id=&quot;插入图片&quot;&gt;插入图片&lt;/h4&gt;
+
+&lt;p&gt;我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;typora&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;偏好设置-&amp;gt;图像-&amp;gt;图像插入时，选择”复制到指定位置”并将地址设为 &lt;code class=&quot;highlighter-rouge&quot;&gt;../img/${filename}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021103739381.png&quot; alt=&quot;image-20201021103739381&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;jekyll&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在每一篇post的开头配置行中加入&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/in-post/post_name/picture_name.png&lt;/code&gt;的图片,通过&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;引用图片的时候typora会去找&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/post_name/picture_name.png&lt;/code&gt; 能够预览图片，在github pages时&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt; 无效，找的还是&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;，能够正确显示图片。&lt;/p&gt;
+
+&lt;h4 id=&quot;目录&quot;&gt;目录&lt;/h4&gt;
+
+&lt;p&gt;plugin：&lt;a href=&quot;https://github.com/jossets/jekyll-toc&quot;&gt;jossets/jekyll-toc&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这种方法可以兼容github-page：&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;A GitHub Pages compatible Table of Contents generator without a plugin or JavaScript :octocat: https://pure-liquid.allejo.org/&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;下载最新的&lt;a href=&quot;https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html&quot;&gt;toc.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;将该文件拖进_includes文件夹下&lt;/li&gt;
+  &lt;li&gt;在模板布局页面中&lt;code class=&quot;highlighter-rouge&quot;&gt;{\{ content \}}&lt;/code&gt;前加入：&lt;code class=&quot;highlighter-rouge&quot;&gt;\{\% include toc.html html=content \%\}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;数学公式&quot;&gt;数学公式&lt;/h4&gt;
+
+&lt;p&gt;使用latex编写数学公式是十分方便的，但是markdown本身并不支持latex公式，因此需要一些拓展，或者使用Typora编辑器自带的latex公式编辑。&lt;/p&gt;
+
+&lt;p&gt;虽然jekyll并不支持latex，但是可以通过工具来实现，是一个开源的基于 Ajax 的数学公式显示的解决方案，结合多种先进的Web技术，支持主流的浏览器。需要把下面的JS调用代码以及配置插入到你Jekyll博客的header文件中：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/x-mathjax-config&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;MathJax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Hub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;tex2jax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;skipTags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;script&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;noscript&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;style&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;textarea&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pre&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;inlineMath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Fri, 23 Oct 2020 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/jekyll/2020/10/23/test/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/jekyll/2020/10/23/test/</guid>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
     
       <item>
         <title>Recent Advances of Resource Allocation in Network Function Virtualization</title>
@@ -655,6 +1125,476 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/
         <pubDate>Wed, 21 Oct 2020 10:21:40 +0800</pubDate>
         <link>http://2bebetter.github.io/jekyll/2020/10/21/personal-blog/</link>
         <guid isPermaLink="true">http://2bebetter.github.io/jekyll/2020/10/21/personal-blog/</guid>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>Your first blog</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#first-post使用githubio和jekyll搭建个人博客&quot; id=&quot;markdown-toc-first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#配置环境&quot; id=&quot;markdown-toc-配置环境&quot;&gt;配置环境&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#jekyll&quot; id=&quot;markdown-toc-jekyll&quot;&gt;jekyll&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#githubio&quot; id=&quot;markdown-toc-githubio&quot;&gt;github.io&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#create-a-repository&quot; id=&quot;markdown-toc-create-a-repository&quot;&gt;Create a repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#clone-the-repository&quot; id=&quot;markdown-toc-clone-the-repository&quot;&gt;Clone the repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#hello-world&quot; id=&quot;markdown-toc-hello-world&quot;&gt;Hello world&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#personal-blog&quot; id=&quot;markdown-toc-personal-blog&quot;&gt;Personal Blog&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#run-the-first-blog&quot; id=&quot;markdown-toc-run-the-first-blog&quot;&gt;Run the first blog&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#markdown编译器&quot; id=&quot;markdown-toc-markdown编译器&quot;&gt;markdown编译器&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#配置github&quot; id=&quot;markdown-toc-配置github&quot;&gt;配置github&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#插入图片&quot; id=&quot;markdown-toc-插入图片&quot;&gt;插入图片&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#目录&quot; id=&quot;markdown-toc-目录&quot;&gt;目录&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#数学公式&quot; id=&quot;markdown-toc-数学公式&quot;&gt;数学公式&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
+
+&lt;p&gt;由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。&lt;/p&gt;
+
+&lt;h2 id=&quot;配置环境&quot;&gt;配置环境&lt;/h2&gt;
+
+&lt;h3 id=&quot;jekyll&quot;&gt;jekyll&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;install&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;因为win10内嵌了linux子系统，而使用linux安装jekyll个人觉得要比windows系统相对来说更为容易，因此决定在该linux子系统内配置环境。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt install ruby jekyll&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;new project&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jekyll new helloworld
+
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;helloworld
+
+jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;githubio&quot;&gt;github.io&lt;/h3&gt;
+
+&lt;h4 id=&quot;create-a-repository&quot;&gt;Create a repository&lt;/h4&gt;
+
+&lt;p&gt;在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
+
+&lt;p&gt;转到要存储项目的文件夹，然后克隆这个仓库：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/username/username.github.io&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;hello-world&quot;&gt;Hello world&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;username.github.io
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Hello, world&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; index.html&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;personal-blog&quot;&gt;Personal Blog&lt;/h3&gt;
+
+&lt;h4 id=&quot;run-the-first-blog&quot;&gt;Run the first blog&lt;/h4&gt;
+
+&lt;p&gt;目前有很多的jekyll主题和模板，在这里提供一个网站&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;jekyll themes&lt;/a&gt;和一个教程：&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md&quot;&gt;说明文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我个人选择了&lt;a href=&quot;http://jekyllthemes.org/themes/monos/&quot;&gt;monos&lt;/a&gt;这个主题，下载该主题后解压到你的项目文件夹下，运行之后会出现一些依赖不存在的情况，只需要按照它所提示的名称和版本安装即可&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;jekyll-theme-monos-master
+
+username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve
+
+Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last:
+
+  10: from /usr/bin/jekyll:7:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;main&amp;gt;&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  9: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:33:in `require_from_bundler&#39;&lt;/span&gt;
+
+  8: from /usr/local/lib/site_ruby/2.5.0/bundler.rb:149:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;setup&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  7: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:20:in `setup&#39;&lt;/span&gt;
+
+  6: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:101:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;definition_method&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  5: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:226:in `requested_specs&#39;&lt;/span&gt;
+
+  4: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:237:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;specs_for&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  3: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:170:in `specs&#39;&lt;/span&gt;
+
+  2: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  1: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in `map!&#39;&lt;/span&gt;
+
+/usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:86:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;: Could not find public_suffix-4.0.3 in any of the sources (Bundler::GemNotFound)
+
+username:/jekyll-theme-monos-master$ sudo gem install bundler:1.17.2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;安装过程中可能会出现如下的错误，安装ruby-dev&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;gem install eventmachine &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 1.2.7
+
+Building native extensions. This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...               
+
+ERROR: Error installing eventmachine:
+
+  ERROR: Failed to build gem native extension.
+
+current directory: /var/lib/gems/2.5.0/gems/eventmachine-1.2.7/ext
+
+/usr/bin/ruby2.5 &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; /usr/local/lib/site_ruby/2.5.0 &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ./siteconf20201020-5764-1v6qrrl.rb extconf.rb  
+
+mkmf.rb can&lt;span class=&quot;s1&quot;&gt;&#39;t find header files for ruby at /usr/lib/ruby/include/ruby.h
+
+​    extconf failed, exit code 1
+
+Gem files will remain installed in /var/lib/gems/2.5.0/gems/eventmachine-1.2.7 for inspection.   
+
+Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/eventmachine-1.2.7/gem_make.out 
+
+username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;markdown编译器&quot;&gt;markdown编译器&lt;/h4&gt;
+
+&lt;p&gt;我的第一篇博客如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021092055720.png&quot; alt=&quot;image-20201021092055720&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021104402448.png&quot; alt=&quot;image-20201021104402448&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;&lt;em&gt;*_config.yml*&lt;/em&gt;&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
+
+&lt;p&gt;Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持kramdown作为Markdown引擎&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持Rouge作为Markdown代码语法高亮&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;大幅提升构建速度&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不再支持Permalinks和Textile&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以之前的配置方法现在不再适用，我们需要对Jekyll的相应配置重新进行修改。&lt;/p&gt;
+
+&lt;h4 id=&quot;配置github&quot;&gt;配置github&lt;/h4&gt;
+
+&lt;p&gt;在你的github仓库中修改settings设置，&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。&lt;/p&gt;
+
+&lt;h4 id=&quot;插入图片&quot;&gt;插入图片&lt;/h4&gt;
+
+&lt;p&gt;我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;typora&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;偏好设置-&amp;gt;图像-&amp;gt;图像插入时，选择”复制到指定位置”并将地址设为 &lt;code class=&quot;highlighter-rouge&quot;&gt;../img/${filename}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021103739381.png&quot; alt=&quot;image-20201021103739381&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;jekyll&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在每一篇post的开头配置行中加入&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/in-post/post_name/picture_name.png&lt;/code&gt;的图片,通过&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;引用图片的时候typora会去找&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/post_name/picture_name.png&lt;/code&gt; 能够预览图片，在github pages时&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt; 无效，找的还是&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;，能够正确显示图片。&lt;/p&gt;
+
+&lt;h4 id=&quot;目录&quot;&gt;目录&lt;/h4&gt;
+
+&lt;p&gt;plugin：&lt;a href=&quot;https://github.com/jossets/jekyll-toc&quot;&gt;jossets/jekyll-toc&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这种方法可以兼容github-page：&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;A GitHub Pages compatible Table of Contents generator without a plugin or JavaScript :octocat: https://pure-liquid.allejo.org/&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;下载最新的&lt;a href=&quot;https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html&quot;&gt;toc.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;将该文件拖进_includes文件夹下&lt;/li&gt;
+  &lt;li&gt;在模板布局页面中&lt;code class=&quot;highlighter-rouge&quot;&gt;{\{ content \}}&lt;/code&gt;前加入：&lt;code class=&quot;highlighter-rouge&quot;&gt;\{\% include toc.html html=content \%\}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;数学公式&quot;&gt;数学公式&lt;/h4&gt;
+
+&lt;p&gt;使用latex编写数学公式是十分方便的，但是markdown本身并不支持latex公式，因此需要一些拓展，或者使用Typora编辑器自带的latex公式编辑。&lt;/p&gt;
+
+&lt;p&gt;虽然jekyll并不支持latex，但是可以通过工具来实现，是一个开源的基于 Ajax 的数学公式显示的解决方案，结合多种先进的Web技术，支持主流的浏览器。需要把下面的JS调用代码以及配置插入到你Jekyll博客的header文件中：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/x-mathjax-config&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;MathJax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Hub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;tex2jax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;skipTags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;script&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;noscript&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;style&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;textarea&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pre&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;inlineMath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Wed, 23 Sep 2020 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/jekyll/2020/09/23/test3/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/jekyll/2020/09/23/test3/</guid>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>Your first blog</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#first-post使用githubio和jekyll搭建个人博客&quot; id=&quot;markdown-toc-first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#配置环境&quot; id=&quot;markdown-toc-配置环境&quot;&gt;配置环境&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#jekyll&quot; id=&quot;markdown-toc-jekyll&quot;&gt;jekyll&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#githubio&quot; id=&quot;markdown-toc-githubio&quot;&gt;github.io&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#create-a-repository&quot; id=&quot;markdown-toc-create-a-repository&quot;&gt;Create a repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#clone-the-repository&quot; id=&quot;markdown-toc-clone-the-repository&quot;&gt;Clone the repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#hello-world&quot; id=&quot;markdown-toc-hello-world&quot;&gt;Hello world&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#personal-blog&quot; id=&quot;markdown-toc-personal-blog&quot;&gt;Personal Blog&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#run-the-first-blog&quot; id=&quot;markdown-toc-run-the-first-blog&quot;&gt;Run the first blog&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#markdown编译器&quot; id=&quot;markdown-toc-markdown编译器&quot;&gt;markdown编译器&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#配置github&quot; id=&quot;markdown-toc-配置github&quot;&gt;配置github&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#插入图片&quot; id=&quot;markdown-toc-插入图片&quot;&gt;插入图片&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#目录&quot; id=&quot;markdown-toc-目录&quot;&gt;目录&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#数学公式&quot; id=&quot;markdown-toc-数学公式&quot;&gt;数学公式&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
+
+&lt;p&gt;由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。&lt;/p&gt;
+
+&lt;h2 id=&quot;配置环境&quot;&gt;配置环境&lt;/h2&gt;
+
+&lt;h3 id=&quot;jekyll&quot;&gt;jekyll&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;install&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;因为win10内嵌了linux子系统，而使用linux安装jekyll个人觉得要比windows系统相对来说更为容易，因此决定在该linux子系统内配置环境。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt install ruby jekyll&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;new project&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jekyll new helloworld
+
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;helloworld
+
+jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;githubio&quot;&gt;github.io&lt;/h3&gt;
+
+&lt;h4 id=&quot;create-a-repository&quot;&gt;Create a repository&lt;/h4&gt;
+
+&lt;p&gt;在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
+
+&lt;p&gt;转到要存储项目的文件夹，然后克隆这个仓库：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/username/username.github.io&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;hello-world&quot;&gt;Hello world&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;username.github.io
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Hello, world&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; index.html&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;personal-blog&quot;&gt;Personal Blog&lt;/h3&gt;
+
+&lt;h4 id=&quot;run-the-first-blog&quot;&gt;Run the first blog&lt;/h4&gt;
+
+&lt;p&gt;目前有很多的jekyll主题和模板，在这里提供一个网站&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;jekyll themes&lt;/a&gt;和一个教程：&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md&quot;&gt;说明文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我个人选择了&lt;a href=&quot;http://jekyllthemes.org/themes/monos/&quot;&gt;monos&lt;/a&gt;这个主题，下载该主题后解压到你的项目文件夹下，运行之后会出现一些依赖不存在的情况，只需要按照它所提示的名称和版本安装即可&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;jekyll-theme-monos-master
+
+username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve
+
+Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last:
+
+  10: from /usr/bin/jekyll:7:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;main&amp;gt;&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  9: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:33:in `require_from_bundler&#39;&lt;/span&gt;
+
+  8: from /usr/local/lib/site_ruby/2.5.0/bundler.rb:149:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;setup&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  7: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:20:in `setup&#39;&lt;/span&gt;
+
+  6: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:101:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;definition_method&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  5: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:226:in `requested_specs&#39;&lt;/span&gt;
+
+  4: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:237:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;specs_for&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  3: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:170:in `specs&#39;&lt;/span&gt;
+
+  2: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;
+
+  1: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in `map!&#39;&lt;/span&gt;
+
+/usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:86:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;: Could not find public_suffix-4.0.3 in any of the sources (Bundler::GemNotFound)
+
+username:/jekyll-theme-monos-master$ sudo gem install bundler:1.17.2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;安装过程中可能会出现如下的错误，安装ruby-dev&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;gem install eventmachine &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 1.2.7
+
+Building native extensions. This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...               
+
+ERROR: Error installing eventmachine:
+
+  ERROR: Failed to build gem native extension.
+
+current directory: /var/lib/gems/2.5.0/gems/eventmachine-1.2.7/ext
+
+/usr/bin/ruby2.5 &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; /usr/local/lib/site_ruby/2.5.0 &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ./siteconf20201020-5764-1v6qrrl.rb extconf.rb  
+
+mkmf.rb can&lt;span class=&quot;s1&quot;&gt;&#39;t find header files for ruby at /usr/lib/ruby/include/ruby.h
+
+​    extconf failed, exit code 1
+
+Gem files will remain installed in /var/lib/gems/2.5.0/gems/eventmachine-1.2.7 for inspection.   
+
+Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/eventmachine-1.2.7/gem_make.out 
+
+username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;markdown编译器&quot;&gt;markdown编译器&lt;/h4&gt;
+
+&lt;p&gt;我的第一篇博客如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021092055720.png&quot; alt=&quot;image-20201021092055720&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021104402448.png&quot; alt=&quot;image-20201021104402448&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;&lt;em&gt;*_config.yml*&lt;/em&gt;&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
+
+&lt;p&gt;Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持kramdown作为Markdown引擎&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将只支持Rouge作为Markdown代码语法高亮&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;大幅提升构建速度&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不再支持Permalinks和Textile&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以之前的配置方法现在不再适用，我们需要对Jekyll的相应配置重新进行修改。&lt;/p&gt;
+
+&lt;h4 id=&quot;配置github&quot;&gt;配置github&lt;/h4&gt;
+
+&lt;p&gt;在你的github仓库中修改settings设置，&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。&lt;/p&gt;
+
+&lt;h4 id=&quot;插入图片&quot;&gt;插入图片&lt;/h4&gt;
+
+&lt;p&gt;我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;typora&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;偏好设置-&amp;gt;图像-&amp;gt;图像插入时，选择”复制到指定位置”并将地址设为 &lt;code class=&quot;highlighter-rouge&quot;&gt;../img/${filename}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021103739381.png&quot; alt=&quot;image-20201021103739381&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;jekyll&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在每一篇post的开头配置行中加入&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/in-post/post_name/picture_name.png&lt;/code&gt;的图片,通过&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;引用图片的时候typora会去找&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/post_name/picture_name.png&lt;/code&gt; 能够预览图片，在github pages时&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt; 无效，找的还是&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;，能够正确显示图片。&lt;/p&gt;
+
+&lt;h4 id=&quot;目录&quot;&gt;目录&lt;/h4&gt;
+
+&lt;p&gt;plugin：&lt;a href=&quot;https://github.com/jossets/jekyll-toc&quot;&gt;jossets/jekyll-toc&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这种方法可以兼容github-page：&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;A GitHub Pages compatible Table of Contents generator without a plugin or JavaScript :octocat: https://pure-liquid.allejo.org/&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;使用方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;下载最新的&lt;a href=&quot;https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html&quot;&gt;toc.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;将该文件拖进_includes文件夹下&lt;/li&gt;
+  &lt;li&gt;在模板布局页面中&lt;code class=&quot;highlighter-rouge&quot;&gt;{\{ content \}}&lt;/code&gt;前加入：&lt;code class=&quot;highlighter-rouge&quot;&gt;\{\% include toc.html html=content \%\}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;数学公式&quot;&gt;数学公式&lt;/h4&gt;
+
+&lt;p&gt;使用latex编写数学公式是十分方便的，但是markdown本身并不支持latex公式，因此需要一些拓展，或者使用Typora编辑器自带的latex公式编辑。&lt;/p&gt;
+
+&lt;p&gt;虽然jekyll并不支持latex，但是可以通过工具来实现，是一个开源的基于 Ajax 的数学公式显示的解决方案，结合多种先进的Web技术，支持主流的浏览器。需要把下面的JS调用代码以及配置插入到你Jekyll博客的header文件中：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/x-mathjax-config&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;MathJax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Hub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;tex2jax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;skipTags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;script&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;noscript&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;style&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;textarea&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pre&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;inlineMath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Tue, 22 Sep 2020 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/jekyll/2020/09/22/test4/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/jekyll/2020/09/22/test4/</guid>
         
         
         <category>jekyll</category>
