@@ -38,10 +38,27 @@ layout: default
                     </div>
                   </div>
               </div>
-
               {% endfor %}
           </div>
       </div>
-
   </div>
+
+  {% if paginator.total_pages > 1 %}
+    <div class="lists-navigator clearfix">
+        <ol class="page-navigator">
+            {% if paginator.previous_page %}
+            <li class="prev"><a href="{{ paginator.previous_page_path | relative_url }}">←</a></li>
+            {% endif %}
+            {% for page in (1..paginator.total_pages) %}
+            <li {% if page==paginator.page %} class="current" {% endif %}>
+                <a href="{% if page == 1 %}{{  '/' | prepend: site.baseurl }}{% else %}{{ site.paginate_path | relative_url | replace: ':num', page }}{% endif %}">{{
+                    page }}</a>
+            </li>
+            {% endfor %}
+            {% if paginator.next_page %}
+            <li class="next"><a href="{{ paginator.next_page_path | relative_url }}">→</a></li>
+            {% endif %}
+        </ol>
+    </div>
+    {% endif %}
 </div>
