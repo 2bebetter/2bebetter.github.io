@@ -1,139 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
+  <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="First Post——使用github.io和jekyll搭建个人博客由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。配置环境jekyll  instal...">
-  <meta name="keyword"  content="">
-
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  
   <title>Your first blog</title>
+  <meta name="description" content="">
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" href="/img/favicon.ico"/>
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://2bebetter.github.io/jekyll/2020/10/21/personal-blog/">
 
-  <!-- Bootstrap Core CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="/css/style.css">
-
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        inlineMath: [['$','$']]
-        }
-    });
-  </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <link href="/css/highlight.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- iconfont is in the include -->
+  <!-- <link rel="stylesheet" href="/style/css/iconfont/iconfont.css"> -->
 </head>
 
 
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="">
-    
-    <div class="container"> 
-        <div class="sidebar">
-            <div class="sidebar-item sidebar-header">
-	<div class='sidebar-brand'>
-		<a href="/about/">2bebetter</a>
-	</div>
-	<p class="lead">to be a better man
-</p>
-	
-</div>
 
-<div class="sidebar-item sidebar-nav">
-	<ul class="nav">
-      <li class="nav-title">Pages</li>
-	  <li>
-	  	<a class="nav-item" href="/">Articles</a>
-	  </li>
-	  
-	  
-	    
-	      
-	        <li>
-	        	<a class="nav-item" href="/about/">
-	            	About
-	            </a>
-	        </li>
-	      
-	    
-	  
-	    
-	      
-	    
-	  
-	    
-	  
-	    
-	  
-	</ul>
-</div>
+  <body class="bg-grey" gtools_scp_screen_capture_injected="true">
 
-<div class="sidebar-item sidebar-nav">
-  	<ul class="nav">
-		<li class="nav-title">Categories</li>
-			
-			<li>
-				<a class="nav-item" href="/category/#jekyll">
-					<span class="name">jekyll</span>
-					<span class="badge">1</span>
-				</a>
-			</li>
-			
-			<li>
-				<a class="nav-item" href="/category/#thesis">
-					<span class="name">thesis</span>
-					<span class="badge">1</span>
-				</a>
-			</li>
-			
-	  </nav>
-	</ul>
-</div>
+    <header id="header" class="header bg-white">
+  <div class="navbar-container">
+      <a href="/" class="navbar-logo">
+          <img src="/img/logo.jpg" alt="2bebetter" />
+          <span>2bebetter</span>
+      </a>
+      <div class="navbar-menu">
+          <a href="/index">Home</a>
+          <a href="/about">About</a>
+      </div>
+      <div class="navbar-mobile-menu" onclick="">
+          <span class="icon-menu cross"><span class="middle"></span></span>
+          <ul>
+              <li><a href="/index">Home</a></li>
+              <li><a href="/about">About</a></li>
+          </ul>
+      </div>
+  </div>
+</header>
 
-<div class="sidebar-item sidebar-footer">
-	<p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a></p>
-</div>
+
+    <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
+    <div class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            Your first blog
+        </h1>
+        <div class="post-data">
+            <time itemprop="datePublished">Oct 21, 2020</time>
         </div>
-        <div class="content">
-            <article class="post">
-	<header class="post-header">
-		<div class="post-title"> 
-			Your first blog
-		</div>
-		<time class="post-date dt-published" datetime="2020-10-21T10:21:40+08:00" itemprop="datePublished">
-			
-			2020/10/21
-		</time>		
-	</header>
-
-	<div class="post-content">
-		<ul>
-  <li><a href="#first-post使用githubio和jekyll搭建个人博客">First Post——使用github.io和jekyll搭建个人博客</a>
-    <ul>
-      <li><a href="#配置环境">配置环境</a>
-        <ul>
-          <li><a href="#jekyll">jekyll</a></li>
-          <li><a href="#githubio">github.io</a>
-            <ul>
-              <li><a href="#create-a-repository">Create a repository</a></li>
-              <li><a href="#clone-the-repository">Clone the repository</a></li>
-              <li><a href="#hello-world">Hello world</a></li>
+    </div>
+</article>
+<div class="main-container">
+    <div class="post-container">
+        <div class="navigation" id="navigation">
+            <h1>Contents</h1>
+            <ul class="nav sidenav"></ul>
+        </div>
+        <article class="post-content">
+            <ul id="markdown-toc">
+  <li><a href="#first-post使用githubio和jekyll搭建个人博客" id="markdown-toc-first-post使用githubio和jekyll搭建个人博客">First Post——使用github.io和jekyll搭建个人博客</a>    <ul>
+      <li><a href="#配置环境" id="markdown-toc-配置环境">配置环境</a>        <ul>
+          <li><a href="#jekyll" id="markdown-toc-jekyll">jekyll</a></li>
+          <li><a href="#githubio" id="markdown-toc-githubio">github.io</a>            <ul>
+              <li><a href="#create-a-repository" id="markdown-toc-create-a-repository">Create a repository</a></li>
+              <li><a href="#clone-the-repository" id="markdown-toc-clone-the-repository">Clone the repository</a></li>
+              <li><a href="#hello-world" id="markdown-toc-hello-world">Hello world</a></li>
             </ul>
           </li>
-          <li><a href="#personal-blog">Personal Blog</a>
-            <ul>
-              <li><a href="#run-the-first-blog">Run the first blog</a></li>
-              <li><a href="#markdown编译器">markdown编译器</a></li>
-              <li><a href="#配置github">配置github</a></li>
-              <li><a href="#插入图片">插入图片</a></li>
-              <li><a href="#目录">目录</a></li>
-              <li><a href="#数学公式">数学公式</a></li>
+          <li><a href="#personal-blog" id="markdown-toc-personal-blog">Personal Blog</a>            <ul>
+              <li><a href="#run-the-first-blog" id="markdown-toc-run-the-first-blog">Run the first blog</a></li>
+              <li><a href="#markdown编译器" id="markdown-toc-markdown编译器">markdown编译器</a></li>
+              <li><a href="#配置github" id="markdown-toc-配置github">配置github</a></li>
+              <li><a href="#插入图片" id="markdown-toc-插入图片">插入图片</a></li>
+              <li><a href="#目录" id="markdown-toc-目录">目录</a></li>
+              <li><a href="#数学公式" id="markdown-toc-数学公式">数学公式</a></li>
             </ul>
           </li>
         </ul>
@@ -142,7 +90,7 @@
   </li>
 </ul>
 
-		<h1 id="first-post使用githubio和jekyll搭建个人博客">First Post——使用github.io和jekyll搭建个人博客</h1>
+<h1 id="first-post使用githubio和jekyll搭建个人博客">First Post——使用github.io和jekyll搭建个人博客</h1>
 
 <p>由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。</p>
 
@@ -341,54 +289,110 @@ username:/jekyll-theme-monos-master$ sudo apt install ruby-dev</span></code></pr
 <span class="nt">&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
-	</div>
-</article>
-        </div>
+        </article>
+        <!-- <div class="post-content">
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<div id="gitalk-container"></div>
+
+<script data-no-instant type="text/javascript">
+const gitalk = new Gitalk({
+  clientID: '',
+  clientSecret: '',
+  repo: '',
+  owner: '',
+  admin: [''],
+  id: location.pathname,      // Ensure uniqueness and length less than 50
+  distractionFreeMode: true  // Facebook-like distraction free mode
+})
+
+gitalk.render('gitalk-container')
+</script>
+        </div> -->
     </div>
-
-    <footer class="site-footer">
-
-  <div class="wrapper">
-
-    <h2 class="footer-heading">2bebetter</h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li>2bebetter</li>
-          <li><a href="mailto:tbebetter@gmail.com">tbebetter@gmail.com</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-          <li>
-            <a href="https://github.com/2bebetter"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
-</span><span class="username">2bebetter</span></a>
-
-          </li>
-          
-
-          
-          <li>
-            <a href="https://weibo.com/5731069177"><span class="icon icon--weibo"><svg viewBox="0 0 16 16"><path fill="#828282" d="M6.72 13.532c-2.647.26-4.934-.936-5.106-2.675C1.442 9.12 3.45 7.497 6.1 7.235c2.648-.262 4.934.935 5.106 2.674.172 1.738-1.836 3.36-4.485 3.622zm-.697-2.066c-.256.41-.804.588-1.218.4-.407-.186-.527-.66-.27-1.06.252-.396.783-.573 1.193-.4.415.175.547.647.295 1.06zm.845-1.083c-.093.158-.298.234-.458.168-.158-.064-.208-.24-.118-.397.092-.154.29-.23.447-.167.16.058.216.237.128.397zm.118-1.81c-1.26-.328-2.685.3-3.233 1.41-.557 1.134-.018 2.39 1.255 2.802 1.32.426 2.874-.226 3.415-1.45.533-1.194-.133-2.425-1.437-2.762zm5.033-.814c-.226-.068-.38-.114-.263-.41.256-.643.282-1.197.005-1.593-.52-.742-1.94-.702-3.57-.02 0 0-.51.224-.38-.182.25-.805.213-1.48-.177-1.87-.884-.884-3.234.034-5.25 2.05C.876 7.242 0 8.842 0 10.224c0 2.647 3.393 4.255 6.713 4.255 4.35 0 7.246-2.528 7.246-4.535 0-1.213-1.023-1.9-1.94-2.186zm1.275-3.386c-.51-.568-1.266-.783-1.964-.635-.284.06-.465.34-.404.625.06.284.34.467.625.405.342-.072.71.033.962.31.25.278.317.656.21.987-.09.277.062.575.34.665.277.088.574-.063.663-.34.22-.678.083-1.45-.43-2.018zm1.614-1.457c-1.052-1.165-2.602-1.61-4.033-1.304-.33.07-.542.396-.47.727.07.33.395.542.726.47 1.018-.215 2.12.1 2.866.928.746.828.948 1.957.63 2.946-.106.323.07.668.393.772.322.104.667-.072.772-.394V7.06c.448-1.392.165-2.98-.886-4.143z"></path></svg></span><span class="username">盼西楼雅集</span></a>
-          </li>
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>to be a better man
-</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
     
-</body>
+    <footer id="footer" class="footer bg-white">
+  <div class="footer-social">
+      <div class="footer-container clearfix">
+          <div class="social-list">
+              <a href="/"><span class='iconfont icon-home'></span>&nbsp;&nbsp;HOME</a>
+              <a rel="nofollow" target="_blank" href="https://github.com/"><span class='iconfont icon-github'></span>&nbsp;&nbsp;Github</a>
+              <a target="_blank" href="/feed.xml"><span class='iconfont icon-rss'></span>&nbsp;&nbsp;RSS</a>
+          </div>
+      </div>
+  </div>
 
+  <div class="footer-meta">
+    <div class="footer-container">
+        <div class="meta-item meta-social-media">
+          <h3 class="meta-title">2bebetter</h3>
+          <div class="meta-social-media-list">
+            <li><a href="mailto:tbebetter@gmail.com">tbebetter@gmail.com</a></li>
+            
+            <li>
+              <a href="https://github.com/2bebetter"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">2bebetter</span></a>
+
+            </li>
+            
+
+            
+
+            
+            <li>
+              <a href="https://weibo.com/5731069177"><span class="icon icon--weibo"><svg viewBox="0 0 16 16"><path fill="#828282" d="M6.72 13.532c-2.647.26-4.934-.936-5.106-2.675C1.442 9.12 3.45 7.497 6.1 7.235c2.648-.262 4.934.935 5.106 2.674.172 1.738-1.836 3.36-4.485 3.622zm-.697-2.066c-.256.41-.804.588-1.218.4-.407-.186-.527-.66-.27-1.06.252-.396.783-.573 1.193-.4.415.175.547.647.295 1.06zm.845-1.083c-.093.158-.298.234-.458.168-.158-.064-.208-.24-.118-.397.092-.154.29-.23.447-.167.16.058.216.237.128.397zm.118-1.81c-1.26-.328-2.685.3-3.233 1.41-.557 1.134-.018 2.39 1.255 2.802 1.32.426 2.874-.226 3.415-1.45.533-1.194-.133-2.425-1.437-2.762zm5.033-.814c-.226-.068-.38-.114-.263-.41.256-.643.282-1.197.005-1.593-.52-.742-1.94-.702-3.57-.02 0 0-.51.224-.38-.182.25-.805.213-1.48-.177-1.87-.884-.884-3.234.034-5.25 2.05C.876 7.242 0 8.842 0 10.224c0 2.647 3.393 4.255 6.713 4.255 4.35 0 7.246-2.528 7.246-4.535 0-1.213-1.023-1.9-1.94-2.186zm1.275-3.386c-.51-.568-1.266-.783-1.964-.635-.284.06-.465.34-.404.625.06.284.34.467.625.405.342-.072.71.033.962.31.25.278.317.656.21.987-.09.277.062.575.34.665.277.088.574-.063.663-.34.22-.678.083-1.45-.43-2.018zm1.614-1.457c-1.052-1.165-2.602-1.61-4.033-1.304-.33.07-.542.396-.47.727.07.33.395.542.726.47 1.018-.215 2.12.1 2.866.928.746.828.948 1.957.63 2.946-.106.323.07.668.393.772.322.104.667-.072.772-.394V7.06c.448-1.392.165-2.98-.886-4.143z"></path></svg></span><span class="username">盼西楼雅集</span></a>
+            </li>
+            
+          </div>
+        </div>
+
+        <div class="meta-item meta-posts">
+            <h3 class="meta-title">RECENT POSTS</h3>
+            
+                <li>
+                    <a href="/thesis/2020/10/21/thesis-reading-01/">Recent Advances of Resource Allocation in Network Function Virtualization</a>
+                </li>
+            
+                <li>
+                    <a href="/jekyll/2020/10/21/personal-blog/">Your first blog</a>
+                </li>
+            
+        </div>
+
+    </div>
+  </div>
+</footer>
+
+<!-- #end -->
+<script src="//cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+<script>
+!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))
+</script>
+<script src="/js/headroom.min.js"></script>
+<script src="/js/nav.min.js"></script>
+<script type="text/javascript">
+  var header = new Headroom(document.getElementById("header"), {
+      tolerance: 10,
+      offset : 80,
+      classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+      }
+  });
+  header.init();
+</script>
+
+<script>window.SmoothScrollOptions = { stepSize: 36 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.8/SmoothScroll.min.js"></script>
+<script>
+!window.SmoothScroll && document.write(unescape('%3Cscript src="/style/js/SmoothScroll.min.js"%3E%3C/script%3E'))
+</script>
+
+
+
+
+  </body>
 </html>

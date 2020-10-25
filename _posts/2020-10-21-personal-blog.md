@@ -6,6 +6,9 @@ typora-root-url: ..
 categories: jekyll
 ---
 
+* content
+{:toc}
+
 # First Post——使用github.io和jekyll搭建个人博客
 
 由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。

@@ -6,13 +6,75 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 25 Oct 2020 00:09:24 +0800</pubDate>
-    <lastBuildDate>Sun, 25 Oct 2020 00:09:24 +0800</lastBuildDate>
+    <pubDate>Sun, 25 Oct 2020 17:08:40 +0800</pubDate>
+    <lastBuildDate>Sun, 25 Oct 2020 17:08:40 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>Recent Advances of Resource Allocation in Network Function Virtualization</title>
-        <description>&lt;h2 id=&quot;introduction&quot;&gt;introduction&lt;/h2&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#preliminary&quot; id=&quot;markdown-toc-preliminary&quot;&gt;Preliminary&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#basic-problem-definition-and-analysis&quot; id=&quot;markdown-toc-basic-problem-definition-and-analysis&quot;&gt;Basic Problem Definition and Analysis&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#examples&quot; id=&quot;markdown-toc-examples&quot;&gt;examples&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#problem-goals&quot; id=&quot;markdown-toc-problem-goals&quot;&gt;Problem Goals&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#problem-formulation&quot; id=&quot;markdown-toc-problem-formulation&quot;&gt;Problem Formulation&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mainly-adopted-approaches&quot; id=&quot;markdown-toc-mainly-adopted-approaches&quot;&gt;Mainly Adopted Approaches&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#qos-models-in-nfv&quot; id=&quot;markdown-toc-qos-models-in-nfv&quot;&gt;QoS Models in NFV&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#delay-calculation-of-an-sfc&quot; id=&quot;markdown-toc-delay-calculation-of-an-sfc&quot;&gt;Delay Calculation of an SFC&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#nfv-resilience&quot; id=&quot;markdown-toc-nfv-resilience&quot;&gt;NFV Resilience&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resource-allocation-in-nfv&quot; id=&quot;markdown-toc-resource-allocation-in-nfv&quot;&gt;Resource Allocation in NFV&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#cost-aware-resource-allocation&quot; id=&quot;markdown-toc-cost-aware-resource-allocation&quot;&gt;Cost-Aware Resource Allocation&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#vptr-problem&quot; id=&quot;markdown-toc-vptr-problem&quot;&gt;VPTR Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#vnfp-problem&quot; id=&quot;markdown-toc-vnfp-problem&quot;&gt;VNFP Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#trr-problem&quot; id=&quot;markdown-toc-trr-problem&quot;&gt;TRR Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#vrc-problem&quot; id=&quot;markdown-toc-vrc-problem&quot;&gt;VRC Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#discussion&quot; id=&quot;markdown-toc-discussion&quot;&gt;Discussion&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#delay-aware-resource-allocation&quot; id=&quot;markdown-toc-delay-aware-resource-allocation&quot;&gt;Delay-Aware Resource Allocation&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#vptr-and-trr-problem&quot; id=&quot;markdown-toc-vptr-and-trr-problem&quot;&gt;VPTR and TRR Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#vnfp-problem-1&quot; id=&quot;markdown-toc-vnfp-problem-1&quot;&gt;VNFP Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#discussion-1&quot; id=&quot;markdown-toc-discussion-1&quot;&gt;Discussion&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#availabilityresilience-aware-resource-allocation&quot; id=&quot;markdown-toc-availabilityresilience-aware-resource-allocation&quot;&gt;Availability/Resilience-Aware Resource Allocation&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#vptr-problem-1&quot; id=&quot;markdown-toc-vptr-problem-1&quot;&gt;VPTR Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#vnfp-problem-2&quot; id=&quot;markdown-toc-vnfp-problem-2&quot;&gt;VNFP Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#trr-problem-1&quot; id=&quot;markdown-toc-trr-problem-1&quot;&gt;TRR Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#discussion-2&quot; id=&quot;markdown-toc-discussion-2&quot;&gt;Discussion&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#energy-efficient-resource-allocation&quot; id=&quot;markdown-toc-energy-efficient-resource-allocation&quot;&gt;Energy-Efficient Resource Allocation&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#vptr-problem-2&quot; id=&quot;markdown-toc-vptr-problem-2&quot;&gt;VPTR Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#vrc-problem-1&quot; id=&quot;markdown-toc-vrc-problem-1&quot;&gt;VRC Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#discussion-3&quot; id=&quot;markdown-toc-discussion-3&quot;&gt;Discussion&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#multi-objective-resource-allocation-in-edge-cloud&quot; id=&quot;markdown-toc-multi-objective-resource-allocation-in-edge-cloud&quot;&gt;(Multi-Objective) Resource Allocation in Edge Cloud&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#vptr-problem-3&quot; id=&quot;markdown-toc-vptr-problem-3&quot;&gt;VPTR Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#vnfp-problem-3&quot; id=&quot;markdown-toc-vnfp-problem-3&quot;&gt;VNFP Problem&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#discussion-4&quot; id=&quot;markdown-toc-discussion-4&quot;&gt;Discussion&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#on-line-provisioning-for-nfv&quot; id=&quot;markdown-toc-on-line-provisioning-for-nfv&quot;&gt;On-Line Provisioning for NFV&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#prediction-based-online-scheduling&quot; id=&quot;markdown-toc-prediction-based-online-scheduling&quot;&gt;Prediction-Based Online Scheduling&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#regularization-based-online-scheduling&quot; id=&quot;markdown-toc-regularization-based-online-scheduling&quot;&gt;Regularization-Based Online Scheduling&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#emerging-topics-and-future-works&quot; id=&quot;markdown-toc-emerging-topics-and-future-works&quot;&gt;Emerging Topics and Future Works&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#machine-learning-based-approaches&quot; id=&quot;markdown-toc-machine-learning-based-approaches&quot;&gt;Machine Learning-Based Approaches&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;introduction&lt;/h2&gt;
 
 &lt;p&gt;随着新的服务模式(如云计算或虚拟现实)的不断出现，以及对网络服务(如高维视频)的服务质量(QoS)要求越来越高，网络上的IP流量呈指数级增长。根据思科[1]的预测，到2021年全球IP流量将达到3.3 ZB，自2016年以来复合年增长率(CAGR)为24%。在传统的网络服务供应范式中，网络功能(如防火墙或负载均衡器)也称为中间件，通常由专用硬件设备实现。由于设计和生产成本较高，部署硬件中间件的成本很高，而且这些中间件需要手动配置和管理，这进一步增加了服务提供商的成本。因此，从资本支出(CAPEX)和运营支出(OPEX)来看，传统的网络服务模式无法满足不断增长的用户QoS要求，这给网络服务提供商带来了很大的挑战。&lt;/p&gt;
 
@@ -366,7 +428,32 @@
     
       <item>
         <title>Your first blog</title>
-        <description>&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#first-post使用githubio和jekyll搭建个人博客&quot; id=&quot;markdown-toc-first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#配置环境&quot; id=&quot;markdown-toc-配置环境&quot;&gt;配置环境&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#jekyll&quot; id=&quot;markdown-toc-jekyll&quot;&gt;jekyll&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#githubio&quot; id=&quot;markdown-toc-githubio&quot;&gt;github.io&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#create-a-repository&quot; id=&quot;markdown-toc-create-a-repository&quot;&gt;Create a repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#clone-the-repository&quot; id=&quot;markdown-toc-clone-the-repository&quot;&gt;Clone the repository&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#hello-world&quot; id=&quot;markdown-toc-hello-world&quot;&gt;Hello world&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#personal-blog&quot; id=&quot;markdown-toc-personal-blog&quot;&gt;Personal Blog&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#run-the-first-blog&quot; id=&quot;markdown-toc-run-the-first-blog&quot;&gt;Run the first blog&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#markdown编译器&quot; id=&quot;markdown-toc-markdown编译器&quot;&gt;markdown编译器&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#配置github&quot; id=&quot;markdown-toc-配置github&quot;&gt;配置github&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#插入图片&quot; id=&quot;markdown-toc-插入图片&quot;&gt;插入图片&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#目录&quot; id=&quot;markdown-toc-目录&quot;&gt;目录&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#数学公式&quot; id=&quot;markdown-toc-数学公式&quot;&gt;数学公式&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
 
 &lt;p&gt;由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。&lt;/p&gt;
 

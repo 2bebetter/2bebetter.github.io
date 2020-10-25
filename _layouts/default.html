@@ -1,22 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-{% include head.html %}
+  {% include head.html %}
 
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="">
+  <body class="bg-grey" gtools_scp_screen_capture_injected="true">
+
+    {% include header.html %}
+
+    {{ content }}
     
-    <div class="container"> 
-        <div class="sidebar">
-            {% include sidebar.html %}
-        </div>
-        <div class="content">
-            {{ content }}
-        </div>
-    </div>
-
     {% include footer.html %}
-    
-</body>
 
+  </body>
 </html>
