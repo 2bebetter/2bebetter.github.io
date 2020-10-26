@@ -2453,7 +2453,6 @@ a.navbar-logo span {
 	text-align: justify;
 	margin-left: 100px;
 	margin-right: 100px;
-	width: 100px;
 	display: flex; 
 }
 
@@ -2482,13 +2481,13 @@ a.navbar-logo span {
 .post-container-full {
 	position: relative;
 	text-align: justify;
-	width: 1050px;
-	display: block
+	display: block;
+	margin-left: 100px;
+	margin-right: 100px;
 }
 
 .post-container-full .post-content {
 	display: block;
-	width: 1050px;
 	text-align: left;
 	background: #fff;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
