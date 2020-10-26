@@ -2459,7 +2459,6 @@ a.navbar-logo span {
 
 .post-container .navigation {
 	display: block;
-	flex-shrink: 0;
 	width: 220px;
 	text-align: left;
 	padding-left: 10px;
@@ -2468,6 +2467,7 @@ a.navbar-logo span {
 
 .post-container .post-content {
 	display: block;
+	flex-shrink: 0;
 	width: 819px;
 	text-align: left;
 	background: #fff;
