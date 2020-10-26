@@ -692,9 +692,8 @@ input:-ms-input-placeholder,textarea:-ms-input-placeholder {
 }
 
 .main-content {
-	position: relative;
-	max-width: 940px;
-	margin: 0 auto;
+	width: 100%;
+	margin: 0 100px 16px 100px;
 	-webkit-animation: fade-in .5s;
 	animation: fade-in;
 	animation-duration: .5s
@@ -1067,7 +1066,7 @@ input:-ms-input-placeholder,textarea:-ms-input-placeholder {
 	padding: 100px 60px 20px;
 	background: #fff;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-	margin-bottom: 16px
+	margin-bottom: 16px;
 }
 
 .post-content p {
@@ -2452,21 +2451,23 @@ a.navbar-logo span {
 .post-container {
 	position: relative;
 	text-align: justify;
-	padding-left: 249px;
-	width: 1084px;
-	display: inline-block
+	margin-left: 100px;
+	margin-right: 100px;
+	width: 100px;
+	display: flex; 
 }
 
 .post-container .navigation {
-	display: inline-block;
-	width: 210px;
+	display: block;
+	width: 220px;
 	text-align: left;
-	position: fixed;
-	margin-left: -226px
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .post-container .post-content {
-	display: inline-block;
+	display: block;
+	flex-shrink: 0;
 	width: 819px;
 	text-align: left;
 	background: #fff;
@@ -2474,18 +2475,19 @@ a.navbar-logo span {
 	padding-left: 40px;
 	padding-right: 24px;
 	font-size: 16px;
-	margin-bottom: 22px
+	margin-bottom: 22px;
+	overflow: auto;
 }
 
 .post-container-full {
 	position: relative;
 	text-align: justify;
 	width: 1050px;
-	display: inline-block
+	display: block
 }
 
 .post-container-full .post-content {
-	display: inline-block;
+	display: block;
 	width: 1050px;
 	text-align: left;
 	background: #fff;

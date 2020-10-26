@@ -27,5 +27,31 @@
     });
   </script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+  <!-- <script type="text/javascript">
+    var documentHeight = 0;
+    var topPadding = 15;
+    $(function() {
+        var offset = $("#navigation").offset();
+        documentHeight = $(document).height();
+        $(window).scroll(function() {
+            var sideBarHeight = $("#navigation").height();
+            if ($(window).scrollTop() > offset.top) {
+                var newPosition = ($(window).scrollTop() - offset.top) + topPadding;
+                var maxPosition = documentHeight - (sideBarHeight + 368);
+                if (newPosition > maxPosition) {
+                    newPosition = maxPosition;
+                }
+                $("#navigation").stop().animate({
+                    marginTop: newPosition
+                });
+            } else {
+                $("#navigation").stop().animate({
+                    marginTop: 0
+                });
+            };
+        });
+    });
+    </script> -->
 </head>
 
