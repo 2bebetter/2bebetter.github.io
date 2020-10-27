@@ -6,8 +6,8 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 27 Oct 2020 17:06:13 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Oct 2020 17:06:13 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Oct 2020 23:40:27 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Oct 2020 23:40:27 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -33,7 +33,10 @@
       &lt;li&gt;&lt;a href=&quot;#load-balancing&quot; id=&quot;markdown-toc-load-balancing&quot;&gt;Load balancing&lt;/a&gt;        &lt;ul&gt;
           &lt;li&gt;&lt;a href=&quot;#an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot; id=&quot;markdown-toc-an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot;&gt;An energy-efficient load distribution framework for SDN controllers&lt;/a&gt;&lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#a-trust-management-framework-for-software-defined-network-applications&quot; id=&quot;markdown-toc-a-trust-management-framework-for-software-defined-network-applications&quot;&gt;A trust management framework for software-defined network applications&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#self-healing-and-sdn-bridging-the-gap&quot; id=&quot;markdown-toc-self-healing-and-sdn-bridging-the-gap&quot;&gt;Self-healing and SDN: bridging the gap&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#self-healing-and-sdn-bridging-the-gap&quot; id=&quot;markdown-toc-self-healing-and-sdn-bridging-the-gap&quot;&gt;Self-healing and SDN: bridging the gap&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#multi-domain-virtual-network-embedding-with-dynamic-flow-migration-in-software-defined-networks&quot; id=&quot;markdown-toc-multi-domain-virtual-network-embedding-with-dynamic-flow-migration-in-software-defined-networks&quot;&gt;Multi-domain virtual network embedding with dynamic flow migration in software-defined networks&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -85,6 +88,12 @@
 &lt;h3 id=&quot;self-healing-and-sdn-bridging-the-gap&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=27&amp;amp;cacheurlFromRightClick=no&quot;&gt;Self-healing and SDN: bridging the gap&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;随着分布式交互应用的普及，为了获得良好的参与者交互体验，必须考虑网络资源的高效和公平分配。在软件定义的网络中，中央控制器的存在为交互式应用程序部署可定制的路由提供了一种新颖的解决方案，它允许对DIAs进行细粒度的资源分配，以实现参与者之间的公平性。但是机遇总是伴随着挑战，广泛分布的用户位置往往需要分配控制器来满足应用的要求。因此，参与者之间的延迟直接受到控制器处理时间的影响。在此背景下，我们解决了DIAs在计算和链路负载方面的公平资源配置问题，目的是平衡SDN网络中多流之间的可实现请求率和公平性。首先，我们将问题表示为控制器加载和路由优化的组合。然后，提出了基于深度学习的主动分配控制器算法和公平路径分配算法来共享瓶颈环节。与目前最先进的贪婪分配算法和优先级分配算法相比，通过跟踪驱动仿真验证了该算法在控制器和链路负载方面具有更好的公平性。&lt;/p&gt;
+
+&lt;h4 id=&quot;multi-domain-virtual-network-embedding-with-dynamic-flow-migration-in-software-defined-networks&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=3&amp;amp;SID=5FUOQZPzuNrS9dmyBmq&amp;amp;page=1&amp;amp;doc=34&amp;amp;cacheurlFromRightClick=no&quot;&gt;Multi-domain virtual network embedding with dynamic flow migration in software-defined networks&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;软件定义网络(SDN)解耦了网络的控制面和数据面，并使用一个中央控制器来提供有效使用网络资源和方便的服务提供。SDN中的虚拟化使虚拟SDN网络能够共享公共的物理网络基础设施，从而使它们能够提供通用的服务。在这种设置下，SDN hypervisor支持多个虚拟SDN网络(vSDN)，其中每个vSDN网络都有自己的控制器。为了建立虚拟网络，实现物理网络资源的优化共享，设计了虚拟网络嵌入算法。单域虚拟虚拟机是虚拟虚拟机研究的一个热点问题。然而，在大多数实际场景中，VNs是跨属于不同基础设施提供者(InPs)的异构管理域供应的。&lt;/p&gt;
+
+&lt;p&gt;本文利用不规则细胞学习自动机(ICLA)提出了一种用于多域SDN网络的VNE算法，即vSDN-CLA。我们考虑了两个方面——虚拟节点和链路在多域基片网络中的最优映射，以及SDN控制器在吞吐量和端到端延迟方面的最优配置。我们通过考虑动态流迁移来扩展vSDN-CLA，以实现资源最优路由。我们使用Mininet评估了提议的方案，我们观察到提议的方案在吞吐量、端到端延迟和虚拟网络请求接受率方面优于现有的基准方案在单域和多域环境下。&lt;/p&gt;
 </description>
         <pubDate>Tue, 27 Oct 2020 12:51:40 +0800</pubDate>
         <link>http://2bebetter.github.io/thesis/2020/10/27/SDN-related-work/</link>
