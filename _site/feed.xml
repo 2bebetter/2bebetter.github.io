@@ -6,9 +6,157 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 26 Oct 2020 20:11:12 +0800</pubDate>
-    <lastBuildDate>Mon, 26 Oct 2020 20:11:12 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Oct 2020 17:06:13 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Oct 2020 17:06:13 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>SDN Related Work</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#sdn-related-work&quot; id=&quot;markdown-toc-sdn-related-work&quot;&gt;SDN Related Work&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#sdn-routing&quot; id=&quot;markdown-toc-sdn-routing&quot;&gt;SDN Routing&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#machine-learning&quot; id=&quot;markdown-toc-machine-learning&quot;&gt;Machine Learning&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#cfr-rl-traffic-engineering-with-reinforcement-learning-in-sdn&quot; id=&quot;markdown-toc-cfr-rl-traffic-engineering-with-reinforcement-learning-in-sdn&quot;&gt;CFR-RL: Traffic Engineering With Reinforcement Learning in SDN&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#routenet-leveraging-graph-neural-networks-for-network-modeling-and-optimization-in-sdn&quot; id=&quot;markdown-toc-routenet-leveraging-graph-neural-networks-for-network-modeling-and-optimization-in-sdn&quot;&gt;RouteNet: Leveraging Graph Neural Networks for Network Modeling and Optimization in SDN&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#sdn-security&quot; id=&quot;markdown-toc-sdn-security&quot;&gt;SDN Security&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#related-work&quot; id=&quot;markdown-toc-related-work&quot;&gt;Related work&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#bloomstore-dynamic-bloom-filter-based-secure-rule-space-management-scheme-in-sdn&quot; id=&quot;markdown-toc-bloomstore-dynamic-bloom-filter-based-secure-rule-space-management-scheme-in-sdn&quot;&gt;BloomStore: Dynamic Bloom-Filter-based Secure Rule-Space Management Scheme in SDN&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#an-efficient-approach-to-robust-sdn-controller-placement-for-security&quot; id=&quot;markdown-toc-an-efficient-approach-to-robust-sdn-controller-placement-for-security&quot;&gt;An Efficient Approach to Robust SDN Controller Placement for Security&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#load-balancing&quot; id=&quot;markdown-toc-load-balancing&quot;&gt;Load balancing&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot; id=&quot;markdown-toc-an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot;&gt;An energy-efficient load distribution framework for SDN controllers&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#a-trust-management-framework-for-software-defined-network-applications&quot; id=&quot;markdown-toc-a-trust-management-framework-for-software-defined-network-applications&quot;&gt;A trust management framework for software-defined network applications&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#self-healing-and-sdn-bridging-the-gap&quot; id=&quot;markdown-toc-self-healing-and-sdn-bridging-the-gap&quot;&gt;Self-healing and SDN: bridging the gap&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;sdn-related-work&quot;&gt;SDN Related Work&lt;/h1&gt;
+
+&lt;h2 id=&quot;sdn-routing&quot;&gt;SDN Routing&lt;/h2&gt;
+
+&lt;h3 id=&quot;machine-learning&quot;&gt;Machine Learning&lt;/h3&gt;
+
+&lt;h4 id=&quot;cfr-rl-traffic-engineering-with-reinforcement-learning-in-sdn&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=4&amp;amp;cacheurlFromRightClick=no&quot;&gt;CFR-RL: Traffic Engineering With Reinforcement Learning in SDN&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;传统的交通工程(TE)解决方案可以通过重新路由尽可能多的流来获得最优或接近最优的性能。然而，当频繁地在网络中重新路由流时，他们通常不会考虑负面影响，比如数据包次序混乱。为了减轻网络干扰的影响，一个有前景的TE解决方案是使用等成本多路径(ECMP)转发大部分流量，并使用软件定义网络(SDN)选择性地重新路由少数关键流量，以平衡网络的链路利用率，其中关键流定义为对网络性能有主要影响的流（例如，最拥塞的链路上的流）。关键流重新路由问题可以分解为两个子问题：（1）识别关键流（2）重新路由它们以实现良好的性能。此外，基于规则的启发式算法不能适应流量矩阵和网络动态的变化，因此不可能基于固定的简单规则来设计该问题的启发式算法。在本文中，我们提出了CFR-RL(临界流重定向-强化学习)，这是一个基于强化学习的方案，它学习一个策略来为每个给定的交通矩阵自动选择临界流。然后，CFR-RL通过制定和解决一个简单的线性规划(LP)问题，重新路由这些选定的关键流，以平衡网络的链路利用率。广泛的评估表明，CFR-RL仅重新路由总流量的10%-21.3%，从而实现接近最佳的性能。&lt;/p&gt;
+
+&lt;h4 id=&quot;routenet-leveraging-graph-neural-networks-for-network-modeling-and-optimization-in-sdn&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=5&quot;&gt;RouteNet: Leveraging Graph Neural Networks for Network Modeling and Optimization in SDN&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;网络建模是实现自驱动软件定义网络高效运行的关键因素。然而，我们仍然缺乏能够在有限成本下对关键性能指标(KPI)产生准确预测的功能性网络模型，如延迟、抖动或损失。本文提出了一种基于图神经网络(GNN)的新型网络模型RouteNet，该模型能够理解拓扑、路由和输入流量之间的复杂关系，从而准确估计每个源/目的地每个包的时延分布和丢失。RouteNet利用了GNN学习和建模图结构信息，因此，我们的模型能够泛化任意拓扑、路由方案和流量强度。在我们的评估中，我们发现RouteNet能够准确地预测训练中看不到的拓扑、路由和流量的时延分布(平均时延和抖动)和损失(最坏情况MRE = 15.4%)。此外，我们还展示了几个利用我们的GNN模型的KPI预测来实现高效路由优化和网络规划的用例。&lt;/p&gt;
+
+&lt;h2 id=&quot;sdn-security&quot;&gt;SDN Security&lt;/h2&gt;
+
+&lt;h3 id=&quot;related-work&quot;&gt;Related work&lt;/h3&gt;
+
+&lt;h4 id=&quot;bloomstore-dynamic-bloom-filter-based-secure-rule-space-management-scheme-in-sdn&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=7&amp;amp;cacheurlFromRightClick=no&quot;&gt;BloomStore: Dynamic Bloom-Filter-based Secure Rule-Space Management Scheme in SDN&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;软件定义网络(SDN)通过将复杂和严格的计算任务转移到集中式控制器，提供了一种有效的管理流量负载的方法。它减轻了交换机的负担，交换机的任务是执行基于规则操作对的路由。但是，交换机的流表存储容量有限。它可能不得不面对性能瓶颈，而这又会导致严重的安全漏洞和性能下降。因此，本文提出了SDN中基于动态Bloom-Filter的安全规则空间管理方案BloomStore。BloomStore通过管理网络资源动态地处理数据流量。双重安全检查用于安全数据传输使用双重哈希，即两个独立的哈希函数被用来生成k哈希函数。此外，还提出了分区哈希在bloom数组的bucket中进行插入和查询的方法。结果分析表明，在各种性能参数方面，BloomStore的性能都优于竞争对手的变体。&lt;/p&gt;
+
+&lt;h4 id=&quot;an-efficient-approach-to-robust-sdn-controller-placement-for-security&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=14&amp;amp;cacheurlFromRightClick=no&quot;&gt;An Efficient Approach to Robust SDN Controller Placement for Security&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;安全是传统网络的关键问题之一。软件定义网络(SDN)通过分离网络的控制平面和数据平面，提高了网络的安全性。为了提高SDN网络的性能，研究人员设计了许多先进的控制器原型，并考虑了控制器的放置问题。然而，链路失效是网络中非常重要的安全问题，极大地影响了SDN网络的安全。在今天，对于链路失败的控制器放置问题仍然是一个挑战。在本文中，我们分别研究了单链路和多链路失效情况下的SDN控制器配置问题。对于单链路故障，我们开发了一种启发式算法来解决控制器配置问题。对于多链路故障，我们引入蒙特卡罗模拟来减少计算开销。我们对真实网络拓扑进行了实验，仿真结果表明启发式算法在取得良好性能的同时，比最优算法节省了更多的时间。&lt;/p&gt;
+
+&lt;h2 id=&quot;load-balancing&quot;&gt;Load balancing&lt;/h2&gt;
+
+&lt;h4 id=&quot;an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=18&amp;amp;cacheurlFromRightClick=no&quot;&gt;An energy-efficient load distribution framework for SDN controllers&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;软件定义网络(SDN)由于能够根据不同的需求动态配置网络，已经发展成为未来Internet的一个有效平台。我们观察到，随着通信网络的增长，SDN设备的负载和能量需求显著增加。因此，需要对SDN控制器进行高效的建模，平衡负载，优化设备能耗。在本文中，我们提出了一个节能的负荷分配框架和有效的负荷分配和客观上优化网络能耗的流量路由控制器系统模型。该模型通过引入高效节能的路由算法选择过程，实现了基于异构流量需求的负载均衡，降低了能耗。负载均衡方案采用多控制器同步切换迁移技术，而高效路由的新颖之处在于网络设备的休眠和主动模式。为了提高网络的性能，我们提出了负载均衡和节能路由之间的相互作用。大量的仿真结果表明，我们所提出的控制器系统模型的有效性得到了证明，能耗降低了约25%，性能提高了约20%。该模型适用于满足绿色通信标准的现实网络环境。&lt;/p&gt;
+
+&lt;h4 id=&quot;a-trust-management-framework-for-software-defined-network-applications&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=22&quot;&gt;A trust management framework for software-defined network applications&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;(评估框架)&lt;/p&gt;
+
+&lt;p&gt;SDN (software-defined network, SDN)的出现给现有网络带来了前所未有的创新。SDN的两个最显著的特性是解耦性和可编程性。解耦使得网络管理集中在一个控制平面上。同时，得益于SDN的可编程特性，可以很容易地实现新的组网功能。然而，这些特性也给SDN带来了新的安全问题。通过SDN提供的编程接口，软件工程师可以轻松开发网络应用程序，生成SDN控制平面的组网策略，以指导网络路由。然而，这些新应用的安全性和质量很难保证。恶意或低质量的应用程序可能会破坏整个网络。为了解决这个问题，本文提出了一种新的SDN应用信任管理框架。它可以根据应用程序对网络性能(如时延、丢包率、吞吐量等)的影响来评估应用程序的信任值。这些信任值对SDN中应用程序的管理和选择起到了决定性的作用。我们通过一个基于泛光灯控制器的原型系统来评估该框架的性能。实验结果表明了设计的正确性和有效性。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=23&quot;&gt;ArchSDN: a reinforcement learning-based autonomous OpenFlow controller with distributed management properties&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;网络控制器的屏蔽能力对网络运营商有信心继续扩展通信网络至关重要。今天的网络可以使用该软件定义网络(SDN)概念分离控制和转换层面，并使用自主自治特性快速应对任何网络活动,同时为网络提供必要的灵活性,支持自定义服务级别协议(SLA)的客户,同时降低资本和运营开支。SDN和自主管理的概念都有一个集中式的架构，需要一个单一的实体管理网络的方方面面，这使得在庞大的物联网世界中管理整个网络变得困难，在这些网络中服务往往是靠近用户，基于边缘的方法是支持5G和超越服务的关键。要支持这种动态和灵活的网络，需要一种方法，通过多个自主的OpenFlow控制器(我们称之为ArchSDN控制器)来分配网络管理职责。通过将OpenFlow交换机分配给不同的ArchSDN控制器，将网络划分为不同的扇区，每个扇区由一个ArchSDN控制器独占控制。这些控制者协调他们的行动，并使用基于强化学习的决策机制来探索、学习和实现接近最佳的端到端通信路径。评估结果表明，所提出的决策系统能够找到接近最优的解决方案，从已获得的结果中学习以改进未来的服务激活结果，并能在不到100毫秒的时间内响应，使网络快速适应通信链路的丢失。&lt;/p&gt;
+
+&lt;h3 id=&quot;self-healing-and-sdn-bridging-the-gap&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=27&amp;amp;cacheurlFromRightClick=no&quot;&gt;Self-healing and SDN: bridging the gap&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;随着分布式交互应用的普及，为了获得良好的参与者交互体验，必须考虑网络资源的高效和公平分配。在软件定义的网络中，中央控制器的存在为交互式应用程序部署可定制的路由提供了一种新颖的解决方案，它允许对DIAs进行细粒度的资源分配，以实现参与者之间的公平性。但是机遇总是伴随着挑战，广泛分布的用户位置往往需要分配控制器来满足应用的要求。因此，参与者之间的延迟直接受到控制器处理时间的影响。在此背景下，我们解决了DIAs在计算和链路负载方面的公平资源配置问题，目的是平衡SDN网络中多流之间的可实现请求率和公平性。首先，我们将问题表示为控制器加载和路由优化的组合。然后，提出了基于深度学习的主动分配控制器算法和公平路径分配算法来共享瓶颈环节。与目前最先进的贪婪分配算法和优先级分配算法相比，通过跟踪驱动仿真验证了该算法在控制器和链路负载方面具有更好的公平性。&lt;/p&gt;
+</description>
+        <pubDate>Tue, 27 Oct 2020 12:51:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2020/10/27/SDN-related-work/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/10/27/SDN-related-work/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
+    
+      <item>
+        <title>Edge Cloud Network</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#edge-cloud-network&quot; id=&quot;markdown-toc-edge-cloud-network&quot;&gt;Edge Cloud Network&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#definition&quot; id=&quot;markdown-toc-definition&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#benefits&quot; id=&quot;markdown-toc-benefits&quot;&gt;Benefits&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#related-work&quot; id=&quot;markdown-toc-related-work&quot;&gt;Related work&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn&quot; id=&quot;markdown-toc-a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn&quot;&gt;A Novel Load Balancing and Low Response Delay Framework for Edge-Cloud Network Based on SDN&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks&quot; id=&quot;markdown-toc-optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks&quot;&gt;Optimal VNF Placement via Deep Reinforcement Learning in SDN/NFV-Enabled Networks&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets&quot; id=&quot;markdown-toc-an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets&quot;&gt;An optimal delay aware task assignment scheme for wireless SDN networked edge cloudlets&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;edge-cloud-network&quot;&gt;Edge Cloud Network&lt;/h1&gt;
+
+&lt;h2 id=&quot;definition&quot;&gt;Definition&lt;/h2&gt;
+
+&lt;p&gt;边缘云架构用于将权力分散(处理)到网络的边缘(客户端/设备)。传统服务器的计算能力用于执行数据最小化或创建先进的分布式系统等任务。在云模型中，这样的“智能”任务由服务器执行，因此它们可以被转移到其他计算能力较低或几乎没有计算能力的设备上。&lt;/p&gt;
+
+&lt;p&gt;有了边缘云，这些处理任务的很大一部分都被转移到了客户端，这也被称为边缘计算(Edge Computing)。边缘计算通常指物联网(IOT)设备，但也指在设备上处理遥测数据(而不是将原始数据发送到云)的游戏硬件。&lt;/p&gt;
+
+&lt;p&gt;这为企业创造了很多机会，特别是当他们希望在整个应用程序或高密度平台使用中提供低延迟服务时。&lt;/p&gt;
+
+&lt;h2 id=&quot;benefits&quot;&gt;Benefits&lt;/h2&gt;
+
+&lt;p&gt;相较于传统的客户机连接到服务器的模型，边缘云架构中数以千计的客户机相互连接可以更加快速有效地执行较小的处理任务。理想的边缘计算环境使数以百万计的物联网设备形成一个庞大的智能网络，可以执行通常只有在非常大的数据中心才可能执行的任务。&lt;/p&gt;
+
+&lt;p&gt;通过结合Edge和Cloud，我们可以利用分布式系统的力量，在设备上处理数据，然后将数据发送到云中。在这里，可以使用更少(甚至不可用)的处理能力来处理、分析或保存它。&lt;/p&gt;
+
+&lt;p&gt;例如：得益于Edge云架构，共享信息的联网汽车能够自己分析数据，而不用使用服务器的处理能力。与需要在中央服务器上处理的大量数据回程不同，大部分处理工作已经由连接的设备自己完成了。&lt;/p&gt;
+
+&lt;p&gt;边缘云的好处还有很多，包括以服务提供商的身份有效部署新服务，或为联网汽车司机或在线游戏玩家提供低延迟体验。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Contrail Edge Cloud等解决方案将计算、存储和网络资源在基站、集线器、交换站点和中央办公室等轻量级边缘环境中抽象和虚拟化。&lt;/li&gt;
+  &lt;li&gt;通过低延迟、自动化和简单的交付，边缘云架构在不牺牲多租户安全云的丰富功能的情况下，加速了网络边缘的服务创建。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;related-work&quot;&gt;Related work&lt;/h2&gt;
+
+&lt;h3 id=&quot;a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn&quot;&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/document/8892518&quot;&gt;A Novel Load Balancing and Low Response Delay Framework for Edge-Cloud Network Based on SDN&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;基于软件定义网络(SDNs)的云计算，需要收集更多的数据到云中进行分析，由于互联网容量有限，这会导致更多的冗余数据和更长的服务响应时间。针对这一问题，提出了一种新的服务编排与数据聚合框架(SODA)，该框架将数据编排为服务，并对数据包进行聚合，以减少数据冗余和服务响应延迟。在SODA中，网络被分为三层。1)数据中心层(DCL)。数据中心(DCs)向网络中的所有设备发布具有特定功能的软件，设备将数据编配为服务，并使用软件聚合数据包以减少服务响应延迟。2)中间路由层(MRL)。根据数据包与路由距离的相关性调整该层数据包的路由路径。数据包相关性越高，路由距离越短，为了减少冗余数据，数据包沿同一路由路径传输的概率就越高。3)车辆网络层(VNL)。移动车辆用于在设备之间传输数据包和服务。进行了一系列的实验和仿真。结果表明，与传统方案相比，该方案具有更好的性能。&lt;/p&gt;
+
+&lt;h3 id=&quot;optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=8&amp;amp;SID=7Fz7cFld277jLHIz9RY&amp;amp;page=1&amp;amp;doc=30&amp;amp;cacheurlFromRightClick=no&quot;&gt;Optimal VNF Placement via Deep Reinforcement Learning in SDN/NFV-Enabled Networks&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;新兴的范式——软件定义网络(SDN)和网络功能虚拟化(NFV)——使得在商用设备上运行虚拟网络功能(VNFs)变得可行且可伸缩，从而以更低的成本提供各种网络服务。得益于集中的网络管理，可以在支持SDN/ nfv的网络中收集关于网络设备、流量和资源的大量信息，根据收集到的信息利用机器学习定制算法，有效优化网络性能。本文研究了SDN/ nfv支持的网络中的VNF布局问题，它可以自然地表述为二进制整数规划(BIP)问题。利用深度强化学习，提出了一种基于双深度Q网络的VNF布局算法(DDQN-VNFPA)。具体来说，DDQN从一个巨大的解决方案空间确定最佳解决方案，然后DDQN- vnfpa按照基于阈值的策略放置VNF实例(VNFIs)。我们在一个真实的网络拓扑中通过跟踪驱动模拟来评估DDQN-VNFPA。评估结果表明，与已有文献中的算法相比，DDQN-VNFPA在业务功能链请求的拒绝数和拒绝率、吞吐量、端到端延迟、VNFI运行时间和负载均衡等方面均有较好的网络性能。&lt;/p&gt;
+
+&lt;h3 id=&quot;an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=8&amp;amp;SID=7Fz7cFld277jLHIz9RY&amp;amp;page=1&amp;amp;doc=31&quot;&gt;An optimal delay aware task assignment scheme for wireless SDN networked edge cloudlets&lt;/a&gt;&lt;/h3&gt;
+
+</description>
+        <pubDate>Mon, 26 Oct 2020 12:51:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2020/10/26/edge-cloud-network/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/10/26/edge-cloud-network/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
     
       <item>
         <title>Recent Advances of Resource Allocation in Network Function Virtualization</title>
@@ -417,9 +565,9 @@
 &lt;h3 id=&quot;machine-learning-based-approaches&quot;&gt;Machine Learning-Based Approaches&lt;/h3&gt;
 
 </description>
-        <pubDate>Wed, 21 Oct 2020 12:51:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/thesis/2020/10/21/thesis-reading-01/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/10/21/thesis-reading-01/</guid>
+        <pubDate>Sat, 24 Oct 2020 12:51:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2020/10/24/thesis-reading-01/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/10/24/thesis-reading-01/</guid>
         
         
         <category>thesis</category>

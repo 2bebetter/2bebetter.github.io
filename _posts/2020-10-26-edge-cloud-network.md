@@ -1,3 +1,11 @@
+---
+layout: post
+title:  "Edge Cloud Network"
+date:   2020-10-26 12:51:40 +0800
+typora-root-url: ..
+categories: thesis
+---
+
 * content
 {:toc}
 

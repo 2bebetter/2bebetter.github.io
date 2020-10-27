@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  
+  <title>SDN Related Work</title>
+  <meta name="description" content="">
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" href="/img/favicon.ico"/>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://2bebetter.github.io/thesis/2020/10/27/SDN-routing/">
+
+  <link href="/css/highlight.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- iconfont is in the include -->
+  <!-- <link rel="stylesheet" href="/style/css/iconfont/iconfont.css"> -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+  <!-- <script type="text/javascript">
+    var documentHeight = 0;
+    var topPadding = 15;
+    $(function() {
+        var offset = $("#navigation").offset();
+        documentHeight = $(document).height();
+        $(window).scroll(function() {
+            var sideBarHeight = $("#navigation").height();
+            if ($(window).scrollTop() > offset.top) {
+                var newPosition = ($(window).scrollTop() - offset.top) + topPadding;
+                var maxPosition = documentHeight - (sideBarHeight + 368);
+                if (newPosition > maxPosition) {
+                    newPosition = maxPosition;
+                }
+                $("#navigation").stop().animate({
+                    marginTop: newPosition
+                });
+            } else {
+                $("#navigation").stop().animate({
+                    marginTop: 0
+                });
+            };
+        });
+    });
+    </script> -->
+</head>
+
+
+
+  <body class="bg-grey" gtools_scp_screen_capture_injected="true">
+
+    <header id="header" class="header bg-white">
+  <div class="navbar-container">
+      <a href="/" class="navbar-logo">
+          <img src="/img/logo.jpg" alt="2bebetter" />
+          <span>2bebetter</span>
+      </a>
+      <div class="navbar-menu">
+          <a href="/index">Home</a>
+          <a href="/about">About</a>
+      </div>
+      <div class="navbar-mobile-menu" onclick="">
+          <span class="icon-menu cross"><span class="middle"></span></span>
+          <ul>
+              <li><a href="/index">Home</a></li>
+              <li><a href="/about">About</a></li>
+          </ul>
+      </div>
+  </div>
+</header>
+
+
+    <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
+    <div class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            SDN Related Work
+        </h1>
+        <div class="post-data">
+            <time itemprop="datePublished">Oct 27, 2020</time>
+        </div>
+    </div>
+</article>
+<div class="main-container">
+    <div class="post-container">
+        <aside class="navigation" id="navigation">
+            <h1>Contents</h1>
+            <ul class="nav sidenav"></ul>
+        </aside>
+        <article class="post-content">
+            <h1 id="sdn-related-work">SDN Related Work</h1>
+
+<h2 id="sdn-routing">SDN Routing</h2>
+
+<h3 id="machine-learning">Machine Learning</h3>
+
+<h4 id="cfr-rl-traffic-engineering-with-reinforcement-learning-in-sdn"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=4&amp;cacheurlFromRightClick=no">CFR-RL: Traffic Engineering With Reinforcement Learning in SDN</a></h4>
+
+<p>传统的交通工程(TE)解决方案可以通过重新路由尽可能多的流来获得最优或接近最优的性能。然而，当频繁地在网络中重新路由流时，他们通常不会考虑负面影响，比如数据包次序混乱。为了减轻网络干扰的影响，一个有前景的TE解决方案是使用等成本多路径(ECMP)转发大部分流量，并使用软件定义网络(SDN)选择性地重新路由少数关键流量，以平衡网络的链路利用率，其中关键流定义为对网络性能有主要影响的流（例如，最拥塞的链路上的流）。关键流重新路由问题可以分解为两个子问题：（1）识别关键流（2）重新路由它们以实现良好的性能。此外，基于规则的启发式算法不能适应流量矩阵和网络动态的变化，因此不可能基于固定的简单规则来设计该问题的启发式算法。在本文中，我们提出了CFR-RL(临界流重定向-强化学习)，这是一个基于强化学习的方案，它学习一个策略来为每个给定的交通矩阵自动选择临界流。然后，CFR-RL通过制定和解决一个简单的线性规划(LP)问题，重新路由这些选定的关键流，以平衡网络的链路利用率。广泛的评估表明，CFR-RL仅重新路由总流量的10%-21.3%，从而实现接近最佳的性能。</p>
+
+<h4 id="routenet-leveraging-graph-neural-networks-for-network-modeling-and-optimization-in-sdn"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=5">RouteNet: Leveraging Graph Neural Networks for Network Modeling and Optimization in SDN</a></h4>
+
+<p>网络建模是实现自驱动软件定义网络高效运行的关键因素。然而，我们仍然缺乏能够在有限成本下对关键性能指标(KPI)产生准确预测的功能性网络模型，如延迟、抖动或损失。本文提出了一种基于图神经网络(GNN)的新型网络模型RouteNet，该模型能够理解拓扑、路由和输入流量之间的复杂关系，从而准确估计每个源/目的地每个包的时延分布和丢失。RouteNet利用了GNN学习和建模图结构信息，因此，我们的模型能够泛化任意拓扑、路由方案和流量强度。在我们的评估中，我们发现RouteNet能够准确地预测训练中看不到的拓扑、路由和流量的时延分布(平均时延和抖动)和损失(最坏情况MRE = 15.4%)。此外，我们还展示了几个利用我们的GNN模型的KPI预测来实现高效路由优化和网络规划的用例。</p>
+
+<h2 id="sdn-security">SDN Security</h2>
+
+<h3 id="related-work">Related work</h3>
+
+<h4 id="bloomstore-dynamic-bloom-filter-based-secure-rule-space-management-scheme-in-sdn"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=7&amp;cacheurlFromRightClick=no">BloomStore: Dynamic Bloom-Filter-based Secure Rule-Space Management Scheme in SDN</a></h4>
+
+<p>软件定义网络(SDN)通过将复杂和严格的计算任务转移到集中式控制器，提供了一种有效的管理流量负载的方法。它减轻了交换机的负担，交换机的任务是执行基于规则操作对的路由。但是，交换机的流表存储容量有限。它可能不得不面对性能瓶颈，而这又会导致严重的安全漏洞和性能下降。因此，本文提出了SDN中基于动态Bloom-Filter的安全规则空间管理方案BloomStore。BloomStore通过管理网络资源动态地处理数据流量。双重安全检查用于安全数据传输使用双重哈希，即两个独立的哈希函数被用来生成k哈希函数。此外，还提出了分区哈希在bloom数组的bucket中进行插入和查询的方法。结果分析表明，在各种性能参数方面，BloomStore的性能都优于竞争对手的变体。</p>
+
+<h4 id="an-efficient-approach-to-robust-sdn-controller-placement-for-security"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=14&amp;cacheurlFromRightClick=no">An Efficient Approach to Robust SDN Controller Placement for Security</a></h4>
+
+<p>安全是传统网络的关键问题之一。软件定义网络(SDN)通过分离网络的控制平面和数据平面，提高了网络的安全性。为了提高SDN网络的性能，研究人员设计了许多先进的控制器原型，并考虑了控制器的放置问题。然而，链路失效是网络中非常重要的安全问题，极大地影响了SDN网络的安全。在今天，对于链路失败的控制器放置问题仍然是一个挑战。在本文中，我们分别研究了单链路和多链路失效情况下的SDN控制器配置问题。对于单链路故障，我们开发了一种启发式算法来解决控制器配置问题。对于多链路故障，我们引入蒙特卡罗模拟来减少计算开销。我们对真实网络拓扑进行了实验，仿真结果表明启发式算法在取得良好性能的同时，比最优算法节省了更多的时间。</p>
+
+<h2 id="load-balancing">Load balancing</h2>
+
+<h4 id="an-energy-efficient-load-distribution-framework-for-sdn-controllers"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=18&amp;cacheurlFromRightClick=no">An energy-efficient load distribution framework for SDN controllers</a></h4>
+
+<p>软件定义网络(SDN)由于能够根据不同的需求动态配置网络，已经发展成为未来Internet的一个有效平台。我们观察到，随着通信网络的增长，SDN设备的负载和能量需求显著增加。因此，需要对SDN控制器进行高效的建模，平衡负载，优化设备能耗。在本文中，我们提出了一个节能的负荷分配框架和有效的负荷分配和客观上优化网络能耗的流量路由控制器系统模型。该模型通过引入高效节能的路由算法选择过程，实现了基于异构流量需求的负载均衡，降低了能耗。负载均衡方案采用多控制器同步切换迁移技术，而高效路由的新颖之处在于网络设备的休眠和主动模式。为了提高网络的性能，我们提出了负载均衡和节能路由之间的相互作用。大量的仿真结果表明，我们所提出的控制器系统模型的有效性得到了证明，能耗降低了约25%，性能提高了约20%。该模型适用于满足绿色通信标准的现实网络环境。</p>
+
+<h4 id="a-trust-management-framework-for-software-defined-network-applications"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=22">A trust management framework for software-defined network applications</a></h4>
+
+<p>(评估框架)</p>
+
+<p>SDN (software-defined network, SDN)的出现给现有网络带来了前所未有的创新。SDN的两个最显著的特性是解耦性和可编程性。解耦使得网络管理集中在一个控制平面上。同时，得益于SDN的可编程特性，可以很容易地实现新的组网功能。然而，这些特性也给SDN带来了新的安全问题。通过SDN提供的编程接口，软件工程师可以轻松开发网络应用程序，生成SDN控制平面的组网策略，以指导网络路由。然而，这些新应用的安全性和质量很难保证。恶意或低质量的应用程序可能会破坏整个网络。为了解决这个问题，本文提出了一种新的SDN应用信任管理框架。它可以根据应用程序对网络性能(如时延、丢包率、吞吐量等)的影响来评估应用程序的信任值。这些信任值对SDN中应用程序的管理和选择起到了决定性的作用。我们通过一个基于泛光灯控制器的原型系统来评估该框架的性能。实验结果表明了设计的正确性和有效性。</p>
+
+<p><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=23">ArchSDN: a reinforcement learning-based autonomous OpenFlow controller with distributed management properties</a></p>
+
+<p>网络控制器的屏蔽能力对网络运营商有信心继续扩展通信网络至关重要。今天的网络可以使用该软件定义网络(SDN)概念分离控制和转换层面，并使用自主自治特性快速应对任何网络活动,同时为网络提供必要的灵活性,支持自定义服务级别协议(SLA)的客户,同时降低资本和运营开支。SDN和自主管理的概念都有一个集中式的架构，需要一个单一的实体管理网络的方方面面，这使得在庞大的物联网世界中管理整个网络变得困难，在这些网络中服务往往是靠近用户，基于边缘的方法是支持5G和超越服务的关键。要支持这种动态和灵活的网络，需要一种方法，通过多个自主的OpenFlow控制器(我们称之为ArchSDN控制器)来分配网络管理职责。通过将OpenFlow交换机分配给不同的ArchSDN控制器，将网络划分为不同的扇区，每个扇区由一个ArchSDN控制器独占控制。这些控制者协调他们的行动，并使用基于强化学习的决策机制来探索、学习和实现接近最佳的端到端通信路径。评估结果表明，所提出的决策系统能够找到接近最优的解决方案，从已获得的结果中学习以改进未来的服务激活结果，并能在不到100毫秒的时间内响应，使网络快速适应通信链路的丢失。</p>
+
+<h4 id="self-healing-and-sdn-bridging-the-gap"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=4&amp;SID=6DsnaK11My1YwUPVlix&amp;page=1&amp;doc=27&amp;cacheurlFromRightClick=no">Self-healing and SDN: bridging the gap</a></h4>
+
+<p>随着分布式交互应用的普及，为了获得良好的参与者交互体验，必须考虑网络资源的高效和公平分配。在软件定义的网络中，中央控制器的存在为交互式应用程序部署可定制的路由提供了一种新颖的解决方案，它允许对DIAs进行细粒度的资源分配，以实现参与者之间的公平性。但是机遇总是伴随着挑战，广泛分布的用户位置往往需要分配控制器来满足应用的要求。因此，参与者之间的延迟直接受到控制器处理时间的影响。在此背景下，我们解决了DIAs在计算和链路负载方面的公平资源配置问题，目的是平衡SDN网络中多流之间的可实现请求率和公平性。首先，我们将问题表示为控制器加载和路由优化的组合。然后，提出了基于深度学习的主动分配控制器算法和公平路径分配算法来共享瓶颈环节。与目前最先进的贪婪分配算法和优先级分配算法相比，通过跟踪驱动仿真验证了该算法在控制器和链路负载方面具有更好的公平性。</p>
+
+        </article>
+        <!-- <div class="post-content">
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<div id="gitalk-container"></div>
+
+<script data-no-instant type="text/javascript">
+const gitalk = new Gitalk({
+  clientID: '',
+  clientSecret: '',
+  repo: '',
+  owner: '',
+  admin: [''],
+  id: location.pathname,      // Ensure uniqueness and length less than 50
+  distractionFreeMode: true  // Facebook-like distraction free mode
+})
+
+gitalk.render('gitalk-container')
+</script>
+        </div> -->
+    </div>
+</div>
+
+    
+    <footer id="footer" class="footer bg-white">
+  <div class="footer-social">
+      <div class="footer-container clearfix">
+          <div class="social-list">
+              <a href="/"><span class='iconfont icon-home'></span>&nbsp;&nbsp;HOME</a>
+              <a rel="nofollow" target="_blank" href="https://github.com/"><span class='iconfont icon-github'></span>&nbsp;&nbsp;Github</a>
+              <a target="_blank" href="/feed.xml"><span class='iconfont icon-rss'></span>&nbsp;&nbsp;RSS</a>
+          </div>
+      </div>
+  </div>
+
+  <div class="footer-meta">
+    <div class="footer-container">
+        <div class="meta-item meta-social-media">
+          <h3 class="meta-title">2bebetter</h3>
+          <div class="meta-social-media-list">
+            <li><a href="mailto:tbebetter@gmail.com">tbebetter@gmail.com</a></li>
+            
+            <li>
+              <a href="https://github.com/2bebetter"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">2bebetter</span></a>
+
+            </li>
+            
+
+            
+
+            
+            <li>
+              <a href="https://weibo.com/5731069177"><span class="icon icon--weibo"><svg viewBox="0 0 16 16"><path fill="#828282" d="M6.72 13.532c-2.647.26-4.934-.936-5.106-2.675C1.442 9.12 3.45 7.497 6.1 7.235c2.648-.262 4.934.935 5.106 2.674.172 1.738-1.836 3.36-4.485 3.622zm-.697-2.066c-.256.41-.804.588-1.218.4-.407-.186-.527-.66-.27-1.06.252-.396.783-.573 1.193-.4.415.175.547.647.295 1.06zm.845-1.083c-.093.158-.298.234-.458.168-.158-.064-.208-.24-.118-.397.092-.154.29-.23.447-.167.16.058.216.237.128.397zm.118-1.81c-1.26-.328-2.685.3-3.233 1.41-.557 1.134-.018 2.39 1.255 2.802 1.32.426 2.874-.226 3.415-1.45.533-1.194-.133-2.425-1.437-2.762zm5.033-.814c-.226-.068-.38-.114-.263-.41.256-.643.282-1.197.005-1.593-.52-.742-1.94-.702-3.57-.02 0 0-.51.224-.38-.182.25-.805.213-1.48-.177-1.87-.884-.884-3.234.034-5.25 2.05C.876 7.242 0 8.842 0 10.224c0 2.647 3.393 4.255 6.713 4.255 4.35 0 7.246-2.528 7.246-4.535 0-1.213-1.023-1.9-1.94-2.186zm1.275-3.386c-.51-.568-1.266-.783-1.964-.635-.284.06-.465.34-.404.625.06.284.34.467.625.405.342-.072.71.033.962.31.25.278.317.656.21.987-.09.277.062.575.34.665.277.088.574-.063.663-.34.22-.678.083-1.45-.43-2.018zm1.614-1.457c-1.052-1.165-2.602-1.61-4.033-1.304-.33.07-.542.396-.47.727.07.33.395.542.726.47 1.018-.215 2.12.1 2.866.928.746.828.948 1.957.63 2.946-.106.323.07.668.393.772.322.104.667-.072.772-.394V7.06c.448-1.392.165-2.98-.886-4.143z"></path></svg></span><span class="username">盼西楼雅集</span></a>
+            </li>
+            
+          </div>
+        </div>
+
+        <div class="meta-item meta-posts">
+            <h3 class="meta-title">RECENT POSTS</h3>
+            
+                <li>
+                    <a href="/thesis/2020/10/27/SDN-routing/">SDN Related Work</a>
+                </li>
+            
+                <li>
+                    <a href="/thesis/2020/10/27/SDN-related-work/">SDN Related Work</a>
+                </li>
+            
+                <li>
+                    <a href="/thesis/2020/10/26/edge-cloud-network/">Edge Cloud Network</a>
+                </li>
+            
+                <li>
+                    <a href="/thesis/2020/10/24/thesis-reading-01/">Recent Advances of Resource Allocation in Network Function Virtualization</a>
+                </li>
+            
+                <li>
+                    <a href="/jekyll/2020/10/21/personal-blog/">Your first blog</a>
+                </li>
+            
+        </div>
+
+    </div>
+  </div>
+</footer>
+
+<!-- #end -->
+<script src="//cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+<script>
+!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))
+</script>
+<script src="/js/headroom.min.js"></script>
+<script src="/js/nav.min.js"></script>
+<script type="text/javascript">
+  var header = new Headroom(document.getElementById("header"), {
+      tolerance: 10,
+      offset : 80,
+      classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+      }
+  });
+  header.init();
+</script>
+
+<!-- <script>window.SmoothScrollOptions = { stepSize: 36 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.8/SmoothScroll.min.js"></script>
+<script>
+!window.SmoothScroll && document.write(unescape('%3Cscript src="/style/js/SmoothScroll.min.js"%3E%3C/script%3E'))
+</script> -->
+
+
+
+
+  </body>
+</html>
