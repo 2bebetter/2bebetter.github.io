@@ -51,7 +51,7 @@ SDN (software-defined network, SDN)的出现给现有网络带来了前所未有
 
 网络控制器的屏蔽能力对网络运营商有信心继续扩展通信网络至关重要。今天的网络可以使用该软件定义网络(SDN)概念分离控制和转换层面，并使用自主自治特性快速应对任何网络活动,同时为网络提供必要的灵活性,支持自定义服务级别协议(SLA)的客户,同时降低资本和运营开支。SDN和自主管理的概念都有一个集中式的架构，需要一个单一的实体管理网络的方方面面，这使得在庞大的物联网世界中管理整个网络变得困难，在这些网络中服务往往是靠近用户，基于边缘的方法是支持5G和超越服务的关键。要支持这种动态和灵活的网络，需要一种方法，通过多个自主的OpenFlow控制器(我们称之为ArchSDN控制器)来分配网络管理职责。通过将OpenFlow交换机分配给不同的ArchSDN控制器，将网络划分为不同的扇区，每个扇区由一个ArchSDN控制器独占控制。这些控制者协调他们的行动，并使用基于强化学习的决策机制来探索、学习和实现接近最佳的端到端通信路径。评估结果表明，所提出的决策系统能够找到接近最优的解决方案，从已获得的结果中学习以改进未来的服务激活结果，并能在不到100毫秒的时间内响应，使网络快速适应通信链路的丢失。
 
-### [Self-healing and SDN: bridging the gap](https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&search_mode=AdvancedSearch&qid=4&SID=6DsnaK11My1YwUPVlix&page=1&doc=27&cacheurlFromRightClick=no)
+#### [Self-healing and SDN: bridging the gap](https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&search_mode=AdvancedSearch&qid=4&SID=6DsnaK11My1YwUPVlix&page=1&doc=27&cacheurlFromRightClick=no)
 
 随着分布式交互应用的普及，为了获得良好的参与者交互体验，必须考虑网络资源的高效和公平分配。在软件定义的网络中，中央控制器的存在为交互式应用程序部署可定制的路由提供了一种新颖的解决方案，它允许对DIAs进行细粒度的资源分配，以实现参与者之间的公平性。但是机遇总是伴随着挑战，广泛分布的用户位置往往需要分配控制器来满足应用的要求。因此，参与者之间的延迟直接受到控制器处理时间的影响。在此背景下，我们解决了DIAs在计算和链路负载方面的公平资源配置问题，目的是平衡SDN网络中多流之间的可实现请求率和公平性。首先，我们将问题表示为控制器加载和路由优化的组合。然后，提出了基于深度学习的主动分配控制器算法和公平路径分配算法来共享瓶颈环节。与目前最先进的贪婪分配算法和优先级分配算法相比，通过跟踪驱动仿真验证了该算法在控制器和链路负载方面具有更好的公平性。 
 
