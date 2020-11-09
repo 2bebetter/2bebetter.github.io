@@ -6,9 +6,399 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 28 Oct 2020 21:59:35 +0800</pubDate>
-    <lastBuildDate>Wed, 28 Oct 2020 21:59:35 +0800</lastBuildDate>
+    <pubDate>Mon, 09 Nov 2020 12:40:11 +0800</pubDate>
+    <lastBuildDate>Mon, 09 Nov 2020 12:40:11 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Gitlab Ci Configure</title>
+        <description>&lt;h1 id=&quot;gitlab-cicd配置&quot;&gt;Gitlab CI/CD配置&lt;/h1&gt;
+
+&lt;p&gt;[TOC]&lt;/p&gt;
+
+&lt;p&gt;[[&lt;em&gt;TOC&lt;/em&gt;]]&lt;/p&gt;
+
+&lt;p&gt;cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。&lt;/p&gt;
+
+&lt;h2 id=&quot;概览&quot;&gt;概览&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph TD;
+	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner;
+	gitlab_runner
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;图示解释：&lt;/p&gt;
+
+&lt;p&gt;gitlab runner从repo下拉代码。进行构建，测试等操作，其权限来自与runner配置时使用的token，不需要额外配置，只要正常注册了gitlab runner就可以，由gitlab帮我们搞定。&lt;/p&gt;
+
+&lt;h2 id=&quot;注册gitlab-runner&quot;&gt;注册gitlab runner&lt;/h2&gt;
+
+&lt;p&gt;根据文档运行gitlab-runner，并注册到相应的repo即可，参考&lt;a href=&quot;https://docs.gitlab.com/ee/ci/&quot;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;install-gitlab-runner&quot;&gt;install gitlab-runner&lt;/h3&gt;
+
+&lt;h4 id=&quot;install-from-apt&quot;&gt;install from apt&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash
+apt-get install gitlab-runner
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;install-from-docker&quot;&gt;install from docker&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;修改apt的源：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Update the &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; package index and install packages to allow &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; to use a repository over HTTPS:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;su
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; upgrade
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; install &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    apt-transport-https &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    ca-certificates &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    curl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    gnupg-agent &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    software-properties-common
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Add Docker’s official GPG key:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key add -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Verify that you now have the key with the fingerprint&lt;code class=&quot;highlighter-rouge&quot;&gt;9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88&lt;/code&gt;, by searching for the last 8 characters of the fingerprint.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-key fingerprint 0EBFCD88
+/etc/apt/trusted.gpg
+&lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt;
+pub   1024D/437D05B5 2004-09-12
+      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 6302 39CC 130E 1A7F D81A  27B1 4097 6EAF 437D 05B5
+uid                  Ubuntu Archive Automatic Signing Key &amp;lt;ftpmaster@ubuntu.com&amp;gt;
+sub   2048g/79164387 2004-09-12
+
+pub   1024D/FBB75451 2004-12-30
+      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; C598 6B4F 1257 FFA8 6632  CBA7 4618 1433 FBB7 5451
+uid                  Ubuntu CD Image Automatic Signing Key &amp;lt;cdimage@ubuntu.com&amp;gt;
+
+pub   4096R/C0B21F32 2012-05-11
+      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 790B C727 7767 219C 42C8  6F93 3B4F E6AC C0B2 1F32
+uid                  Ubuntu Archive Automatic Signing Key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2012&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;ftpmaster@ubuntu.com&amp;gt;
+
+pub   4096R/EFE21092 2012-05-11
+      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 8439 38DF 228D 22F7 B374  2BC0 D94A A3F0 EFE2 1092
+uid                  Ubuntu CD Image Automatic Signing Key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2012&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;cdimage@ubuntu.com&amp;gt;
+
+pub   4096R/0EBFCD88 2017-02-22
+      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid                  Docker Release &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CE deb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;docker@docker.com&amp;gt;
+sub   4096R/F273FCD8 2017-02-22
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Use the following command to set up the &lt;strong&gt;stable&lt;/strong&gt; repository. To add the &lt;strong&gt;nightly&lt;/strong&gt; or &lt;strong&gt;test&lt;/strong&gt; repository, add the word &lt;code class=&quot;highlighter-rouge&quot;&gt;nightly&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt; (or both) after the word &lt;code class=&quot;highlighter-rouge&quot;&gt;stable&lt;/code&gt; in the commands below. &lt;a href=&quot;https://docs.docker.com/engine/install/&quot;&gt;Learn about &lt;strong&gt;nightly&lt;/strong&gt; and &lt;strong&gt;test&lt;/strong&gt; channels&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;add-apt-repository &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+   stable&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在尝试了几次之后发现这一步骤对ubuntu14.04.6并不适用，将源更换为阿里源后成功&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;add-apt-repository &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64]  
+   http://mirrors.aliyun.com/docker-ce/linux/ubuntu &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+   stable&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;install docker engine&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
+ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; install docker-ce
+ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;service docker start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;setup-gitlab-runner&quot;&gt;setup gitlab-runner&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# pull image&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker pull gitlab/gitlab-runner
+Using default tag: latest
+latest: Pulling from gitlab/gitlab-runner
+d72e567cc804: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;0f3630e5ff08: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;b6a83d81d1f4: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;795a1e0f662d: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;e26343354a23: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;df2906232f5a: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;e9423d1eea92: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;45a5486ea8e3: Pull &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;Digest: sha256:07d7c6d82b11646aa048427fadd9a1c0e5faa1efcea7e06689eadcf9b52da006
+Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;gitlab/gitlab-runner:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;register-gitlab-runner&quot;&gt;register gitlab-runner&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;register gitlab-runner using docker&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;参考：&lt;a href=&quot;https://docs.gitlab.com/runner/register/index.html#docker&quot;&gt;configure gitlab-runner&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
+Runtime platform                                    &lt;span class=&quot;nv&quot;&gt;arch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;amd64 &lt;span class=&quot;nv&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;linux &lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6 &lt;span class=&quot;nv&quot;&gt;revision&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fa86510e &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;11.9.2
+Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;system-mode.                            
+                                                   
+Please enter the gitlab-ci coordinator URL &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. https://gitlab.com/&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+http://gitlab.cr.net/
+Please enter the gitlab-ci token &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner:
+&lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt;
+Please enter the gitlab-ci description &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner:
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;a902a1cd5b80]: django-test
+Please enter the gitlab-ci tags &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;comma separated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+django, &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或者使用命令行注册&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ PROJECT_REGISTRATION_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MbagsxLmj9pYugNaiQdL&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--executor&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--docker-image&lt;/span&gt; python:3.4 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://gitlab.cr.net/&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--registration-token&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vm-04&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--tag-list&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;crvroute&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--run-untagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--docker-tlsverify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--docker-extra-hosts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;register gitlab-runner&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;直接使用gitlab-runner注册&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ PROJECT_REGISTRATION_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MbagsxLmj9pYugNaiQdL&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner register &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--executor&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--docker-image&lt;/span&gt; python:3.4 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://gitlab.cr.net/&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--registration-token&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vm-04&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--tag-list&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;crvroute&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--run-untagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--docker-tlsverify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--docker-extra-hosts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;更多配置请参考文档：     &lt;a href=&quot;https://docs.gitlab.com/runner/configuration/advanced-configuration.html&quot;&gt;advanced configure&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;run-gitlab-runner&quot;&gt;run gitlab-runner&lt;/h3&gt;
+
+&lt;p&gt;运行docker中的gitlab-runner镜像&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# run to check it&#39;s ok&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; gitlab-runner &lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt; always &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gitlab.cr.net:192.168.102.25 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/run/docker.sock:/var/run/docker.sock &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   gitlab/gitlab-runner:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或者直接启动gitlab-runner服务&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;自定义docker-镜像&quot;&gt;自定义docker 镜像&lt;/h2&gt;
+
+&lt;p&gt;由于网络的原因，每次下载rsync以及更新requirements.txt都很耗时，可以自己制作docker镜像，将这些依赖都准备好，加快测试和部署的速度。&lt;/p&gt;
+
+&lt;h3 id=&quot;dockerfile&quot;&gt;Dockerfile&lt;/h3&gt;
+
+&lt;p&gt;Dockerfile&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Dockerfile&quot;&gt;# Use an official Python runtime as a parent image
+FROM python:3.4
+
+# Copy the current directory contents into the container at /app
+COPY requirements.txt /requirements.txt
+
+# Install any needed packages specified in requirement.txt
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Update
+RUN apt-get update -y &amp;amp;&amp;amp; \
+  apt-get install -y expect, openssh-client, rsync &amp;amp;&amp;amp; \
+  apt-get install -y software-properties-common &amp;amp;&amp;amp; \
+  apt-get install -y openvswitch-switch &amp;amp;&amp;amp; \
+  apt-get autoremove -y &amp;amp;&amp;amp; \
+  apt-get clean
+
+# Make port 80 available to the world outside this container
+# EXPOSE 80
+
+# Define environment variable
+# ENV NAME World
+
+# Run app.py when the container launches
+# CMD [&quot;python&quot;, &quot;app.py&quot;]
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker build &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; crsys-gitlab-runner:2.0 &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker image tag crsys-gitlab-runner:2.0 192.168.120.11:5002/crsys-gitlab-runner:2.0
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker push 192.168.120.11:5002/crsys-gitlab-runner:2.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;change .gitlab-ci.yml&lt;/p&gt;
+
+&lt;h3 id=&quot;docker-commit&quot;&gt;docker commit&lt;/h3&gt;
+
+&lt;p&gt;启动一个docker容器并进入该容器&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; production python:3.4
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; eb789ffd636f /bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;配置production容器的依赖环境&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@eb789ffd636f:/# cp /etc/apt/sources.list /etc/apt/sources.list_bak
+root@eb789ffd636f:/# sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;s/deb.debian.org/mirrors.ustc.edu.cn/g&#39;&lt;/span&gt; /etc/apt/sources.list
+root@eb789ffd636f:/# apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
+root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; openvswitch-switch
+root@eb789ffd636f:/# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /usr/local/etc/openvswitch
+root@eb789ffd636f:/# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /var/run/openvswitch/
+root@eb789ffd636f:/# ovsdb-tool create usr/local/etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema
+root@eb789ffd636f:/# ovsdb-server /usr/local/etc/openvswitch/conf.db &lt;span class=&quot;nt&quot;&gt;--remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;punix:/var/run/openvswitch/db.sock &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt;
+root@eb789ffd636f:/# ovs-vsctl &lt;span class=&quot;nt&quot;&gt;--no-wait&lt;/span&gt; init
+root@eb789ffd636f:/# ovs-vswitchd &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--log-file&lt;/span&gt;
+root@eb789ffd636f:/# pip install virtualenv
+root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; expect openssh-client
+root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; software-properties-common
+root@eb789ffd636f:/# apt-get autoremove &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
+root@eb789ffd636f:/# apt-get clean
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;打包该镜像&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker commit &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;wmh&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;production env&quot;&lt;/span&gt; 容器名称或id crsys-gitlab-runner:3.0
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker image tag crsys-gitlab-runner:3.0 192.168.120.11:5002/crsys-gitlab-runner:3.0
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker push 192.168.120.11:5002/crsys-gitlab-runner:3.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;trouble-shooting&quot;&gt;Trouble shooting&lt;/h2&gt;
+
+&lt;h3 id=&quot;docker-is-not-active&quot;&gt;docker is not active&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-\image-20201104160836058.png&quot; alt=&quot;image-20201104160836058&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这是因为镜像没有启动&lt;/p&gt;
+
+&lt;h3 id=&quot;docker-pull-error&quot;&gt;docker pull error&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105203130082.png&quot; alt=&quot;image-20201105203130082&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;因为docker在之后的版本中默认使用了https设置，导致协议不匹配所以出现了错误&lt;/p&gt;
+
+&lt;p&gt;编辑/etc/default/docker，在其中添加:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_OPTS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--insecure-registry=192.168.120.11:5002&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;重启docker后发现仍然存在错误：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105204840077.png&quot; alt=&quot;image-20201105204840077&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是因为5000端口已经被uwsgi占用，因此docker无法解析该应用回复的响应。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull registry:2
+docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 5002:5000 &lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;always registry:2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;运行成功之后使用curl http://localhost:5002却出现connect refused的错误，经过对端口进行检查之后发现&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106094918602.png&quot; alt=&quot;image-20201106094918602&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;修改ubuntu的网络设置，禁用tcp6。打开/etc/sysctl.conf，添加如下三条设置&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   net.ipv6.conf.all.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
+   net.ipv6.conf.default.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
+   net.ipv6.conf.lo.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;保存后退出，执行sudo sysctl -p。经过测试后发现不是这个原因，可能是因为宿主机和容器端口映射设置错误，将启动容器的端口设置修改为-p 5002:5000后可以成功访问http://localhost:5002。&lt;/p&gt;
+
+&lt;p&gt;为了使gitlab-runner中的docker可以接受http协议，在启动gitlab-runner容器的时候设定tls_vertify=true&lt;/p&gt;
+
+&lt;h3 id=&quot;本地调试&quot;&gt;本地调试&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106102748598.png&quot; alt=&quot;image-20201106102748598&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一直push到gitlab上太麻烦了，所以使用gitlab-runner exec进行本地调试&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;docker test_staging 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在docker的镜像中进行本地调试会出现很多错误：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;无法正确clone&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;修改.gitlab.yml，添加如下内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;variables&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GIT_STRATEGY&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;none&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;docker无法启动&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;启动docker时设置privilege&lt;/p&gt;
+
+&lt;h3 id=&quot;cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201109000402307.png&quot; alt=&quot;image-20201109000402307&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。&lt;/p&gt;
+
+&lt;h2 id=&quot;todo&quot;&gt;ToDo&lt;/h2&gt;
+
+&lt;p&gt;由于rsync同步文件存在着诸多权限问题，所以为每个服务器创建了一个runner，但实际上这些runner所做的工作是相同的，后续需要精简，而且将生产环境与gitlab-runner分离对于部署、调试工作都有很大的帮助，因此后续可能会更改为gitlab+production的工作模式。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 Nov 2020 00:00:00 +0800</pubDate>
+        <link>http://2bebetter.github.io/2020/11/04/gitlab-CI-configure/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/2020/11/04/gitlab-CI-configure/</guid>
+        
+        
+      </item>
     
       <item>
         <title>SDN Related Work</title>
