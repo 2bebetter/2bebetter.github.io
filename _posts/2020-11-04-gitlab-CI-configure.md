@@ -1,5 +1,10 @@
-# Gitlab CI/CD配置
-
+---
+layout: post
+title:  "Gitlab CI/CD配置"
+date:   2020-11-04 10:21:40 +0800
+typora-root-url: ..
+categories: jekyll
+---
 * content
 {:toc}
 
@@ -181,7 +186,7 @@ $ docker run --rm -t -i --add-host="gitlab.cr.net:192.168.102.25" -v /srv/gitlab
   --docker-image python:3.4 \
   --url "http://gitlab.cr.net/" \
   --registration-token $PROJECT_REGISTRATION_TOKEN \
-  --description "vm-04" \
+  --description "crvroutesys" \
   --tag-list "crvroute" \
   --run-untagged="true" \
   --locked="true" \

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  
+  <title>Gitlab CI/CD配置</title>
+  <meta name="description" content="">
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" href="/img/favicon.ico"/>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://2bebetter.github.io/jekyll/2020/11/04/gitlab-CI-configure/">
+
+  <link href="/css/highlight.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- iconfont is in the include -->
+  <!-- <link rel="stylesheet" href="/style/css/iconfont/iconfont.css"> -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+  <!-- <script type="text/javascript">
+    var documentHeight = 0;
+    var topPadding = 15;
+    $(function() {
+        var offset = $("#navigation").offset();
+        documentHeight = $(document).height();
+        $(window).scroll(function() {
+            var sideBarHeight = $("#navigation").height();
+            if ($(window).scrollTop() > offset.top) {
+                var newPosition = ($(window).scrollTop() - offset.top) + topPadding;
+                var maxPosition = documentHeight - (sideBarHeight + 368);
+                if (newPosition > maxPosition) {
+                    newPosition = maxPosition;
+                }
+                $("#navigation").stop().animate({
+                    marginTop: newPosition
+                });
+            } else {
+                $("#navigation").stop().animate({
+                    marginTop: 0
+                });
+            };
+        });
+    });
+    </script> -->
+</head>
+
+
+
+  <body class="bg-grey" gtools_scp_screen_capture_injected="true">
+
+    <header id="header" class="header bg-white">
+  <div class="navbar-container">
+      <a href="/" class="navbar-logo">
+          <img src="/img/logo.jpg" alt="2bebetter" />
+          <span>2bebetter</span>
+      </a>
+      <div class="navbar-menu">
+          <a href="/index">Home</a>
+          <a href="/about">About</a>
+      </div>
+      <div class="navbar-mobile-menu" onclick="">
+          <span class="icon-menu cross"><span class="middle"></span></span>
+          <ul>
+              <li><a href="/index">Home</a></li>
+              <li><a href="/about">About</a></li>
+          </ul>
+      </div>
+  </div>
+</header>
+
+
+    <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
+    <div class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            Gitlab CI/CD配置
+        </h1>
+        <div class="post-date">
+            <time itemprop="datePublished">Nov 04, 2020</time>
+        </div>
+    </div>
+</article>
+<div class="main-container">
+    <div class="post-container">
+        <aside class="navigation" id="navigation">
+            <h1>Contents</h1>
+            <ul class="nav sidenav"></ul>
+        </aside>
+        <article class="post-content">
+            <ul id="markdown-toc">
+  <li><a href="#概览" id="markdown-toc-概览">概览</a></li>
+  <li><a href="#注册gitlab-runner" id="markdown-toc-注册gitlab-runner">注册gitlab runner</a>    <ul>
+      <li><a href="#install-gitlab-runner" id="markdown-toc-install-gitlab-runner">install gitlab-runner</a>        <ul>
+          <li><a href="#install-from-apt" id="markdown-toc-install-from-apt">install from apt</a></li>
+          <li><a href="#install-from-docker" id="markdown-toc-install-from-docker">install from docker</a></li>
+        </ul>
+      </li>
+      <li><a href="#setup-gitlab-runner" id="markdown-toc-setup-gitlab-runner">setup gitlab-runner</a></li>
+      <li><a href="#register-gitlab-runner" id="markdown-toc-register-gitlab-runner">register gitlab-runner</a></li>
+      <li><a href="#run-gitlab-runner" id="markdown-toc-run-gitlab-runner">run gitlab-runner</a></li>
+    </ul>
+  </li>
+  <li><a href="#自定义docker-镜像" id="markdown-toc-自定义docker-镜像">自定义docker 镜像</a>    <ul>
+      <li><a href="#dockerfile" id="markdown-toc-dockerfile">Dockerfile</a></li>
+      <li><a href="#docker-commit" id="markdown-toc-docker-commit">docker commit</a></li>
+    </ul>
+  </li>
+  <li><a href="#trouble-shooting" id="markdown-toc-trouble-shooting">Trouble shooting</a>    <ul>
+      <li><a href="#docker-is-not-active" id="markdown-toc-docker-is-not-active">docker is not active</a></li>
+      <li><a href="#docker-pull-error" id="markdown-toc-docker-pull-error">docker pull error</a></li>
+      <li><a href="#本地调试" id="markdown-toc-本地调试">本地调试</a></li>
+      <li><a href="#cd导致的权限问题" id="markdown-toc-cd导致的权限问题">cd导致的权限问题</a></li>
+    </ul>
+  </li>
+  <li><a href="#todo" id="markdown-toc-todo">ToDo</a></li>
+</ul>
+
+<p>cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。</p>
+
+<h2 id="概览">概览</h2>
+
+<pre><code class="language-mermaid">graph TD;
+	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner1;
+	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner2;
+	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner3;
+	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner4;
+
+</code></pre>
+
+<pre><code class="language-mermaid">graph TD;
+	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner1;
+
+</code></pre>
+
+<p>图示解释：</p>
+
+<p>gitlab runner从repo下拉代码。进行构建，测试等操作，其权限来自与runner配置时使用的token，不需要额外配置，只要正常注册了gitlab runner就可以，由gitlab帮我们搞定。</p>
+
+<h2 id="注册gitlab-runner">注册gitlab runner</h2>
+
+<p>根据文档运行gitlab-runner，并注册到相应的repo即可，参考<a href="https://docs.gitlab.com/ee/ci/">官方文档</a></p>
+
+<h3 id="install-gitlab-runner">install gitlab-runner</h3>
+
+<h4 id="install-from-apt">install from apt</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-L</span> https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | <span class="nb">sudo </span>bash
+apt-get install gitlab-runner
+</code></pre></div></div>
+
+<h4 id="install-from-docker">install from docker</h4>
+
+<ol>
+  <li>修改apt的源：</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+</code></pre></div></div>
+
+<ol>
+  <li>Update the <code class="highlighter-rouge">apt</code> package index and install packages to allow <code class="highlighter-rouge">apt</code> to use a repository over HTTPS:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>su
+<span class="nv">$ </span>apt-get <span class="nt">-y</span> update
+<span class="nv">$ </span>apt-get <span class="nt">-y</span> upgrade
+<span class="nv">$ </span>apt-get <span class="nt">-y</span> install <span class="se">\</span>
+    apt-transport-https <span class="se">\</span>
+    ca-certificates <span class="se">\</span>
+    curl <span class="se">\</span>
+    gnupg-agent <span class="se">\</span>
+    software-properties-common
+</code></pre></div></div>
+
+<ol>
+  <li>Add Docker’s official GPG key:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fsSL</span> http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | <span class="nb">sudo </span>apt-key add -
+</code></pre></div></div>
+
+<p>Verify that you now have the key with the fingerprint<code class="highlighter-rouge">9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88</code>, by searching for the last 8 characters of the fingerprint.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt-key fingerprint 0EBFCD88
+/etc/apt/trusted.gpg
+<span class="nt">--------------------</span>
+pub   1024D/437D05B5 2004-09-12
+      Key fingerprint <span class="o">=</span> 6302 39CC 130E 1A7F D81A  27B1 4097 6EAF 437D 05B5
+uid                  Ubuntu Archive Automatic Signing Key &lt;ftpmaster@ubuntu.com&gt;
+sub   2048g/79164387 2004-09-12
+
+pub   1024D/FBB75451 2004-12-30
+      Key fingerprint <span class="o">=</span> C598 6B4F 1257 FFA8 6632  CBA7 4618 1433 FBB7 5451
+uid                  Ubuntu CD Image Automatic Signing Key &lt;cdimage@ubuntu.com&gt;
+
+pub   4096R/C0B21F32 2012-05-11
+      Key fingerprint <span class="o">=</span> 790B C727 7767 219C 42C8  6F93 3B4F E6AC C0B2 1F32
+uid                  Ubuntu Archive Automatic Signing Key <span class="o">(</span>2012<span class="o">)</span> &lt;ftpmaster@ubuntu.com&gt;
+
+pub   4096R/EFE21092 2012-05-11
+      Key fingerprint <span class="o">=</span> 8439 38DF 228D 22F7 B374  2BC0 D94A A3F0 EFE2 1092
+uid                  Ubuntu CD Image Automatic Signing Key <span class="o">(</span>2012<span class="o">)</span> &lt;cdimage@ubuntu.com&gt;
+
+pub   4096R/0EBFCD88 2017-02-22
+      Key fingerprint <span class="o">=</span> 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid                  Docker Release <span class="o">(</span>CE deb<span class="o">)</span> &lt;docker@docker.com&gt;
+sub   4096R/F273FCD8 2017-02-22
+</code></pre></div></div>
+
+<ol>
+  <li>Use the following command to set up the <strong>stable</strong> repository. To add the <strong>nightly</strong> or <strong>test</strong> repository, add the word <code class="highlighter-rouge">nightly</code> or <code class="highlighter-rouge">test</code> (or both) after the word <code class="highlighter-rouge">stable</code> in the commands below. <a href="https://docs.docker.com/engine/install/">Learn about <strong>nightly</strong> and <strong>test</strong> channels</a>.</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>add-apt-repository <span class="se">\</span>
+   <span class="s2">"deb [arch=amd64] https://download.docker.com/linux/ubuntu </span><span class="se">\</span><span class="s2">
+   </span><span class="k">$(</span>lsb_release <span class="nt">-cs</span><span class="k">)</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+   stable"</span>
+</code></pre></div></div>
+
+<p>在尝试了几次之后发现这一步骤对ubuntu14.04.6并不适用，将源更换为阿里源后成功</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>add-apt-repository <span class="se">\</span>
+   <span class="s2">"deb [arch=amd64]  
+   http://mirrors.aliyun.com/docker-ce/linux/ubuntu </span><span class="se">\</span><span class="s2">
+   </span><span class="k">$(</span>lsb_release <span class="nt">-cs</span><span class="k">)</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+   stable"</span>
+</code></pre></div></div>
+
+<ol>
+  <li>install docker engine</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>apt-get <span class="nt">-y</span> update
+ <span class="nv">$ </span>apt-get <span class="nt">-y</span> install docker-ce
+ <span class="nv">$ </span>service docker start
+</code></pre></div></div>
+
+<h3 id="setup-gitlab-runner">setup gitlab-runner</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># pull image</span>
+<span class="nv">$ </span>docker pull gitlab/gitlab-runner
+Using default tag: latest
+latest: Pulling from gitlab/gitlab-runner
+d72e567cc804: Pull <span class="nb">complete
+</span>0f3630e5ff08: Pull <span class="nb">complete
+</span>b6a83d81d1f4: Pull <span class="nb">complete
+</span>795a1e0f662d: Pull <span class="nb">complete
+</span>e26343354a23: Pull <span class="nb">complete
+</span>df2906232f5a: Pull <span class="nb">complete
+</span>e9423d1eea92: Pull <span class="nb">complete
+</span>45a5486ea8e3: Pull <span class="nb">complete
+</span>Digest: sha256:07d7c6d82b11646aa048427fadd9a1c0e5faa1efcea7e06689eadcf9b52da006
+Status: Downloaded newer image <span class="k">for </span>gitlab/gitlab-runner:latest
+</code></pre></div></div>
+
+<h3 id="register-gitlab-runner">register gitlab-runner</h3>
+
+<ul>
+  <li>register gitlab-runner using docker</li>
+</ul>
+
+<p>参考：<a href="https://docs.gitlab.com/runner/register/index.html#docker">configure gitlab-runner</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">--rm</span> <span class="nt">-t</span> <span class="nt">-i</span> <span class="nt">--add-host</span><span class="o">=</span><span class="s2">"gitlab.cr.net:192.168.102.25"</span> <span class="nt">-v</span> /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
+Runtime platform                                    <span class="nv">arch</span><span class="o">=</span>amd64 <span class="nv">os</span><span class="o">=</span>linux <span class="nv">pid</span><span class="o">=</span>6 <span class="nv">revision</span><span class="o">=</span>fa86510e <span class="nv">version</span><span class="o">=</span>11.9.2
+Running <span class="k">in </span>system-mode.                            
+                                                   
+Please enter the gitlab-ci coordinator URL <span class="o">(</span>e.g. https://gitlab.com/<span class="o">)</span>:
+http://gitlab.cr.net/
+Please enter the gitlab-ci token <span class="k">for </span>this runner:
+<span class="nv">$PROJECT_REGISTRATION_TOKEN</span>
+Please enter the gitlab-ci description <span class="k">for </span>this runner:
+<span class="o">[</span>a902a1cd5b80]: django-test
+Please enter the gitlab-ci tags <span class="k">for </span>this runner <span class="o">(</span>comma separated<span class="o">)</span>:
+django, <span class="nb">test</span>
+</code></pre></div></div>
+
+<p>或者使用命令行注册</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ PROJECT_REGISTRATION_TOKEN</span><span class="o">=</span><span class="s2">"MbagsxLmj9pYugNaiQdL"</span>
+<span class="nv">$ </span>docker run <span class="nt">--rm</span> <span class="nt">-t</span> <span class="nt">-i</span> <span class="nt">--add-host</span><span class="o">=</span><span class="s2">"gitlab.cr.net:192.168.102.25"</span> <span class="nt">-v</span> /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register <span class="se">\</span>
+  <span class="nt">--non-interactive</span> <span class="se">\</span>
+  <span class="nt">--executor</span> <span class="s2">"docker"</span> <span class="se">\</span>
+  <span class="nt">--docker-image</span> python:3.4 <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s2">"http://gitlab.cr.net/"</span> <span class="se">\</span>
+  <span class="nt">--registration-token</span> <span class="nv">$PROJECT_REGISTRATION_TOKEN</span> <span class="se">\</span>
+  <span class="nt">--description</span> <span class="s2">"crvroutesys"</span> <span class="se">\</span>
+  <span class="nt">--tag-list</span> <span class="s2">"crvroute"</span> <span class="se">\</span>
+  <span class="nt">--run-untagged</span><span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
+  <span class="nt">--locked</span><span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
+  <span class="nt">--docker-tlsverify</span> <span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
+  <span class="nt">--docker-extra-hosts</span> <span class="s2">"gitlab.cr.net:192.168.102.25"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>register gitlab-runner</li>
+</ul>
+
+<p>直接使用gitlab-runner注册</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ PROJECT_REGISTRATION_TOKEN</span><span class="o">=</span><span class="s2">"MbagsxLmj9pYugNaiQdL"</span>
+<span class="nv">$ </span>gitlab-runner register <span class="se">\</span>
+  <span class="nt">--non-interactive</span> <span class="se">\</span>
+  <span class="nt">--executor</span> <span class="s2">"docker"</span> <span class="se">\</span>
+  <span class="nt">--docker-image</span> python:3.4 <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s2">"http://gitlab.cr.net/"</span> <span class="se">\</span>
+  <span class="nt">--registration-token</span> <span class="nv">$PROJECT_REGISTRATION_TOKEN</span> <span class="se">\</span>
+  <span class="nt">--description</span> <span class="s2">"vm-04"</span> <span class="se">\</span>
+  <span class="nt">--tag-list</span> <span class="s2">"crvroute"</span> <span class="se">\</span>
+  <span class="nt">--run-untagged</span><span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
+  <span class="nt">--locked</span><span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
+  <span class="nt">--docker-tlsverify</span> <span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
+  <span class="nt">--docker-extra-hosts</span> <span class="s2">"gitlab.cr.net:192.168.102.25"</span>
+</code></pre></div></div>
+
+<p>更多配置请参考文档：     <a href="https://docs.gitlab.com/runner/configuration/advanced-configuration.html">advanced configure</a></p>
+
+<h3 id="run-gitlab-runner">run gitlab-runner</h3>
+
+<p>运行docker中的gitlab-runner镜像</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># run to check it's ok</span>
+<span class="nv">$ </span>docker run <span class="nt">-d</span> <span class="nt">--name</span> gitlab-runner <span class="nt">--restart</span> always <span class="se">\</span>
+   <span class="nt">--add-host</span><span class="o">=</span>gitlab.cr.net:192.168.102.25 <span class="se">\</span>
+   <span class="nt">-v</span> /srv/gitlab-runner/config:/etc/gitlab-runner <span class="se">\</span>
+   <span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+   gitlab/gitlab-runner:latest
+</code></pre></div></div>
+
+<p>或者直接启动gitlab-runner服务</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gitlab-runner start
+</code></pre></div></div>
+
+<h2 id="自定义docker-镜像">自定义docker 镜像</h2>
+
+<p>由于网络的原因，每次下载rsync以及更新requirements.txt都很耗时，可以自己制作docker镜像，将这些依赖都准备好，加快测试和部署的速度。</p>
+
+<h3 id="dockerfile">Dockerfile</h3>
+
+<p>Dockerfile</p>
+
+<pre><code class="language-Dockerfile"># Use an official Python runtime as a parent image
+FROM python:3.4
+
+# Copy the current directory contents into the container at /app
+COPY requirements.txt /requirements.txt
+
+# Install any needed packages specified in requirement.txt
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Update
+RUN apt-get update -y &amp;&amp; \
+  apt-get install -y expect, openssh-client, rsync &amp;&amp; \
+  apt-get install -y software-properties-common &amp;&amp; \
+  apt-get install -y openvswitch-switch &amp;&amp; \
+  apt-get autoremove -y &amp;&amp; \
+  apt-get clean
+
+# Make port 80 available to the world outside this container
+# EXPOSE 80
+
+# Define environment variable
+# ENV NAME World
+
+# Run app.py when the container launches
+# CMD ["python", "app.py"]
+
+</code></pre>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker build <span class="nt">-t</span> crsys-gitlab-runner:2.0 <span class="nb">.</span>
+<span class="nv">$ </span>docker image tag crsys-gitlab-runner:2.0 192.168.120.11:5002/crsys-gitlab-runner:2.0
+<span class="nv">$ </span>docker push 192.168.120.11:5002/crsys-gitlab-runner:2.0
+</code></pre></div></div>
+
+<p>change .gitlab-ci.yml</p>
+
+<h3 id="docker-commit">docker commit</h3>
+
+<p>启动一个docker容器并进入该容器</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-d</span> <span class="nt">-it</span> <span class="nt">--privileged</span> <span class="nt">--name</span> production python:3.4
+<span class="nv">$ </span>docker <span class="nb">exec</span> <span class="nt">-it</span> eb789ffd636f /bin/bash
+</code></pre></div></div>
+
+<p>配置production容器的依赖环境</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@eb789ffd636f:/# cp /etc/apt/sources.list /etc/apt/sources.list_bak
+root@eb789ffd636f:/# sed <span class="nt">-i</span> <span class="s1">'s/deb.debian.org/mirrors.ustc.edu.cn/g'</span> /etc/apt/sources.list
+root@eb789ffd636f:/# apt-get <span class="nt">-y</span> update
+root@eb789ffd636f:/# apt-get install <span class="nt">-y</span> openvswitch-switch
+root@eb789ffd636f:/# mkdir <span class="nt">-p</span> /usr/local/etc/openvswitch
+root@eb789ffd636f:/# mkdir <span class="nt">-p</span> /var/run/openvswitch/
+root@eb789ffd636f:/# ovsdb-tool create usr/local/etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema
+root@eb789ffd636f:/# ovsdb-server /usr/local/etc/openvswitch/conf.db <span class="nt">--remote</span><span class="o">=</span>punix:/var/run/openvswitch/db.sock <span class="nt">--pidfile</span> <span class="nt">--detach</span>
+root@eb789ffd636f:/# ovs-vsctl <span class="nt">--no-wait</span> init
+root@eb789ffd636f:/# ovs-vswitchd <span class="nt">--pidfile</span> <span class="nt">--detach</span> <span class="nt">--log-file</span>
+root@eb789ffd636f:/# pip install virtualenv
+root@eb789ffd636f:/# apt-get install <span class="nt">-y</span> expect openssh-client
+root@eb789ffd636f:/# apt-get install <span class="nt">-y</span> software-properties-common
+root@eb789ffd636f:/# apt-get autoremove <span class="nt">-y</span>
+root@eb789ffd636f:/# apt-get clean
+</code></pre></div></div>
+
+<p>打包该镜像</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker commit <span class="nt">-a</span> <span class="s2">"wmh"</span> <span class="nt">-m</span> <span class="s2">"production env"</span> 容器名称或id crsys-gitlab-runner:3.0
+<span class="nv">$ </span>docker image tag crsys-gitlab-runner:3.0 192.168.120.11:5002/crsys-gitlab-runner:3.0
+<span class="nv">$ </span>docker push 192.168.120.11:5002/crsys-gitlab-runner:3.0
+</code></pre></div></div>
+
+<h2 id="trouble-shooting">Trouble shooting</h2>
+
+<h3 id="docker-is-not-active">docker is not active</h3>
+
+<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-\image-20201104160836058.png" alt="image-20201104160836058" /></p>
+
+<p>这是因为镜像没有启动</p>
+
+<h3 id="docker-pull-error">docker pull error</h3>
+
+<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105203130082.png" alt="image-20201105203130082" /></p>
+
+<p>因为docker在之后的版本中默认使用了https设置，导致协议不匹配所以出现了错误</p>
+
+<p>编辑/etc/default/docker，在其中添加:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">DOCKER_OPTS</span><span class="o">=</span><span class="s2">"--insecure-registry=192.168.120.11:5002"</span>
+</code></pre></div></div>
+
+<p>重启docker后发现仍然存在错误：</p>
+
+<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105204840077.png" alt="image-20201105204840077" /></p>
+
+<p>是因为5000端口已经被uwsgi占用，因此docker无法解析该应用回复的响应。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull registry:2
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 5002:5000 <span class="nt">--restart</span><span class="o">=</span>always registry:2
+</code></pre></div></div>
+
+<p>运行成功之后使用curl http://localhost:5002却出现connect refused的错误，经过对端口进行检查之后发现</p>
+
+<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106094918602.png" alt="image-20201106094918602" /></p>
+
+<p>修改ubuntu的网络设置，禁用tcp6。打开/etc/sysctl.conf，添加如下三条设置</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   net.ipv6.conf.all.disable_ipv6 <span class="o">=</span> 1
+   net.ipv6.conf.default.disable_ipv6 <span class="o">=</span> 1
+   net.ipv6.conf.lo.disable_ipv6 <span class="o">=</span> 1
+</code></pre></div></div>
+
+<p>保存后退出，执行sudo sysctl -p。经过测试后发现不是这个原因，可能是因为宿主机和容器端口映射设置错误，将启动容器的端口设置修改为-p 5002:5000后可以成功访问http://localhost:5002。</p>
+
+<p>为了使gitlab-runner中的docker可以接受http协议，在启动gitlab-runner容器的时候设定tls_vertify=true</p>
+
+<h3 id="本地调试">本地调试</h3>
+
+<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106102748598.png" alt="image-20201106102748598" /></p>
+
+<p>一直push到gitlab上太麻烦了，所以使用gitlab-runner exec进行本地调试</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>gitlab-runner <span class="nb">exec </span>docker test_staging 
+</code></pre></div></div>
+
+<p>在docker的镜像中进行本地调试会出现很多错误：</p>
+
+<ul>
+  <li>无法正确clone</li>
+</ul>
+
+<p>修改.gitlab.yml，添加如下内容：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">variables</span><span class="pi">:</span>
+<span class="err">	</span><span class="na">GIT_STRATEGY</span><span class="pi">:</span> <span class="s">none</span>
+</code></pre></div></div>
+
+<ul>
+  <li>docker无法启动</li>
+</ul>
+
+<p>启动docker时设置privilege</p>
+
+<h3 id="cd导致的权限问题">cd导致的权限问题</h3>
+
+<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201109000402307.png" alt="image-20201109000402307" /></p>
+
+<p>在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。</p>
+
+<h2 id="todo">ToDo</h2>
+
+<p>由于rsync同步文件存在着诸多权限问题，所以为每个服务器创建了一个runner，但实际上这些runner所做的工作是相同的，后续需要精简，而且将生产环境与gitlab-runner分离对于部署、调试工作都有很大的帮助，因此后续可能会更改为gitlab+production的工作模式。</p>
+
+        </article>
+        <!-- <div class="post-content">
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<div id="gitalk-container"></div>
+
+<script data-no-instant type="text/javascript">
+const gitalk = new Gitalk({
+  clientID: '',
+  clientSecret: '',
+  repo: '',
+  owner: '',
+  admin: [''],
+  id: location.pathname,      // Ensure uniqueness and length less than 50
+  distractionFreeMode: true  // Facebook-like distraction free mode
+})
+
+gitalk.render('gitalk-container')
+</script>
+        </div> -->
+    </div>
+</div>
+
+    
+    <footer id="footer" class="footer bg-white">
+  <div class="footer-social">
+      <div class="footer-container clearfix">
+          <div class="social-list">
+              <a href="/"><span class='iconfont icon-home'></span>&nbsp;&nbsp;HOME</a>
+              <a rel="nofollow" target="_blank" href="https://github.com/"><span class='iconfont icon-github'></span>&nbsp;&nbsp;Github</a>
+              <a target="_blank" href="/feed.xml"><span class='iconfont icon-rss'></span>&nbsp;&nbsp;RSS</a>
+          </div>
+      </div>
+  </div>
+
+  <div class="footer-meta">
+    <div class="footer-container">
+        <div class="meta-item meta-social-media">
+          <h3 class="meta-title">2bebetter</h3>
+          <div class="meta-social-media-list">
+            <li><a href="mailto:tbebetter@gmail.com">tbebetter@gmail.com</a></li>
+            
+            <li>
+              <a href="https://github.com/2bebetter"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">2bebetter</span></a>
+
+            </li>
+            
+
+            
+
+            
+            <li>
+              <a href="https://weibo.com/5731069177"><span class="icon icon--weibo"><svg viewBox="0 0 16 16"><path fill="#828282" d="M6.72 13.532c-2.647.26-4.934-.936-5.106-2.675C1.442 9.12 3.45 7.497 6.1 7.235c2.648-.262 4.934.935 5.106 2.674.172 1.738-1.836 3.36-4.485 3.622zm-.697-2.066c-.256.41-.804.588-1.218.4-.407-.186-.527-.66-.27-1.06.252-.396.783-.573 1.193-.4.415.175.547.647.295 1.06zm.845-1.083c-.093.158-.298.234-.458.168-.158-.064-.208-.24-.118-.397.092-.154.29-.23.447-.167.16.058.216.237.128.397zm.118-1.81c-1.26-.328-2.685.3-3.233 1.41-.557 1.134-.018 2.39 1.255 2.802 1.32.426 2.874-.226 3.415-1.45.533-1.194-.133-2.425-1.437-2.762zm5.033-.814c-.226-.068-.38-.114-.263-.41.256-.643.282-1.197.005-1.593-.52-.742-1.94-.702-3.57-.02 0 0-.51.224-.38-.182.25-.805.213-1.48-.177-1.87-.884-.884-3.234.034-5.25 2.05C.876 7.242 0 8.842 0 10.224c0 2.647 3.393 4.255 6.713 4.255 4.35 0 7.246-2.528 7.246-4.535 0-1.213-1.023-1.9-1.94-2.186zm1.275-3.386c-.51-.568-1.266-.783-1.964-.635-.284.06-.465.34-.404.625.06.284.34.467.625.405.342-.072.71.033.962.31.25.278.317.656.21.987-.09.277.062.575.34.665.277.088.574-.063.663-.34.22-.678.083-1.45-.43-2.018zm1.614-1.457c-1.052-1.165-2.602-1.61-4.033-1.304-.33.07-.542.396-.47.727.07.33.395.542.726.47 1.018-.215 2.12.1 2.866.928.746.828.948 1.957.63 2.946-.106.323.07.668.393.772.322.104.667-.072.772-.394V7.06c.448-1.392.165-2.98-.886-4.143z"></path></svg></span><span class="username">盼西楼雅集</span></a>
+            </li>
+            
+          </div>
+        </div>
+
+        <div class="meta-item meta-posts">
+            <h3 class="meta-title">RECENT POSTS</h3>
+            
+                <li>
+                    <a href="/thesis/2020/11/11/gitlab-CI-configure/">Gitlab CI/CD配置</a>
+                </li>
+            
+                <li>
+                    <a href="/jekyll/2020/11/04/gitlab-CI-configure/">Gitlab CI/CD配置</a>
+                </li>
+            
+                <li>
+                    <a href="/thesis/2020/10/27/SDN-related-work/">SDN Related Work</a>
+                </li>
+            
+                <li>
+                    <a href="/thesis/2020/10/26/edge-cloud-network/">Edge Cloud Network</a>
+                </li>
+            
+                <li>
+                    <a href="/thesis/2020/10/24/thesis-reading-01/">Recent Advances of Resource Allocation in Network Function Virtualization</a>
+                </li>
+            
+                <li>
+                    <a href="/jekyll/2020/10/21/personal-blog/">Your first blog</a>
+                </li>
+            
+        </div>
+
+    </div>
+  </div>
+</footer>
+
+<!-- #end -->
+<script src="//cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+<script>
+!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))
+</script>
+<script src="/js/headroom.min.js"></script>
+<script src="/js/nav.min.js"></script>
+<script type="text/javascript">
+  var header = new Headroom(document.getElementById("header"), {
+      tolerance: 10,
+      offset : 80,
+      classes: {
+          initial: "animated",
+          pinned: "slideDown",
+          unpinned: "slideUp"
+      }
+  });
+  header.init();
+</script>
+
+<!-- <script>window.SmoothScrollOptions = { stepSize: 36 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.8/SmoothScroll.min.js"></script>
+<script>
+!window.SmoothScroll && document.write(unescape('%3Cscript src="/style/js/SmoothScroll.min.js"%3E%3C/script%3E'))
+</script> -->
+
+
+
+
+  </body>
+</html>
