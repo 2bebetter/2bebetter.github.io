@@ -21,12 +21,6 @@ graph TD;
 
 ```
 
-```mermaid
-graph TD;
-	Repo-- clone repo, by gitlab internal --> gitlab_runner1;
-
-```
-
 图示解释：
 
 gitlab runner从repo下拉代码。进行构建，测试等操作，其权限来自与runner配置时使用的token，不需要额外配置，只要正常注册了gitlab runner就可以，由gitlab帮我们搞定。

@@ -6,8 +6,8 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 12 Nov 2020 21:23:04 +0800</pubDate>
-    <lastBuildDate>Thu, 12 Nov 2020 21:23:04 +0800</lastBuildDate>
+    <pubDate>Thu, 12 Nov 2020 21:24:43 +0800</pubDate>
+    <lastBuildDate>Thu, 12 Nov 2020 21:24:43 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -850,11 +850,6 @@ docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot
 	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner2;
 	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner3;
 	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner4;
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph TD;
-	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner1;
 
 &lt;/code&gt;&lt;/pre&gt;
 
