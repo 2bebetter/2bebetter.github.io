@@ -601,13 +601,13 @@ The key's randomart image is:
 
 ### docker is not active
 
-![image-20201104160836058](D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-\image-20201104160836058.png)
+![image-20201104160836058](/img/2020-11-11-gitlab-CI-configure/image-20201104160836058.png)
 
 这是因为镜像没有启动
 
 ### docker pull error
 
-![image-20201105203130082](D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105203130082.png)
+![image-20201105203130082](/img/2020-11-11-gitlab-CI-configure/image-20201105203130082.png)
 
 因为docker在之后的版本中默认使用了https设置，导致协议不匹配所以出现了错误
 
@@ -619,7 +619,7 @@ DOCKER_OPTS="--insecure-registry=192.168.120.11:5002"
 
 重启docker后发现仍然存在错误：
 
-![image-20201105204840077](D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105204840077.png)
+![image-20201105204840077](/img/2020-11-11-gitlab-CI-configure/image-20201105204840077.png)
 
 是因为5000端口已经被uwsgi占用，因此docker无法解析该应用回复的响应。
 
@@ -630,7 +630,7 @@ docker run -d -p 5002:5000 --restart=always registry:2
 
 运行成功之后使用curl http://localhost:5002却出现connect refused的错误，经过对端口进行检查之后发现
 
-![image-20201106094918602](D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106094918602.png)
+![image-20201106094918602](/img/2020-11-11-gitlab-CI-configure/image-20201106094918602.png)
 
 修改ubuntu的网络设置，禁用tcp6。打开/etc/sysctl.conf，添加如下三条设置
 
@@ -646,7 +646,7 @@ docker run -d -p 5002:5000 --restart=always registry:2
 
 ### 本地调试
 
-![image-20201106102748598](D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106102748598.png)
+![image-20201106102748598](/img/2020-11-11-gitlab-CI-configure/image-20201106102748598.png)
 
 一直push到gitlab上太麻烦了，所以使用gitlab-runner exec进行本地调试
 
@@ -671,6 +671,6 @@ variables:
 
 ### cd导致的权限问题
 
-![image-20201109000402307](D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201109000402307.png)
+![image-20201109000402307](/img/2020-11-11-gitlab-CI-configure/image-20201109000402307.png)
 
 在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。

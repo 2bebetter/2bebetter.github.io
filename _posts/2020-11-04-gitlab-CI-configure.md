@@ -319,7 +319,7 @@ $ docker push 192.168.120.11:5002/crsys-gitlab-runner:3.0
 
 ### docker is not active
 
-![image-20201104160836058](D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-\image-20201104160836058.png)
+![image-20201104160836058](/img/2020-11-04-gitlab-CI-configure/image-20201104160836058.png)
 
 这是因为镜像没有启动
 

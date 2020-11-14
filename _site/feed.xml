@@ -6,8 +6,8 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 12 Nov 2020 21:24:43 +0800</pubDate>
-    <lastBuildDate>Thu, 12 Nov 2020 21:24:43 +0800</lastBuildDate>
+    <pubDate>Sat, 14 Nov 2020 14:23:09 +0800</pubDate>
+    <lastBuildDate>Sat, 14 Nov 2020 14:23:09 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -729,13 +729,13 @@ The key&lt;span class=&quot;s1&quot;&gt;&#39;s randomart image is:
 
 &lt;h3 id=&quot;docker-is-not-active&quot;&gt;docker is not active&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-\image-20201104160836058.png&quot; alt=&quot;image-20201104160836058&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201104160836058.png&quot; alt=&quot;image-20201104160836058&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这是因为镜像没有启动&lt;/p&gt;
 
 &lt;h3 id=&quot;docker-pull-error&quot;&gt;docker pull error&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105203130082.png&quot; alt=&quot;image-20201105203130082&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201105203130082.png&quot; alt=&quot;image-20201105203130082&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;因为docker在之后的版本中默认使用了https设置，导致协议不匹配所以出现了错误&lt;/p&gt;
 
@@ -746,7 +746,7 @@ The key&lt;span class=&quot;s1&quot;&gt;&#39;s randomart image is:
 
 &lt;p&gt;重启docker后发现仍然存在错误：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105204840077.png&quot; alt=&quot;image-20201105204840077&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201105204840077.png&quot; alt=&quot;image-20201105204840077&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;是因为5000端口已经被uwsgi占用，因此docker无法解析该应用回复的响应。&lt;/p&gt;
 
@@ -756,7 +756,7 @@ docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot
 
 &lt;p&gt;运行成功之后使用curl http://localhost:5002却出现connect refused的错误，经过对端口进行检查之后发现&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106094918602.png&quot; alt=&quot;image-20201106094918602&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201106094918602.png&quot; alt=&quot;image-20201106094918602&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;修改ubuntu的网络设置，禁用tcp6。打开/etc/sysctl.conf，添加如下三条设置&lt;/p&gt;
 
@@ -771,7 +771,7 @@ docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot
 
 &lt;h3 id=&quot;本地调试&quot;&gt;本地调试&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106102748598.png&quot; alt=&quot;image-20201106102748598&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201106102748598.png&quot; alt=&quot;image-20201106102748598&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;一直push到gitlab上太麻烦了，所以使用gitlab-runner exec进行本地调试&lt;/p&gt;
 
@@ -798,7 +798,7 @@ docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot
 
 &lt;h3 id=&quot;cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201109000402307.png&quot; alt=&quot;image-20201109000402307&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201109000402307.png&quot; alt=&quot;image-20201109000402307&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。&lt;/p&gt;
 </description>
@@ -1141,7 +1141,7 @@ root@eb789ffd636f:/# apt-get clean
 
 &lt;h3 id=&quot;docker-is-not-active&quot;&gt;docker is not active&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-\image-20201104160836058.png&quot; alt=&quot;image-20201104160836058&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-04-gitlab-CI-configure/image-20201104160836058.png&quot; alt=&quot;image-20201104160836058&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这是因为镜像没有启动&lt;/p&gt;
 
