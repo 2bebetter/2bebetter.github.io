@@ -101,49 +101,45 @@
         </aside>
         <article class="post-content">
             <ul id="markdown-toc">
-  <li><a href="#cicd配置说明" id="markdown-toc-cicd配置说明">CI/CD配置说明</a>    <ul>
-      <li><a href="#概览" id="markdown-toc-概览">概览</a>        <ul>
-          <li><a href="#架构图" id="markdown-toc-架构图">架构图</a></li>
-          <li><a href="#部署环境" id="markdown-toc-部署环境">部署环境</a></li>
-          <li><a href="#账号和ip" id="markdown-toc-账号和ip">账号和IP</a></li>
+  <li><a href="#概览" id="markdown-toc-概览">概览</a>    <ul>
+      <li><a href="#架构图" id="markdown-toc-架构图">架构图</a></li>
+      <li><a href="#部署环境" id="markdown-toc-部署环境">部署环境</a></li>
+      <li><a href="#账号和ip" id="markdown-toc-账号和ip">账号和IP</a></li>
+    </ul>
+  </li>
+  <li><a href="#gitlab-runner-repo" id="markdown-toc-gitlab-runner-repo">gitlab-runner&lt;-&gt;repo</a>    <ul>
+      <li><a href="#install-gitlab-runner" id="markdown-toc-install-gitlab-runner">install gitlab-runner</a>        <ul>
+          <li><a href="#install-from-apt" id="markdown-toc-install-from-apt">install from apt</a></li>
+          <li><a href="#install-from-docker" id="markdown-toc-install-from-docker">install from docker</a></li>
         </ul>
       </li>
-      <li><a href="#gitlab-runner-repo" id="markdown-toc-gitlab-runner-repo">gitlab-runner&lt;-&gt;repo</a>        <ul>
-          <li><a href="#install-gitlab-runner" id="markdown-toc-install-gitlab-runner">install gitlab-runner</a>            <ul>
-              <li><a href="#install-from-apt" id="markdown-toc-install-from-apt">install from apt</a></li>
-              <li><a href="#install-from-docker" id="markdown-toc-install-from-docker">install from docker</a></li>
-            </ul>
-          </li>
-          <li><a href="#setup-gitlab-runner" id="markdown-toc-setup-gitlab-runner">setup gitlab-runner</a></li>
-          <li><a href="#register-gitlab-runner" id="markdown-toc-register-gitlab-runner">register gitlab-runner</a></li>
-          <li><a href="#run-gitlab-runner" id="markdown-toc-run-gitlab-runner">run gitlab-runner</a></li>
-          <li><a href="#自定义docker-镜像" id="markdown-toc-自定义docker-镜像">自定义docker 镜像</a>            <ul>
-              <li><a href="#dockerfile" id="markdown-toc-dockerfile">Dockerfile</a></li>
-              <li><a href="#docker-commit" id="markdown-toc-docker-commit">docker commit</a></li>
-            </ul>
-          </li>
-          <li><a href="#runner变量" id="markdown-toc-runner变量">runner变量</a></li>
+      <li><a href="#setup-gitlab-runner" id="markdown-toc-setup-gitlab-runner">setup gitlab-runner</a></li>
+      <li><a href="#register-gitlab-runner" id="markdown-toc-register-gitlab-runner">register gitlab-runner</a></li>
+      <li><a href="#run-gitlab-runner" id="markdown-toc-run-gitlab-runner">run gitlab-runner</a></li>
+      <li><a href="#自定义docker-镜像" id="markdown-toc-自定义docker-镜像">自定义docker 镜像</a>        <ul>
+          <li><a href="#dockerfile" id="markdown-toc-dockerfile">Dockerfile</a></li>
+          <li><a href="#docker-commit" id="markdown-toc-docker-commit">docker commit</a></li>
         </ul>
       </li>
-      <li><a href="#gitlab-runner---production_env" id="markdown-toc-gitlab-runner---production_env">gitlab-runner &lt;-&gt; production_env</a>        <ul>
-          <li><a href="#ansible" id="markdown-toc-ansible">ansible</a></li>
-          <li><a href="#ansible-playbook" id="markdown-toc-ansible-playbook">ansible-playbook</a></li>
-          <li><a href="#key-pair" id="markdown-toc-key-pair">key pair</a></li>
-          <li><a href="#配置生产环境" id="markdown-toc-配置生产环境">配置生产环境</a></li>
-        </ul>
-      </li>
-      <li><a href="#production_env---repo" id="markdown-toc-production_env---repo">production_env -&gt; repo</a></li>
-      <li><a href="#trouble-shooting" id="markdown-toc-trouble-shooting">Trouble shooting</a>        <ul>
-          <li><a href="#docker-is-not-active" id="markdown-toc-docker-is-not-active">docker is not active</a></li>
-          <li><a href="#docker-pull-error" id="markdown-toc-docker-pull-error">docker pull error</a></li>
-          <li><a href="#本地调试" id="markdown-toc-本地调试">本地调试</a></li>
-          <li><a href="#cd导致的权限问题" id="markdown-toc-cd导致的权限问题">cd导致的权限问题</a></li>
-        </ul>
-      </li>
+      <li><a href="#runner变量" id="markdown-toc-runner变量">runner变量</a></li>
+    </ul>
+  </li>
+  <li><a href="#gitlab-runner---production_env" id="markdown-toc-gitlab-runner---production_env">gitlab-runner &lt;-&gt; production_env</a>    <ul>
+      <li><a href="#ansible" id="markdown-toc-ansible">ansible</a></li>
+      <li><a href="#ansible-playbook" id="markdown-toc-ansible-playbook">ansible-playbook</a></li>
+      <li><a href="#key-pair" id="markdown-toc-key-pair">key pair</a></li>
+      <li><a href="#配置生产环境" id="markdown-toc-配置生产环境">配置生产环境</a></li>
+    </ul>
+  </li>
+  <li><a href="#production_env---repo" id="markdown-toc-production_env---repo">production_env -&gt; repo</a></li>
+  <li><a href="#trouble-shooting" id="markdown-toc-trouble-shooting">Trouble shooting</a>    <ul>
+      <li><a href="#docker-is-not-active" id="markdown-toc-docker-is-not-active">docker is not active</a></li>
+      <li><a href="#docker-pull-error" id="markdown-toc-docker-pull-error">docker pull error</a></li>
+      <li><a href="#本地调试" id="markdown-toc-本地调试">本地调试</a></li>
+      <li><a href="#cd导致的权限问题" id="markdown-toc-cd导致的权限问题">cd导致的权限问题</a></li>
     </ul>
   </li>
 </ul>
-<h1 id="cicd配置说明">CI/CD配置说明</h1>
 
 <p>cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。</p>
 

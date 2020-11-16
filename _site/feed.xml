@@ -6,56 +6,52 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 14 Nov 2020 14:23:09 +0800</pubDate>
-    <lastBuildDate>Sat, 14 Nov 2020 14:23:09 +0800</lastBuildDate>
+    <pubDate>Mon, 16 Nov 2020 15:50:01 +0800</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2020 15:50:01 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>Gitlab CI/CD配置</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#cicd配置说明&quot; id=&quot;markdown-toc-cicd配置说明&quot;&gt;CI/CD配置说明&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#概览&quot; id=&quot;markdown-toc-概览&quot;&gt;概览&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#架构图&quot; id=&quot;markdown-toc-架构图&quot;&gt;架构图&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#部署环境&quot; id=&quot;markdown-toc-部署环境&quot;&gt;部署环境&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#账号和ip&quot; id=&quot;markdown-toc-账号和ip&quot;&gt;账号和IP&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#概览&quot; id=&quot;markdown-toc-概览&quot;&gt;概览&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#架构图&quot; id=&quot;markdown-toc-架构图&quot;&gt;架构图&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#部署环境&quot; id=&quot;markdown-toc-部署环境&quot;&gt;部署环境&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#账号和ip&quot; id=&quot;markdown-toc-账号和ip&quot;&gt;账号和IP&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#gitlab-runner-repo&quot; id=&quot;markdown-toc-gitlab-runner-repo&quot;&gt;gitlab-runner&amp;lt;-&amp;gt;repo&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#install-gitlab-runner&quot; id=&quot;markdown-toc-install-gitlab-runner&quot;&gt;install gitlab-runner&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#install-from-apt&quot; id=&quot;markdown-toc-install-from-apt&quot;&gt;install from apt&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#install-from-docker&quot; id=&quot;markdown-toc-install-from-docker&quot;&gt;install from docker&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#gitlab-runner-repo&quot; id=&quot;markdown-toc-gitlab-runner-repo&quot;&gt;gitlab-runner&amp;lt;-&amp;gt;repo&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#install-gitlab-runner&quot; id=&quot;markdown-toc-install-gitlab-runner&quot;&gt;install gitlab-runner&lt;/a&gt;            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#install-from-apt&quot; id=&quot;markdown-toc-install-from-apt&quot;&gt;install from apt&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#install-from-docker&quot; id=&quot;markdown-toc-install-from-docker&quot;&gt;install from docker&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#setup-gitlab-runner&quot; id=&quot;markdown-toc-setup-gitlab-runner&quot;&gt;setup gitlab-runner&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#register-gitlab-runner&quot; id=&quot;markdown-toc-register-gitlab-runner&quot;&gt;register gitlab-runner&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#run-gitlab-runner&quot; id=&quot;markdown-toc-run-gitlab-runner&quot;&gt;run gitlab-runner&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#自定义docker-镜像&quot; id=&quot;markdown-toc-自定义docker-镜像&quot;&gt;自定义docker 镜像&lt;/a&gt;            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#dockerfile&quot; id=&quot;markdown-toc-dockerfile&quot;&gt;Dockerfile&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#docker-commit&quot; id=&quot;markdown-toc-docker-commit&quot;&gt;docker commit&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#runner变量&quot; id=&quot;markdown-toc-runner变量&quot;&gt;runner变量&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#setup-gitlab-runner&quot; id=&quot;markdown-toc-setup-gitlab-runner&quot;&gt;setup gitlab-runner&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#register-gitlab-runner&quot; id=&quot;markdown-toc-register-gitlab-runner&quot;&gt;register gitlab-runner&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#run-gitlab-runner&quot; id=&quot;markdown-toc-run-gitlab-runner&quot;&gt;run gitlab-runner&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#自定义docker-镜像&quot; id=&quot;markdown-toc-自定义docker-镜像&quot;&gt;自定义docker 镜像&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#dockerfile&quot; id=&quot;markdown-toc-dockerfile&quot;&gt;Dockerfile&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#docker-commit&quot; id=&quot;markdown-toc-docker-commit&quot;&gt;docker commit&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#gitlab-runner---production_env&quot; id=&quot;markdown-toc-gitlab-runner---production_env&quot;&gt;gitlab-runner &amp;lt;-&amp;gt; production_env&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#ansible&quot; id=&quot;markdown-toc-ansible&quot;&gt;ansible&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#ansible-playbook&quot; id=&quot;markdown-toc-ansible-playbook&quot;&gt;ansible-playbook&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#key-pair&quot; id=&quot;markdown-toc-key-pair&quot;&gt;key pair&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#配置生产环境&quot; id=&quot;markdown-toc-配置生产环境&quot;&gt;配置生产环境&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#production_env---repo&quot; id=&quot;markdown-toc-production_env---repo&quot;&gt;production_env -&amp;gt; repo&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#trouble-shooting&quot; id=&quot;markdown-toc-trouble-shooting&quot;&gt;Trouble shooting&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#docker-is-not-active&quot; id=&quot;markdown-toc-docker-is-not-active&quot;&gt;docker is not active&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#docker-pull-error&quot; id=&quot;markdown-toc-docker-pull-error&quot;&gt;docker pull error&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#本地调试&quot; id=&quot;markdown-toc-本地调试&quot;&gt;本地调试&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#cd导致的权限问题&quot; id=&quot;markdown-toc-cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#runner变量&quot; id=&quot;markdown-toc-runner变量&quot;&gt;runner变量&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#gitlab-runner---production_env&quot; id=&quot;markdown-toc-gitlab-runner---production_env&quot;&gt;gitlab-runner &amp;lt;-&amp;gt; production_env&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#ansible&quot; id=&quot;markdown-toc-ansible&quot;&gt;ansible&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ansible-playbook&quot; id=&quot;markdown-toc-ansible-playbook&quot;&gt;ansible-playbook&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#key-pair&quot; id=&quot;markdown-toc-key-pair&quot;&gt;key pair&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#配置生产环境&quot; id=&quot;markdown-toc-配置生产环境&quot;&gt;配置生产环境&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#production_env---repo&quot; id=&quot;markdown-toc-production_env---repo&quot;&gt;production_env -&amp;gt; repo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#trouble-shooting&quot; id=&quot;markdown-toc-trouble-shooting&quot;&gt;Trouble shooting&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#docker-is-not-active&quot; id=&quot;markdown-toc-docker-is-not-active&quot;&gt;docker is not active&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#docker-pull-error&quot; id=&quot;markdown-toc-docker-pull-error&quot;&gt;docker pull error&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#本地调试&quot; id=&quot;markdown-toc-本地调试&quot;&gt;本地调试&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#cd导致的权限问题&quot; id=&quot;markdown-toc-cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&quot;cicd配置说明&quot;&gt;CI/CD配置说明&lt;/h1&gt;
 
 &lt;p&gt;cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。&lt;/p&gt;
 

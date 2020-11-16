@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+<article class="main-container" itemscope itemtype="http://schema.org/Article">
+    <div class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            {{ page.title }}
+        </h1>
+        <div class="post-date">
+            <time itemprop="datePublished">{{ page.date | date: "%b %d, %Y" }}</time>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <div class="navigation" id="navigation">
+            <h1 class="navigation-title">Contents</h1>
+            <div class="catalog-listDiv" style="max-height: 575px;overflow: auto;border-bottom: 1px solid #e2e2e2;">
+                <ul class="catalog-list sidenav"></ul>
+            </div>
+        </div>
+        <article class="post-content">
+            <div class="doc">
+                {{ content }}
+            </div>
+        </article>
+        <!-- <div class="post-content">
+        {% include comment.html %}
+        </div> -->
+    </div>
+</article>

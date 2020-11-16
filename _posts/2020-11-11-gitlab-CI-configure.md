@@ -8,7 +8,6 @@ categories: thesis
 
 * content
 {:toc}
-# CI/CD配置说明
 
 cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。
 
