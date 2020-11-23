@@ -15,7 +15,7 @@
   <link rel="apple-touch-icon" href="/img/favicon.ico"/>
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://2bebetter.github.io/jekyll/2020/11/04/gitlab-CI-configure/">
+  <link rel="canonical" href="http://2bebetter.github.io/gitlab/2020/11/11/gitlab-CI-configure/">
 
   <link href="/css/highlight.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
@@ -89,7 +89,7 @@
             Gitlab CI/CD配置
         </h1>
         <div class="post-date">
-            <time itemprop="datePublished">Nov 04, 2020</time>
+            <time itemprop="datePublished">Nov 11, 2020</time>
         </div>
     </div>
 </article>
@@ -101,8 +101,13 @@
         </aside>
         <article class="post-content">
             <ul id="markdown-toc">
-  <li><a href="#概览" id="markdown-toc-概览">概览</a></li>
-  <li><a href="#注册gitlab-runner" id="markdown-toc-注册gitlab-runner">注册gitlab runner</a>    <ul>
+  <li><a href="#概览" id="markdown-toc-概览">概览</a>    <ul>
+      <li><a href="#架构图" id="markdown-toc-架构图">架构图</a></li>
+      <li><a href="#部署环境" id="markdown-toc-部署环境">部署环境</a></li>
+      <li><a href="#账号和ip" id="markdown-toc-账号和ip">账号和IP</a></li>
+    </ul>
+  </li>
+  <li><a href="#gitlab-runner-repo" id="markdown-toc-gitlab-runner-repo">gitlab-runner&lt;-&gt;repo</a>    <ul>
       <li><a href="#install-gitlab-runner" id="markdown-toc-install-gitlab-runner">install gitlab-runner</a>        <ul>
           <li><a href="#install-from-apt" id="markdown-toc-install-from-apt">install from apt</a></li>
           <li><a href="#install-from-docker" id="markdown-toc-install-from-docker">install from docker</a></li>
@@ -111,13 +116,22 @@
       <li><a href="#setup-gitlab-runner" id="markdown-toc-setup-gitlab-runner">setup gitlab-runner</a></li>
       <li><a href="#register-gitlab-runner" id="markdown-toc-register-gitlab-runner">register gitlab-runner</a></li>
       <li><a href="#run-gitlab-runner" id="markdown-toc-run-gitlab-runner">run gitlab-runner</a></li>
+      <li><a href="#自定义docker-镜像" id="markdown-toc-自定义docker-镜像">自定义docker 镜像</a>        <ul>
+          <li><a href="#dockerfile" id="markdown-toc-dockerfile">Dockerfile</a></li>
+          <li><a href="#docker-commit" id="markdown-toc-docker-commit">docker commit</a></li>
+        </ul>
+      </li>
+      <li><a href="#runner变量" id="markdown-toc-runner变量">runner变量</a></li>
     </ul>
   </li>
-  <li><a href="#自定义docker-镜像" id="markdown-toc-自定义docker-镜像">自定义docker 镜像</a>    <ul>
-      <li><a href="#dockerfile" id="markdown-toc-dockerfile">Dockerfile</a></li>
-      <li><a href="#docker-commit" id="markdown-toc-docker-commit">docker commit</a></li>
+  <li><a href="#gitlab-runner---production_env" id="markdown-toc-gitlab-runner---production_env">gitlab-runner &lt;-&gt; production_env</a>    <ul>
+      <li><a href="#ansible" id="markdown-toc-ansible">ansible</a></li>
+      <li><a href="#ansible-playbook" id="markdown-toc-ansible-playbook">ansible-playbook</a></li>
+      <li><a href="#key-pair" id="markdown-toc-key-pair">key pair</a></li>
+      <li><a href="#配置生产环境" id="markdown-toc-配置生产环境">配置生产环境</a></li>
     </ul>
   </li>
+  <li><a href="#production_env---repo" id="markdown-toc-production_env---repo">production_env -&gt; repo</a></li>
   <li><a href="#trouble-shooting" id="markdown-toc-trouble-shooting">Trouble shooting</a>    <ul>
       <li><a href="#docker-is-not-active" id="markdown-toc-docker-is-not-active">docker is not active</a></li>
       <li><a href="#docker-pull-error" id="markdown-toc-docker-pull-error">docker pull error</a></li>
@@ -125,28 +139,159 @@
       <li><a href="#cd导致的权限问题" id="markdown-toc-cd导致的权限问题">cd导致的权限问题</a></li>
     </ul>
   </li>
-  <li><a href="#todo" id="markdown-toc-todo">ToDo</a></li>
 </ul>
 
 <p>cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。</p>
 
 <h2 id="概览">概览</h2>
 
-<pre><code class="language-mermaid">graph TD;
-	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner1;
-	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner2;
-	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner3;
-	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner4;
+<h3 id="架构图">架构图</h3>
 
+<pre><code class="language-mermaid">graph LR;
+	Repo-- clone repo, by gitlab internal --&gt; gitlab_runner;
+
+	gitlab_runner-- clone repo, private ssh key by manual configure --&gt; vm01;
+	
+	gitlab_runner-- clone repo, private ssh key by manual configure --&gt; vm02;
+	
+	gitlab_runner-- clone repo, private ssh key by manual configure --&gt; vm03;
+	
+	gitlab_runner-- clone repo, private ssh key by manual configure --&gt; vm04;
+	
 </code></pre>
 
 <p>图示解释：</p>
 
-<p>gitlab runner从repo下拉代码。进行构建，测试等操作，其权限来自与runner配置时使用的token，不需要额外配置，只要正常注册了gitlab runner就可以，由gitlab帮我们搞定。</p>
+<ol>
+  <li>gitlab runner从repo下拉代码。进行构建，测试等操作，其权限来自与runner配置时使用的token，不需要额外配置，只要正常注册了gitlab runner就可以，由gitlab帮我们搞定；</li>
+  <li>gitlab runner通过sshkey 来访问production_env进行部署代码。需要登录到production_env，使用的ssh private key，需要提前手动设置，生成ssh key pair，将private key保存到gitlab CI/CD设置的secret变量中，public key通过ssh-copy-id上传到production_env；</li>
+  <li>production_env访问repo下拉代码。需要提前手动配置ssh key，这不仅是为了部署时使用，紧急需要时，可以登录production_env手动下拉代码。ssh key配置和用户在gitlab或者github上传ssh key是一样的。</li>
+</ol>
 
-<h2 id="注册gitlab-runner">注册gitlab runner</h2>
+<p>关于为什么要单独设置gitlab-runner：</p>
 
-<p>根据文档运行gitlab-runner，并注册到相应的repo即可，参考<a href="https://docs.gitlab.com/ee/ci/">官方文档</a></p>
+<ol>
+  <li>便于项目的迁移，只需要调整少部分runner的设置即可以重新复现整个项目。</li>
+  <li>对于一些企业和公司，runner大多是作为单独的服务被出租的，也就意味着开发者只能接触到自己的开发环境，而不需要关心runner和git之间的互动，减少开发的工作量。</li>
+</ol>
+
+<p>但是这样同样也会带来一些不便利的地方，例如在添加生产环境之前需要单独配置生产服务器所需的环境。</p>
+
+<h3 id="部署环境">部署环境</h3>
+
+<ul>
+  <li>
+    <p>gitlab-runner</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>环境</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">操作系统</code></td>
+          <td>ubuntu</td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">python</code></td>
+          <td>3.5</td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">docker</code></td>
+          <td>image:<br />   gitlab-runner:lastest<br />   localhost:5000/</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>production_env</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>环境</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">操作系统</code></td>
+          <td>ubuntu 14.04.5 LTS</td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">python</code>s</td>
+          <td>3.5</td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">virtualenv</code></td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">openvswitch-switch</code></td>
+          <td>2.0.2</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="账号和ip">账号和IP</h3>
+
+<ul>
+  <li>
+    <p>gitlab-runner</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>环境</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">IP</code></td>
+          <td>10.10.20.3</td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">ACCOUNT</code></td>
+          <td>ubuntu</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>production_env</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>环境</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">IP</code></td>
+          <td>192.168.120.11-14</td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">ACCOUNT</code></td>
+          <td>ubuntu</td>
+        </tr>
+        <tr>
+          <td>PASSWD</td>
+          <td>crnetworksys</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="gitlab-runner-repo">gitlab-runner&lt;-&gt;repo</h2>
 
 <h3 id="install-gitlab-runner">install gitlab-runner</h3>
 
@@ -300,7 +445,7 @@ django, <span class="nb">test</span>
   <span class="nt">--docker-image</span> python:3.4 <span class="se">\</span>
   <span class="nt">--url</span> <span class="s2">"http://gitlab.cr.net/"</span> <span class="se">\</span>
   <span class="nt">--registration-token</span> <span class="nv">$PROJECT_REGISTRATION_TOKEN</span> <span class="se">\</span>
-  <span class="nt">--description</span> <span class="s2">"crvroutesys"</span> <span class="se">\</span>
+  <span class="nt">--description</span> <span class="s2">"vm-04"</span> <span class="se">\</span>
   <span class="nt">--tag-list</span> <span class="s2">"crvroute"</span> <span class="se">\</span>
   <span class="nt">--run-untagged</span><span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
   <span class="nt">--locked</span><span class="o">=</span><span class="s2">"true"</span> <span class="se">\</span>
@@ -348,11 +493,11 @@ django, <span class="nb">test</span>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gitlab-runner start
 </code></pre></div></div>
 
-<h2 id="自定义docker-镜像">自定义docker 镜像</h2>
+<h3 id="自定义docker-镜像">自定义docker 镜像</h3>
 
-<p>由于网络的原因，每次下载rsync以及更新requirements.txt都很耗时，可以自己制作docker镜像，将这些依赖都准备好，加快测试和部署的速度。</p>
+<p>由于runner需要与生产环境之间进行通信，所以需要openssl、rsync等应用软件，而由于网络的原因，配置runner所需的环境会花费很长的时间，所以可以自己制作docker镜像，将这些依赖都准备好，加快测试和部署的速度。</p>
 
-<h3 id="dockerfile">Dockerfile</h3>
+<h4 id="dockerfile">Dockerfile</h4>
 
 <p>Dockerfile</p>
 
@@ -390,11 +535,11 @@ RUN apt-get update -y &amp;&amp; \
 
 <p>change .gitlab-ci.yml</p>
 
-<h3 id="docker-commit">docker commit</h3>
+<h4 id="docker-commit">docker commit</h4>
 
 <p>启动一个docker容器并进入该容器</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-d</span> <span class="nt">-it</span> <span class="nt">--privileged</span> <span class="nt">--name</span> production python:3.4
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-d</span> <span class="nt">-it</span> <span class="nt">--privileged</span> <span class="nt">--name</span> production python:3.5
 <span class="nv">$ </span>docker <span class="nb">exec</span> <span class="nt">-it</span> eb789ffd636f /bin/bash
 </code></pre></div></div>
 
@@ -424,17 +569,257 @@ root@eb789ffd636f:/# apt-get clean
 <span class="nv">$ </span>docker push 192.168.120.11:5002/crsys-gitlab-runner:3.0
 </code></pre></div></div>
 
+<h3 id="runner变量">runner变量</h3>
+
+<p>gitlab的变量配置如下：</p>
+
+<p><img src="/img/2020-11-11-gitlab-CI-configure/image-20201112202853609.png" alt="image-20201112202853609" /></p>
+
+<ul>
+  <li>deploy_key_file：存放生产环境中用来访问gitlab的公钥文件路径。</li>
+  <li>flask_dir：flask app所在的路径</li>
+  <li>git_repo_src：git仓库地址</li>
+  <li>prod_env_passwd：生产环境的sudo密码</li>
+  <li>production_dir：生产环境存放从git上拉取的文件路径</li>
+  <li>ssh_private_key：gitlab-runner免密登录生产环境所需的私钥</li>
+  <li>virtualenv_dirname：虚拟环境的名称</li>
+</ul>
+
+<h2 id="gitlab-runner---production_env">gitlab-runner &lt;-&gt; production_env</h2>
+
+<p>gitlab-runner的管道中可以存在多个task，一般默认为test build deploy。在这些阶段中设置runner与production通信，下发相关命令到生产环境中实现项目的部署。</p>
+
+<h3 id="ansible">ansible</h3>
+
+<p>ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能，Ansible默认通过 SSH 协议管理机器。</p>
+
+<p>ansible是基于模块工作的，本身没有批量部署的能力。真正具有批量部署的是ansible所运行的模块，ansible只是提供一种框架。主要包括：</p>
+
+<p>(1)、连接插件connection plugins：负责和被监控端实现通信；</p>
+
+<p>(2)、host inventory：指定操作的主机，是一个配置文件里面定义监控的主机；</p>
+
+<p>(3)、各种模块核心模块、command模块、自定义模块；</p>
+
+<p>(4)、借助于插件完成记录日志邮件等功能；</p>
+
+<p>(5)、playbook：剧本执行多个任务时，非必需可以让节点一次性运行多个任务。</p>
+
+<h3 id="ansible-playbook">ansible-playbook</h3>
+
+<p>Playbooks 与 adhoc 相比,是一种完全不同的运用 ansible 的方式.</p>
+
+<p>简单来说,playbooks 是一种简单的配置管理系统与多机器部署系统的基础.与现有的其他系统有不同之处,且非常适合于复杂应用的部署.</p>
+
+<p>Playbooks 可用于声明配置,更强大的地方在于,在 playbooks 中可以编排有序的执行过程,甚至于做到在多组机器间,来回有序的执行特别指定的步骤.并且可以同步或异步的发起任务.</p>
+
+<p>我们使用 adhoc 时,主要是使用 /usr/bin/ansible 程序执行任务.而使用 playbooks 时,更多是将之放入源码控制之中,用之推送你的配置或是用于确认你的远程系统的配置是否符合配置规范.</p>
+
+<p>Playbooks 的格式是YAML（详见:<a href="http://www.ansible.com.cn/docs/YAMLSyntax.html"><em>YAML 语法</em></a>）,语法做到最小化,意在避免 playbooks 成为一种编程语言或是脚本,但它也并不是一个配置模型或过程的模型.</p>
+
+<p>playbook 由一个或多个 ‘plays’ 组成.它的内容是一个以 ‘plays’ 为元素的列表.</p>
+
+<p>在 play 之中,一组机器被映射为定义好的角色.在 ansible 中,play 的内容,被称为 tasks,即任务.在基本层次的应用中,一个任务是一个对 ansible 模块的调用.</p>
+
+<p>配置文件的代码如下所示，可以分为三个阶段：</p>
+
+<ol>
+  <li>
+    <p>拉取代码</p>
+
+    <p>设置生产环境从gitlab-runner中拉取代码，避免runner和production_env之间的文件传输。</p>
+  </li>
+  <li>
+    <p>安装虚拟环境</p>
+
+    <p>将项目所需的应用软件安装到虚拟环境中，注意虚拟环境中的pip版本可能和实际的生产环境中的有所不同。</p>
+  </li>
+  <li>
+    <p>启动项目</p>
+
+    <p>创建项目所需的日志和运行文件夹：/var/log/cr-vroute /var/run/cr-vroute。</p>
+
+    <p>调整权限后重启服务。</p>
+  </li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s">"pull code from  to "</span>
+  <span class="n">git</span><span class="p">:</span>
+    <span class="n">repo</span><span class="p">:</span> <span class="s">""</span>
+    <span class="n">dest</span><span class="p">:</span> <span class="s">""</span>
+    <span class="n">version</span><span class="p">:</span> <span class="s">""</span>
+    <span class="n">clone</span><span class="p">:</span> <span class="n">yes</span>
+    <span class="n">accept_hostkey</span><span class="p">:</span> <span class="n">yes</span>
+    <span class="n">key_file</span><span class="p">:</span> <span class="s">""</span>
+    <span class="n">force</span><span class="p">:</span> <span class="n">true</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">install</span> <span class="n">python</span> <span class="n">requirements</span> <span class="n">to</span> <span class="n">virtualenv</span>
+  <span class="n">become</span><span class="p">:</span> <span class="n">yes</span>
+  <span class="n">become_method</span><span class="p">:</span> <span class="n">sudo</span>
+  <span class="n">pip</span><span class="p">:</span> 
+    <span class="n">virtualenv</span><span class="p">:</span> <span class="s">"//"</span>
+    <span class="n">virtualenv_python</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span>
+    <span class="n">requirements</span><span class="p">:</span> <span class="s">"/requirements.txt"</span>
+    <span class="n">extra_args</span><span class="p">:</span> <span class="s">"-i https://pypi.tuna.tsinghua.edu.cn/simple/ --trusted-host pypi.tuna.tsinghua.edu.cn"</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">create</span> <span class="n">log</span> <span class="n">dictionary</span> <span class="k">if</span> <span class="n">it</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exists</span>
+  <span class="n">become</span><span class="p">:</span> <span class="n">yes</span>
+  <span class="n">become_method</span><span class="p">:</span> <span class="n">sudo</span>
+  <span class="nb">file</span><span class="p">:</span>
+    <span class="n">path</span><span class="p">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">cr</span><span class="o">-</span><span class="n">vroute</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">directory</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="s">'0755'</span>
+  <span class="n">tags</span><span class="p">:</span> <span class="n">dictionary</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">create</span> <span class="n">pid</span> <span class="n">dictionary</span> <span class="k">if</span> <span class="n">it</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exists</span>
+  <span class="n">become</span><span class="p">:</span> <span class="n">yes</span>
+  <span class="n">become_method</span><span class="p">:</span> <span class="n">sudo</span>
+  <span class="nb">file</span><span class="p">:</span>
+    <span class="n">path</span><span class="p">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">cr</span><span class="o">-</span><span class="n">vroute</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">directory</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="s">'0755'</span>
+  <span class="n">tags</span><span class="p">:</span> <span class="n">dictionary</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="nb">set</span> <span class="n">service</span> <span class="n">scripts</span> <span class="n">mode</span>
+  <span class="nb">file</span><span class="p">:</span>
+    <span class="n">path</span><span class="p">:</span> <span class="s">"/bin/cr-vroute"</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">touch</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="s">'0755'</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">stop</span> <span class="n">service</span> <span class="n">cr</span><span class="o">-</span><span class="n">vroute</span>
+  <span class="n">become</span><span class="p">:</span> <span class="n">yes</span>
+  <span class="n">become_method</span><span class="p">:</span> <span class="n">sudo</span>
+  <span class="n">shell</span><span class="p">:</span> <span class="s">"/bin/cr-vroute stop"</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">start</span> <span class="n">service</span> <span class="n">cr</span><span class="o">-</span><span class="n">vroute</span>
+  <span class="n">become</span><span class="p">:</span> <span class="n">yes</span>
+  <span class="n">become_method</span><span class="p">:</span> <span class="n">sudo</span>
+  <span class="n">shell</span><span class="p">:</span> <span class="s">"/bin/cr-vroute start"</span>
+</code></pre></div></div>
+
+<h3 id="key-pair">key pair</h3>
+
+<p>利用ssh的密钥对实现gitlab-runner和生产环境之间的免密登录。首先生成一对秘钥，将公钥发送到ubuntu@ADDR_VM01，并在gitlab CI/CD配置中添加secret变量：</p>
+
+<ul>
+  <li>变量名为 SSH_PRIVATE_KEY，内容填写输出的私钥</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@eb789ffd636f:/# ssh-keygen
+Generating public/private rsa key pair.
+Enter file <span class="k">in </span>which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>: 
+Created directory <span class="s1">'/root/.ssh'</span><span class="nb">.</span>
+Enter passphrase <span class="o">(</span>empty <span class="k">for </span>no passphrase<span class="o">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved <span class="k">in</span> /root/.ssh/id_rsa.
+Your public key has been saved <span class="k">in</span> /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:jBNpEw4YHXCax+eu6JU6KOakMs+F9h7LGZSGavq2IuI root@baseimage
+The key<span class="s1">'s randomart image is:
++---[RSA 2048]----+
+|  o=+..          |
+|  .=.o o         |
+|  o o B          |
+|   o = =         |
+|  . + + S        |
+| . + o .         |
+|.+o * .          |
+|&amp;+oB *           |
+|@EO+B            |
++----[SHA256]-----+
+root@baseimage:/# ssh-copy-id -i ~/.ssh/id_rsa username@$production_env
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+nsr@192.168.xxx.xxx'</span>s password: 
+
+Number of key<span class="o">(</span>s<span class="o">)</span> added: 1
+
+Now try logging into the machine, with:   <span class="s2">"ssh 'username@192.168.xxx.xxx'"</span>
+and check to make sure that only the key<span class="o">(</span>s<span class="o">)</span> you wanted were added.
+root@baseimage:/# <span class="nb">cat</span> ~/.ssh/id_rsa
+<span class="nt">-----BEGIN</span> RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEAxx0Dt1ryLXVHBkPuvra3l85nLeDPRKLyR00Z8XR/aFv8v0vF
+ZJecQ289n6aySm+uJ9gXUWfeDx/PuRGTgoa8ZDNew9I2+NKiwOKVFu7tsnCU6B2b
+nenL8ScO6sk9NcJZuNBZITeuK/LAC7pa9fl39ixdWPBoe4n8hRa2nEWmrPek7v6I
+mtRIDPUgKhLrqogmWWTT4j2r3Gr/UjgnIEbkq3LIUQTJIdkZLQmDi9s+H9Kct+NB
+ndnRBFHjuR5MN1gTtfXT7HkphNCyJzF+IGn7VsJsY1f7wZaSlGKZn3NnejBT3G76
+KYsH5UJcmvEckM4nZjX26DQEh5ihHw+utzIK5QIDAQABAoIBAQCqtNJp0XwNwx1Y
+XseCFG7EpL3LFJE+vCDRRmX2n7VXyH2hmBmsy1q6adXAWY9DyAncuSQMs+sqtlBF
+z67S2icMFQqrAkAFBblpexjtJ3z8Xg8cDb5MHZSutJjSbCOhQnXfwCiaFP2rShyi
+MWwotG/Hy3NgfARn3f50L+vxgLmMUeNwdl6rvNkyHhI9/uto4+i+2kgrhv0n1YuB
+18/5MQd8G9kYjvrHxhlqqLPvKawCjNVDoUv6s4MDjjkNTkooPV5CkCbisrRyENQm
++1Jv6e3pm/JCx/CVGJCLA32f/q2fWrREsVyFGo4/vxJxMk7Uu1GLIVgq9HVbp8hR
+BPrJGoLlAoGBAPscvNZTNAMjslrbKubUEqCGRIQjk9y/DuYPkHk6M5+olM3GD2YY
+0s5AtuquzzZ5JnyOigGwHwrQs75b8SgxfsF2T/iKKt09wB6ayNRfioT3BXFzIIVj
+VPyHU/VcdyL30QJYBlEg1PFQPh59RgV5Az5fujET64q/5H4bdGUb7CEjAoGBAMr9
+LCdtvbBfy0hKOx0ADSHnSY8N4tOy9I6hmI7cndbVCzK7lQV5eh/atlt269bmCCOj
+7lcGKrjBhRyBGJE6c9tPGJuUWBRZ4p3pAKuPp650Nue1MvfiChoqN4DgOmSxuBIV
+c/oZwqJpMrAVdGEKRONRo4UTMBpkA1eVp5lsAphXAoGAfboEvlaISy4bRaxITaxO
+6zpuoa5igPrUDdIrJtdCM6UnY+PPn/G70nLKYrRFoWOFJoYDiRbSZArcg+nq05H8
+gganwawEDCO3xlr/RH3Vj/9SJVxcIwz55zomiknSiJqFdmP2PbZvh6cCgyd74I+X
+VSp+wcXUf/LWB2HdpCYX0vsCgYEAxMwjbK6Wg1K8UP+2w+zyznXf+RNrX/dV5pqA
+v7DgThIKY0s9tSsK3as7tP1ctOIb7gHW5wQRk0H7faEjYlmbTXonz15I7qIedR4b
+CjmiRh5hxM8F9RFu3eMkIIxD0LAEV3P5Fva2nqMDA3gpdpNwKjtSH4h00IE6REXR
+UYtIEM0CgYEA18yX+rzOOSS/V/ut8ajRUUuxFnUAbMIg+3wk2lkrt2pA/5QmQI/7
+IVxCHmtzYiMFK/lNqwadg75B2Syw8/nQI5YU6E94b3S+l1rzGoItYdRIQsdWL/iL
+VryMAG1U4bce34bs5pKA4WFiXmbcD/OECguYARj2zSQjvg+o6j3FTDo<span class="o">=</span>
+<span class="nt">-----END</span> RSA PRIVATE KEY-----
+</code></pre></div></div>
+
+<h3 id="配置生产环境">配置生产环境</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu@vRoute:/# <span class="nb">sudo </span>apt-get install <span class="nt">-y</span> openvswitch-switch
+ubuntu@vRoute:/# <span class="nb">sudo </span>mkdir <span class="nt">-p</span> /usr/local/etc/openvswitch
+ubuntu@vRoute:/# <span class="nb">sudo </span>mkdir <span class="nt">-p</span> /var/run/openvswitch/
+ubuntu@vRoute:/# <span class="nb">sudo </span>ovsdb-tool create usr/local/etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema
+ubuntu@vRoute:/# <span class="nb">sudo </span>ovsdb-server /usr/local/etc/openvswitch/conf.db <span class="nt">--remote</span><span class="o">=</span>punix:/var/run/openvswitch/db.sock <span class="nt">--pidfile</span> <span class="nt">--detach</span>
+ubuntu@vRoute:/# <span class="nb">sudo </span>ovs-vsctl <span class="nt">--no-wait</span> init
+ubuntu@vRoute:/# <span class="nb">sudo </span>ovs-vswitchd <span class="nt">--pidfile</span> <span class="nt">--detach</span> <span class="nt">--log-file</span>
+ubuntu@vRoute:/# <span class="nb">sudo </span>pip install virtualenv
+</code></pre></div></div>
+
+<h2 id="production_env---repo">production_env -&gt; repo</h2>
+
+<p>同上生成ssh key pair,不同的是在生产环境系统下操作，之后将公钥上传到gitlab。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu@production_env:/# ssh-keygen 
+Generating public/private rsa key pair.
+Enter file <span class="k">in </span>which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>: 
+Enter passphrase <span class="o">(</span>empty <span class="k">for </span>no passphrase<span class="o">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved <span class="k">in</span> /root/.ssh/id_rsa.
+Your public key has been saved <span class="k">in</span> /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:DCCgzLEbQDzgMO03qsLyCeMlH/rnOU31oF6Vt3icG+E root@production_env
+The key<span class="s1">'s randomart image is:
++---[RSA 2048]----+
+|X=. .            |
+|B++. .           |
+|.B.   .     .    |
+|  + o  o o o o   |
+| . o .  S + = +  |
+|  .    o . o E   |
+|+o o  + .   . o  |
+|=+=..o.o     .   |
+|o++ooo.          |
++----[SHA256]-----+
+
+</span></code></pre></div></div>
+
+<p>至此，就实现了repo、gitlab-runner和production_env之间的互相通信。</p>
+
 <h2 id="trouble-shooting">Trouble shooting</h2>
 
 <h3 id="docker-is-not-active">docker is not active</h3>
 
-<p><img src="/img/2020-11-04-gitlab-CI-configure/image-20201104160836058.png" alt="image-20201104160836058" /></p>
+<p><img src="/img/2020-11-11-gitlab-CI-configure/image-20201104160836058.png" alt="image-20201104160836058" /></p>
 
 <p>这是因为镜像没有启动</p>
 
 <h3 id="docker-pull-error">docker pull error</h3>
 
-<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105203130082.png" alt="image-20201105203130082" /></p>
+<p><img src="/img/2020-11-11-gitlab-CI-configure/image-20201105203130082.png" alt="image-20201105203130082" /></p>
 
 <p>因为docker在之后的版本中默认使用了https设置，导致协议不匹配所以出现了错误</p>
 
@@ -445,7 +830,7 @@ root@eb789ffd636f:/# apt-get clean
 
 <p>重启docker后发现仍然存在错误：</p>
 
-<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105204840077.png" alt="image-20201105204840077" /></p>
+<p><img src="/img/2020-11-11-gitlab-CI-configure/image-20201105204840077.png" alt="image-20201105204840077" /></p>
 
 <p>是因为5000端口已经被uwsgi占用，因此docker无法解析该应用回复的响应。</p>
 
@@ -455,7 +840,7 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 5002:5000 <span
 
 <p>运行成功之后使用curl http://localhost:5002却出现connect refused的错误，经过对端口进行检查之后发现</p>
 
-<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106094918602.png" alt="image-20201106094918602" /></p>
+<p><img src="/img/2020-11-11-gitlab-CI-configure/image-20201106094918602.png" alt="image-20201106094918602" /></p>
 
 <p>修改ubuntu的网络设置，禁用tcp6。打开/etc/sysctl.conf，添加如下三条设置</p>
 
@@ -470,7 +855,7 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 5002:5000 <span
 
 <h3 id="本地调试">本地调试</h3>
 
-<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106102748598.png" alt="image-20201106102748598" /></p>
+<p><img src="/img/2020-11-11-gitlab-CI-configure/image-20201106102748598.png" alt="image-20201106102748598" /></p>
 
 <p>一直push到gitlab上太麻烦了，所以使用gitlab-runner exec进行本地调试</p>
 
@@ -493,17 +878,13 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 5002:5000 <span
   <li>docker无法启动</li>
 </ul>
 
-<p>启动docker时设置privilege</p>
+<p>启动docker时设置–privilege</p>
 
 <h3 id="cd导致的权限问题">cd导致的权限问题</h3>
 
-<p><img src="D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201109000402307.png" alt="image-20201109000402307" /></p>
+<p><img src="/img/2020-11-11-gitlab-CI-configure/image-20201109000402307.png" alt="image-20201109000402307" /></p>
 
 <p>在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。</p>
-
-<h2 id="todo">ToDo</h2>
-
-<p>由于rsync同步文件存在着诸多权限问题，所以为每个服务器创建了一个runner，但实际上这些runner所做的工作是相同的，后续需要精简，而且将生产环境与gitlab-runner分离对于部署、调试工作都有很大的帮助，因此后续可能会更改为gitlab+production的工作模式。</p>
 
         </article>
         <!-- <div class="post-content">

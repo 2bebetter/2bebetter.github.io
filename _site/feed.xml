@@ -6,9 +6,121 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 16 Nov 2020 21:30:48 +0800</pubDate>
-    <lastBuildDate>Mon, 16 Nov 2020 21:30:48 +0800</lastBuildDate>
+    <pubDate>Mon, 23 Nov 2020 21:22:24 +0800</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2020 21:22:24 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>论文阅读</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0140366420319150&quot;&gt;Controller placements for latency minimization of both primary and backup paths in SDNs&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;controller-placements-for-latency-minimization-of-both-primary-and-backup-paths-in-sdns&quot;&gt;Controller placements for latency minimization of both primary and backup paths in SDNs&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;主路径延迟和备用路径延迟的两个目标本质上是冲突的。假设网络是理想的，则倾向于将控制器放置在靠近交换机的位置，以减少主要路径上交换机到控制器之间的延迟。但是，由于发生链接故障时绕行路径较长，因此备用路径延迟可能会很高。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;methods&quot;&gt;Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;提出了一种新颖的多目标SDN控制器放置问题，以在没有链路故障和同时发生单链路故障的情况下将切换到控制器的通信延迟降到最低。&lt;/li&gt;
+  &lt;li&gt;提出了一种有效的基于元启发式的可靠性感知和面向延迟的控制器放置算法（RALO），用于多目标多控制器放置。该算法通过具有网络分区的贪婪方法构造初始可行解，然后通过可变邻域搜索重复编辑生成新解。同时，为了避免陷入局部最优，该算法对当前解执行微扰和破坏操作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;根据各种限制条件抽象成数学表达式，包含约束条件和目标函数，之后为该NP问题提出一个算法解。通过将网络节点划分为多个交换机子集并根据交换机到控制器的通信延迟和控制器处理能力在每个交换机子集中分配一个控制器来构造一个初始可行的解决方案，之后使用可变邻域搜索(VNS)生成新的解决方案，检验该方案是否是可行解，并更新不符合条件的方案。&lt;/p&gt;
+
+&lt;h3 id=&quot;流程&quot;&gt;流程&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph TD;
+	Initial_solution_construction -- searches the neighborhood to generate new feasible solutions --&amp;gt; Variable_neighborhood_search;
+
+	Variable_neighborhood_search -- Perturbation reassigns some of the switches to other controllers for each node subset --&amp;gt; Perturbation;
+	
+	Perturbation -- Controller relocation attempts to increase the performance of &amp;lt;br&amp;gt; the feasible solutions by moving a controller to a different position &amp;lt;br&amp;gt; in the same node subset --&amp;gt;  Controller_relocation;
+	
+	 Controller_relocation-- Shake destroys the current solution significantly &amp;lt;br&amp;gt; so that the solution can jump to a solution space far away. &amp;lt;br&amp;gt; Shake attempts to find better controllers for the nodes with the &amp;lt;br&amp;gt; largest node-to-controller communication delay in each subset. --&amp;gt; Shake;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;算法的初始可行解决方案的构建流程：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;构造分为两个步骤：节点子集划分和控制器在每个节点子集中的放置。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;算法1继续在参数𝑟𝑚𝑎𝑥确定的最大迭代次数内迭代找到新解。在每次迭代期间，扰动控制器和开关之间的映射关系，并执行变量邻域搜索，然后改变控制器的位置。&lt;/li&gt;
+  &lt;li&gt;如果当前解比所有找到的Pareto最优解差，则当前解决方案会受到Shakes的极大干扰，因此该解可以跳到另一个解空间以避免陷入局部最优。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-23-thesis-reading-03/image-20201123174210356.png&quot; alt=&quot;image-20201123174210356&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;每次找到潜在的控制器位置后，算法2会更新所有节点的𝐿𝑖，然后选择具有最大𝐿𝑖的节点作为下一个潜在的控制器位置；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-23-thesis-reading-03/image-20201123192701939.png&quot; alt=&quot;image-20201123192701939&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;算法3在算法2获得的每个节点子集中选择每个控制器的位置，并在约束条件下将每个节点映射到控制器。在算法3中，将两跳中的节点当中具有最大请求数的那个节点选为每个子集中的控制器位置。该算法按请求数量的非升序对每个子集𝑆𝑘中的所有其他节点进行排序，并在控制器的约束下将每个节点分配给控制器。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-23-thesis-reading-03/image-20201123193640292.png&quot; alt=&quot;image-20201123193640292&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
+
+&lt;p&gt;在仿真中使用的网络拓扑是Internet拓扑zoo中的8种实际网络拓扑，以及由斯坦福网络分析平台（SNAP）生成的两种网络拓扑（生成网络I和生成网络II）。生成网络I是符合ER（Erdos-Renyi）随机模型的一组网络拓扑，而生成网络II是符合小世界模型的一组网络拓扑。每种生成网络均包含10种网络拓扑。&lt;/p&gt;
+
+&lt;p&gt;文章共比较了LARC、RALO、PSA、Survivor和OPT共五种算法在主要路径和备份路径上的平均延时和累计延时，以及运行时间等评估指标上的差异。&lt;/p&gt;
+
+&lt;h3 id=&quot;limits&quot;&gt;Limits&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;假设网络中最多存在一个链路故障，因为网络中多链路故障的可能性很小。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 23 Nov 2020 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2020/11/23/thesis-reading-03/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/23/thesis-reading-03/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
+    
+      <item>
+        <title>Django Celery Rabbitmq</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#background&quot; id=&quot;markdown-toc-background&quot;&gt;background&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#celery&quot; id=&quot;markdown-toc-celery&quot;&gt;celery&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#rabbitmq&quot; id=&quot;markdown-toc-rabbitmq&quot;&gt;rabbitmq&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#trouble-shooting&quot; id=&quot;markdown-toc-trouble-shooting&quot;&gt;Trouble Shooting&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在Django项目中使用celery+rabbitmq。&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;background&lt;/h2&gt;
+
+&lt;h3 id=&quot;celery&quot;&gt;celery&lt;/h3&gt;
+
+&lt;p&gt;Celery 是一款非常简单、灵活、可靠的分布式系统，可用于处理大量消息，并且提供了一整套操作此系统的一系列工具。&lt;/p&gt;
+
+&lt;p&gt;Celery 是一款消息队列工具，可用于处理实时数据以及任务调度。&lt;/p&gt;
+
+&lt;h3 id=&quot;rabbitmq&quot;&gt;rabbitmq&lt;/h3&gt;
+
+&lt;h2 id=&quot;trouble-shooting&quot;&gt;Trouble Shooting&lt;/h2&gt;
+
+</description>
+        <pubDate>Fri, 20 Nov 2020 12:51:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/gitlab/2020/11/20/django-celery-rabbitmq/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/gitlab/2020/11/20/django-celery-rabbitmq/</guid>
+        
+        
+        <category>gitlab</category>
+        
+      </item>
     
       <item>
         <title>论文阅读</title>
@@ -854,11 +966,11 @@ docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot
 &lt;p&gt;在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。&lt;/p&gt;
 </description>
         <pubDate>Wed, 11 Nov 2020 12:51:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/thesis/2020/11/11/gitlab-CI-configure/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/11/gitlab-CI-configure/</guid>
+        <link>http://2bebetter.github.io/gitlab/2020/11/11/gitlab-CI-configure/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/gitlab/2020/11/11/gitlab-CI-configure/</guid>
         
         
-        <category>thesis</category>
+        <category>gitlab</category>
         
       </item>
     
