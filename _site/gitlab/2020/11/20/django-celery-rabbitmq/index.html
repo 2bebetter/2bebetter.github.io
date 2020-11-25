@@ -104,10 +104,22 @@
   <li><a href="#background" id="markdown-toc-background">background</a>    <ul>
       <li><a href="#celery" id="markdown-toc-celery">celery</a></li>
       <li><a href="#rabbitmq" id="markdown-toc-rabbitmq">rabbitmq</a></li>
+      <li><a href="#virtualenv" id="markdown-toc-virtualenv">virtualenv</a></li>
     </ul>
   </li>
-  <li><a href="#trouble-shooting" id="markdown-toc-trouble-shooting">Trouble Shooting</a></li>
+  <li><a href="#run" id="markdown-toc-run">Run</a>    <ul>
+      <li><a href="#using-virtualenv" id="markdown-toc-using-virtualenv">Using virtualenv</a></li>
+      <li><a href="#using-rabbitmq-with-celery" id="markdown-toc-using-rabbitmq-with-celery">Using rabbitmq with celery</a>        <ul>
+          <li><a href="#install-rabbitmq" id="markdown-toc-install-rabbitmq">install rabbitmq</a></li>
+          <li><a href="#configure-rabbitmq" id="markdown-toc-configure-rabbitmq">configure rabbitmq</a></li>
+        </ul>
+      </li>
+      <li><a href="#using-celery-in-django" id="markdown-toc-using-celery-in-django">Using celery in django</a></li>
+      <li><a href="#run-1" id="markdown-toc-run-1">Run</a></li>
+    </ul>
+  </li>
 </ul>
+
 <p>在Django项目中使用celery+rabbitmq。</p>
 
 <h2 id="background">background</h2>
@@ -120,8 +132,107 @@
 
 <h3 id="rabbitmq">rabbitmq</h3>
 
-<h2 id="trouble-shooting">Trouble Shooting</h2>
+<p><strong>RabbitMQ</strong>是实现了高级消息队列协议（AMQP）的开源消息代理软件（亦称面向消息的中间件）。</p>
 
+<p>RabbitMQ服务器是用<a href="https://baike.baidu.com/item/Erlang">Erlang</a>语言编写的，而集群和故障转移是构建在<a href="https://baike.baidu.com/item/开放电信平台">开放电信平台</a>框架上的。所有主要的<a href="https://baike.baidu.com/item/编程语言/9845131">编程语言</a>均有与代理接口通讯的<a href="https://baike.baidu.com/item/客户端/101081">客户端</a>库。</p>
+
+<h3 id="virtualenv">virtualenv</h3>
+
+<p>VirtualEnv用于在一台机器上创建多个独立的python运行环境。VirtualEnvWrapper为前者提供了一些便利的命令行上的封装。</p>
+
+<h2 id="run">Run</h2>
+
+<h3 id="using-virtualenv">Using virtualenv</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>virtualenv dashboardenv <span class="nt">--python</span><span class="o">=</span>3.5
+<span class="nb">source </span>dashboardenv/bin/activate
+pip3 install <span class="nt">-r</span> requirements.txt <span class="nt">-i</span> https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre></div></div>
+
+<h3 id="using-rabbitmq-with-celery">Using rabbitmq with celery</h3>
+
+<h4 id="install-rabbitmq">install rabbitmq</h4>
+
+<ul>
+  <li>提前安装erlang=23.0.3（https://blog.csdn.net/s_lisheng/article/details/79529113）</li>
+  <li>安装3.8.6的rabbitmq(https://blog.csdn.net/yanxilou/article/details/104467756/)</li>
+</ul>
+
+<h4 id="configure-rabbitmq">configure rabbitmq</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>service rabbitmq-server     start
+<span class="nb">sudo </span>rabbitmq-plugins <span class="nb">enable     </span>rabbitmq_management
+<span class="nb">sudo </span>rabbitmqctl add_user     username password
+<span class="nb">sudo </span>rabbitmqctl     set_user_tags username administrator
+<span class="nb">sudo </span>rabbitmqctl add_vhost     sysname
+<span class="nb">sudo </span>rabbitmqctl     set_permissions <span class="nt">-p</span> sysname username      <span class="s2">".*"</span> <span class="s2">".*"</span> <span class="s2">".*"</span> 
+</code></pre></div></div>
+
+<h3 id="using-celery-in-django">Using celery in django</h3>
+
+<p>在django项目中直接使用celery</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+<span class="kn">from</span> <span class="nn">kombu</span> <span class="kn">import</span> <span class="n">Exchange</span><span class="p">,</span> <span class="n">Queue</span>
+
+<span class="c"># set the default Django settings module for the 'celery' program.</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s">'DJANGO_SETTINGS_MODULE'</span><span class="p">,</span> <span class="s">'dashboard.settings'</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span>
+    <span class="s">'dashboard'</span><span class="p">,</span>
+    <span class="n">broker</span><span class="o">=</span><span class="s">'pyamqp://username:passsword@127.0.0.1/sysname'</span><span class="p">,</span>
+    <span class="n">backend</span><span class="o">=</span><span class="s">'rpc://username:passsword@127.0.0.1/sysname'</span>
+<span class="p">)</span>
+<span class="c"># Note that any configuration that was previously set will be reset when config_from_object() is called.</span>
+<span class="c"># If you want to set additional configuration you should do so after.</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config_from_object</span><span class="p">(</span><span class="s">'django.conf:settings'</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">'CELERY_NODE'</span><span class="p">)</span>
+
+<span class="c"># set queue</span>
+<span class="n">default_exchange</span> <span class="o">=</span> <span class="n">Exchange</span><span class="p">(</span><span class="s">'default'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'topic'</span><span class="p">)</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_queues</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Queue</span><span class="p">(</span><span class="s">'default'</span><span class="p">,</span> <span class="n">default_exchange</span><span class="p">,</span> <span class="n">routing_key</span><span class="o">=</span><span class="s">'default.#'</span> <span class="p">),</span>
+    <span class="n">Queue</span><span class="p">(</span><span class="s">'crnodesys'</span><span class="p">,</span> <span class="n">crnodesys_exchange</span><span class="p">,</span> <span class="n">routing_key</span><span class="o">=</span><span class="s">'period.#'</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="c"># set default queue and exchange</span>
+<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">CELERY_IGNORE_RESULT</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="n">CELERY_STORE_ERRORS_EVEN_IF_IGNORED</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+	<span class="n">task_default_queue</span> <span class="o">=</span> <span class="s">'default'</span><span class="p">,</span>
+	<span class="n">task_default_exchange</span> <span class="o">=</span> <span class="s">'default'</span><span class="p">,</span>
+	<span class="n">task_default_exchange_type</span> <span class="o">=</span> <span class="s">'topic'</span><span class="p">,</span>
+	<span class="n">task_default_routing_key</span> <span class="o">=</span> <span class="s">'default.task'</span>
+<span class="p">)</span>
+<span class="c"># set routings</span>
+<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_routes</span> <span class="o">=</span> <span class="p">([</span>
+    <span class="p">(</span><span class="s">'tasks.*'</span><span class="p">,</span>              <span class="p">{</span><span class="s">'queue'</span><span class="p">:</span> <span class="s">'period'</span><span class="p">,</span> <span class="s">'routing_key'</span><span class="p">:</span> <span class="s">'period.task'</span><span class="p">}),</span>
+<span class="p">],)</span>
+<span class="c"># Load task modules from all registered Django app configs.</span>
+<span class="n">app</span><span class="o">.</span><span class="n">autodiscover_tasks</span><span class="p">()</span>
+
+<span class="nd">@app.task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">debug_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Request: {0!r}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="run-1">Run</h3>
+
+<ul>
+  <li>
+    <p>run django</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python ./manage.py runserver localhost:8000
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>run celery</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>celery worker <span class="nt">-A</span> dashboard <span class="nt">-l</span> info
+</code></pre></div>    </div>
+  </li>
+</ul>
 
         </article>
         <!-- <div class="post-content">
@@ -186,6 +297,14 @@ gitalk.render('gitalk-container')
             <h3 class="meta-title">RECENT POSTS</h3>
             
                 <li>
+                    <a href="/thesis/2020/11/24/self-learning/">论文阅读</a>
+                </li>
+            
+                <li>
+                    <a href="/thesis/2020/11/24/thesis-reading-04/">论文阅读</a>
+                </li>
+            
+                <li>
                     <a href="/thesis/2020/11/23/thesis-reading-03/">论文阅读</a>
                 </li>
             
@@ -203,14 +322,6 @@ gitalk.render('gitalk-container')
             
                 <li>
                     <a href="/jekyll/2020/11/04/gitlab-CI-configure/">Gitlab CI/CD配置</a>
-                </li>
-            
-                <li>
-                    <a href="/thesis/2020/10/27/SDN-related-work/">SDN Related Work</a>
-                </li>
-            
-                <li>
-                    <a href="/thesis/2020/10/26/edge-cloud-network/">Edge Cloud Network</a>
                 </li>
             
         </div>

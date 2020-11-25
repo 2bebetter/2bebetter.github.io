@@ -6,6 +6,8 @@ typora-root-url: ..
 categories: thesis
 ---
 
+* content
+{:toc}
 [Controller placements for latency minimization of both primary and backup paths in SDNs](https://www.sciencedirect.com/science/article/pii/S0140366420319150)
 
 ## Controller placements for latency minimization of both primary and backup paths in SDNs

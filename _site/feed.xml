@@ -6,13 +6,162 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 23 Nov 2020 21:22:24 +0800</pubDate>
-    <lastBuildDate>Mon, 23 Nov 2020 21:22:24 +0800</lastBuildDate>
+    <pubDate>Wed, 25 Nov 2020 11:03:39 +0800</pubDate>
+    <lastBuildDate>Wed, 25 Nov 2020 11:03:39 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>论文阅读</title>
-        <description>&lt;p&gt;&lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0140366420319150&quot;&gt;Controller placements for latency minimization of both primary and backup paths in SDNs&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;我是2019年入学，现在已经是研究生的第二年了，现在正面临着无法毕业、无法找到工作的巨大压力。我是因为喜欢网络安全方向才选择了目前这个学校和专业，但是入学之后才发现能从学校中学习到的毕竟还是很少很少一部分，所以为了之后的招聘(竟然不到一年了orz)准备自学。&lt;/p&gt;
+
+&lt;p&gt;我目前所研究的流域是SDN，所以对网络协议有一定的了解，但是恐怕无法找到一个合适的工作，我暂时也没有继续深入研究下去的打算，所以希望自学的方向是网络攻防方向。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-self-learning/145189195f4fef3c96999d5adfc6e1a0_1440w.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-self-learning/v2-62472b01b9ca7a58e390031bfcc5fd8b_1440w.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 24 Nov 2020 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2020/11/24/self-learning/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/24/self-learning/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
+    
+      <item>
+        <title>论文阅读</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#enhanced-optimal-placements-of-multi-controllers-in-sdn&quot; id=&quot;markdown-toc-enhanced-optimal-placements-of-multi-controllers-in-sdn&quot;&gt;Enhanced optimal placements of multi-controllers in SDN&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#rapid-restoration-techniques-for-software-defined-networks&quot; id=&quot;markdown-toc-rapid-restoration-techniques-for-software-defined-networks&quot;&gt;Rapid Restoration Techniques for Software-Defined Networks&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#problem&quot; id=&quot;markdown-toc-problem&quot;&gt;Problem&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#proposal-methods&quot; id=&quot;markdown-toc-proposal-methods&quot;&gt;Proposal Methods&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#path-recover&quot; id=&quot;markdown-toc-path-recover&quot;&gt;Path recover&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#methods&quot; id=&quot;markdown-toc-methods&quot;&gt;Methods&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#experiment&quot; id=&quot;markdown-toc-experiment&quot;&gt;Experiment&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://link.springer.com/article/10.1007/s12652-020-02554-2&quot;&gt;Enhanced optimal placements of multi-controllers in SDN&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;enhanced-optimal-placements-of-multi-controllers-in-sdn&quot;&gt;Enhanced optimal placements of multi-controllers in SDN&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.mdpi.com/2076-3417/10/10/3411&quot;&gt;Rapid Restoration Techniques for Software-Defined Networks&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;rapid-restoration-techniques-for-software-defined-networks&quot;&gt;Rapid Restoration Techniques for Software-Defined Networks&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;网络元素容易发生故障，从故障中恢复既可以主动实现（也称为保护），也可以被动地实现（也称为恢复）。在保护方面，替代解决方案是在发生故障之前预先计划和保留的。但是，在恢复中，解决方案不是预先计划的，当发生故障时需要动态按需计算。&lt;/li&gt;
+  &lt;li&gt;保护机制很昂贵，而且备份路径可能比主路径更快失效&lt;/li&gt;
+  &lt;li&gt;恢复机制很耗时：（1）计算新路径的时间 （2）更新新路径上的交换机的时间&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;proposal-methods&quot;&gt;Proposal Methods&lt;/h3&gt;
+
+&lt;h4 id=&quot;path-recover&quot;&gt;Path recover&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;网络模型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;无向图&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Community Detection(CD)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CD可以将具有共同属性的节点组表示为社区。在这里，每个社区被定义为一个子图，其中的节点密集连接，但与网络的其余部分稀疏连接。&lt;/p&gt;
+
+&lt;p&gt;目前已经提出的算法：Louvain算法    Girvan     Newman算法&lt;/p&gt;
+
+&lt;p&gt;通过将网络图G划分为N个社区，我们假设当发生链路故障事件时，只有一个社区会遭受该特定故障。在大部分链路故障情况下，这种假设是合理的。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CD模型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;社区检测算法提取的社区数量取决于网络拓扑结构和社区检测算法的参数化。&lt;/p&gt;
+
+&lt;p&gt;假设路径上连续的路由器必定位于同一社区中。根据Dijkstra算法计算节点之间的最短路径：&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P_{Dset} = {P | ∀ r_1,r_d ∈ V : P = D(P_{1,r_d} )}&lt;/script&gt;
+
+&lt;p&gt;其中$P_{r_1，r_d}$表示任意两个特定节点之间的所有可能路径的集合。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-24-thesis-reading-04/image-20201124190517565.png&quot; alt=&quot;示例&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Path Anatomy-Based Approach&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;控制器首先在受影响的路径上的交换机中删除旧流表条目，然后为备用路径下发所需的规则。当受影响路径的长度较长时，此过程很耗时。网络路径解剖（PA）是此问题的潜在解决方案。&lt;/p&gt;
+
+&lt;p&gt;相邻路由器的此序列具有一些中间路由器，称为$r_m$，路径P可被分为两段：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-24-thesis-reading-04/image-20201124192229346.png&quot; alt=&quot;image-20201124192229346&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;找到从$r_1$到$r_d$的新路径以克服故障并不是有效的解决方案，因为规则替换和更新的成本可能很高。&lt;/p&gt;
+
+&lt;p&gt;基于PA可以实现两种方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第一个使用P的中间路由器来考虑两个部分（即子路径），其中一个正在运行，而另一个没有运行（譬如由于故障）。这意味着受影响路径的一个分段仍可以按原样使用，并且更新该分段的操作成本为零。&lt;/li&gt;
+  &lt;li&gt;在第二种方案中，并不使用新的子路径替换路径的故障段，而是将备用路径的搜索空间减少到仅在围绕故障链路的两个节点之间。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;methods&quot;&gt;Methods&lt;/h3&gt;
+
+&lt;p&gt;四个组件：&lt;em&gt;SDN Controller&lt;/em&gt; 、&lt;em&gt;Topology Parser&lt;/em&gt; 、&lt;em&gt;Global Recovery Scheme&lt;/em&gt; 、&lt;em&gt;Community Detection&lt;/em&gt;、&lt;em&gt;Path Anatomy&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;使用Girvan和Newman将网络拓扑图G的虚拟分区创建为C。&lt;/p&gt;
+
+&lt;p&gt;根据Dijkstra算法开发了两种算法来满足所有的路径查找需求：&lt;/p&gt;
+
+&lt;p&gt;（1）新数据包到达需要计算新路径&lt;/p&gt;
+
+&lt;p&gt;（2）路由故障需要计算新路径&lt;/p&gt;
+
+&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
+
+&lt;p&gt;三个评估指标：length、operation、latency。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;length表示表示在链路发生故障时与恢复解决方案时找到的新路径相关的跃点数。&lt;/li&gt;
+  &lt;li&gt;operation包括添加，删除和修改流条目。&lt;/li&gt;
+  &lt;li&gt;latency表示安装备用路径所需的时间。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为了评估不同的恢复算法，使用了三种实际的网络拓扑结构-网络存储库中的ERnet ，German50和NR。论文使用Internet拓扑生成器Brite [39]来生成其他拓扑，
+利用Waxman算法基于Brite生成随机图。&lt;/p&gt;
+
+&lt;p&gt;使用Mininet仿真作为实验环境。&lt;/p&gt;
+</description>
+        <pubDate>Tue, 24 Nov 2020 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2020/11/24/thesis-reading-04/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/24/thesis-reading-04/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
+    
+      <item>
+        <title>论文阅读</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#controller-placements-for-latency-minimization-of-both-primary-and-backup-paths-in-sdns&quot; id=&quot;markdown-toc-controller-placements-for-latency-minimization-of-both-primary-and-backup-paths-in-sdns&quot;&gt;Controller placements for latency minimization of both primary and backup paths in SDNs&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#problem&quot; id=&quot;markdown-toc-problem&quot;&gt;Problem&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#methods&quot; id=&quot;markdown-toc-methods&quot;&gt;Methods&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#流程&quot; id=&quot;markdown-toc-流程&quot;&gt;流程&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#experiment&quot; id=&quot;markdown-toc-experiment&quot;&gt;Experiment&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#limits&quot; id=&quot;markdown-toc-limits&quot;&gt;Limits&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.sciencedirect.com/science/article/pii/S0140366420319150&quot;&gt;Controller placements for latency minimization of both primary and backup paths in SDNs&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;controller-placements-for-latency-minimization-of-both-primary-and-backup-paths-in-sdns&quot;&gt;Controller placements for latency minimization of both primary and backup paths in SDNs&lt;/h2&gt;
 
@@ -94,10 +243,22 @@
   &lt;li&gt;&lt;a href=&quot;#background&quot; id=&quot;markdown-toc-background&quot;&gt;background&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#celery&quot; id=&quot;markdown-toc-celery&quot;&gt;celery&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#rabbitmq&quot; id=&quot;markdown-toc-rabbitmq&quot;&gt;rabbitmq&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#virtualenv&quot; id=&quot;markdown-toc-virtualenv&quot;&gt;virtualenv&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#trouble-shooting&quot; id=&quot;markdown-toc-trouble-shooting&quot;&gt;Trouble Shooting&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#run&quot; id=&quot;markdown-toc-run&quot;&gt;Run&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#using-virtualenv&quot; id=&quot;markdown-toc-using-virtualenv&quot;&gt;Using virtualenv&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#using-rabbitmq-with-celery&quot; id=&quot;markdown-toc-using-rabbitmq-with-celery&quot;&gt;Using rabbitmq with celery&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#install-rabbitmq&quot; id=&quot;markdown-toc-install-rabbitmq&quot;&gt;install rabbitmq&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#configure-rabbitmq&quot; id=&quot;markdown-toc-configure-rabbitmq&quot;&gt;configure rabbitmq&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#using-celery-in-django&quot; id=&quot;markdown-toc-using-celery-in-django&quot;&gt;Using celery in django&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#run-1&quot; id=&quot;markdown-toc-run-1&quot;&gt;Run&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;在Django项目中使用celery+rabbitmq。&lt;/p&gt;
 
 &lt;h2 id=&quot;background&quot;&gt;background&lt;/h2&gt;
@@ -110,8 +271,107 @@
 
 &lt;h3 id=&quot;rabbitmq&quot;&gt;rabbitmq&lt;/h3&gt;
 
-&lt;h2 id=&quot;trouble-shooting&quot;&gt;Trouble Shooting&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;RabbitMQ&lt;/strong&gt;是实现了高级消息队列协议（AMQP）的开源消息代理软件（亦称面向消息的中间件）。&lt;/p&gt;
 
+&lt;p&gt;RabbitMQ服务器是用&lt;a href=&quot;https://baike.baidu.com/item/Erlang&quot;&gt;Erlang&lt;/a&gt;语言编写的，而集群和故障转移是构建在&lt;a href=&quot;https://baike.baidu.com/item/开放电信平台&quot;&gt;开放电信平台&lt;/a&gt;框架上的。所有主要的&lt;a href=&quot;https://baike.baidu.com/item/编程语言/9845131&quot;&gt;编程语言&lt;/a&gt;均有与代理接口通讯的&lt;a href=&quot;https://baike.baidu.com/item/客户端/101081&quot;&gt;客户端&lt;/a&gt;库。&lt;/p&gt;
+
+&lt;h3 id=&quot;virtualenv&quot;&gt;virtualenv&lt;/h3&gt;
+
+&lt;p&gt;VirtualEnv用于在一台机器上创建多个独立的python运行环境。VirtualEnvWrapper为前者提供了一些便利的命令行上的封装。&lt;/p&gt;
+
+&lt;h2 id=&quot;run&quot;&gt;Run&lt;/h2&gt;
+
+&lt;h3 id=&quot;using-virtualenv&quot;&gt;Using virtualenv&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;virtualenv dashboardenv &lt;span class=&quot;nt&quot;&gt;--python&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3.5
+&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;dashboardenv/bin/activate
+pip3 install &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; requirements.txt &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; https://pypi.tuna.tsinghua.edu.cn/simple
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;using-rabbitmq-with-celery&quot;&gt;Using rabbitmq with celery&lt;/h3&gt;
+
+&lt;h4 id=&quot;install-rabbitmq&quot;&gt;install rabbitmq&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;提前安装erlang=23.0.3（https://blog.csdn.net/s_lisheng/article/details/79529113）&lt;/li&gt;
+  &lt;li&gt;安装3.8.6的rabbitmq(https://blog.csdn.net/yanxilou/article/details/104467756/)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;configure-rabbitmq&quot;&gt;configure rabbitmq&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;service rabbitmq-server     start
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rabbitmq-plugins &lt;span class=&quot;nb&quot;&gt;enable     &lt;/span&gt;rabbitmq_management
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rabbitmqctl add_user     username password
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rabbitmqctl     set_user_tags username administrator
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rabbitmqctl add_vhost     sysname
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rabbitmqctl     set_permissions &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; sysname username      &lt;span class=&quot;s2&quot;&gt;&quot;.*&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.*&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.*&quot;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;using-celery-in-django&quot;&gt;Using celery in django&lt;/h3&gt;
+
+&lt;p&gt;在django项目中直接使用celery&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;__future__&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;absolute_import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unicode_literals&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;celery&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Celery&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;kombu&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exchange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# set the default Django settings module for the &#39;celery&#39; program.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setdefault&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;DJANGO_SETTINGS_MODULE&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;dashboard.settings&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Celery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&#39;dashboard&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;broker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;pyamqp://username:passsword@127.0.0.1/sysname&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;backend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;rpc://username:passsword@127.0.0.1/sysname&#39;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Note that any configuration that was previously set will be reset when config_from_object() is called.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# If you want to set additional configuration you should do so after.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config_from_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;django.conf:settings&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;CELERY_NODE&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# set queue&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;default_exchange&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exchange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;default&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;topic&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;task_queues&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;default&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default_exchange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;routing_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;default.#&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;crnodesys&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;crnodesys_exchange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;routing_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;period.#&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# set default queue and exchange&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;CELERY_IGNORE_RESULT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;CELERY_STORE_ERRORS_EVEN_IF_IGNORED&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;task_default_queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;default&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;task_default_exchange&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;default&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;task_default_exchange_type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;topic&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;task_default_routing_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;default.task&#39;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# set routings&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;task_routes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;tasks.*&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;              &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;queue&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;period&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;routing_key&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;period.task&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}),&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;],)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Load task modules from all registered Django app configs.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;autodiscover_tasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@app.task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;debug_task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Request: {0!r}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;run-1&quot;&gt;Run&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;run django&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python ./manage.py runserver localhost:8000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;run celery&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;celery worker &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; dashboard &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; info
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </description>
         <pubDate>Fri, 20 Nov 2020 12:51:40 +0800</pubDate>
         <link>http://2bebetter.github.io/gitlab/2020/11/20/django-celery-rabbitmq/</link>
@@ -1958,241 +2218,6 @@ docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot
         
         
         <category>thesis</category>
-        
-      </item>
-    
-      <item>
-        <title>Your first blog</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#first-post使用githubio和jekyll搭建个人博客&quot; id=&quot;markdown-toc-first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#配置环境&quot; id=&quot;markdown-toc-配置环境&quot;&gt;配置环境&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#jekyll&quot; id=&quot;markdown-toc-jekyll&quot;&gt;jekyll&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#githubio&quot; id=&quot;markdown-toc-githubio&quot;&gt;github.io&lt;/a&gt;            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#create-a-repository&quot; id=&quot;markdown-toc-create-a-repository&quot;&gt;Create a repository&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#clone-the-repository&quot; id=&quot;markdown-toc-clone-the-repository&quot;&gt;Clone the repository&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#hello-world&quot; id=&quot;markdown-toc-hello-world&quot;&gt;Hello world&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#personal-blog&quot; id=&quot;markdown-toc-personal-blog&quot;&gt;Personal Blog&lt;/a&gt;            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#run-the-first-blog&quot; id=&quot;markdown-toc-run-the-first-blog&quot;&gt;Run the first blog&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#markdown编译器&quot; id=&quot;markdown-toc-markdown编译器&quot;&gt;markdown编译器&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#配置github&quot; id=&quot;markdown-toc-配置github&quot;&gt;配置github&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#插入图片&quot; id=&quot;markdown-toc-插入图片&quot;&gt;插入图片&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#目录&quot; id=&quot;markdown-toc-目录&quot;&gt;目录&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#数学公式&quot; id=&quot;markdown-toc-数学公式&quot;&gt;数学公式&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;first-post使用githubio和jekyll搭建个人博客&quot;&gt;First Post——使用github.io和jekyll搭建个人博客&lt;/h1&gt;
-
-&lt;p&gt;由于最近可能会阅读一些论文，因此决定搭建一个个人博客用以记录论文阅读过程中可能会产生的笔记，而CSDN的博客我个人不太喜欢，又由于自己的囊中羞涩，最后决定使用github.io结合jekyll搭建一个博客。&lt;/p&gt;
-
-&lt;h2 id=&quot;配置环境&quot;&gt;配置环境&lt;/h2&gt;
-
-&lt;h3 id=&quot;jekyll&quot;&gt;jekyll&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;install&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;因为win10内嵌了linux子系统，而使用linux安装jekyll个人觉得要比windows系统相对来说更为容易，因此决定在该linux子系统内配置环境。&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt install ruby jekyll&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;new project&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jekyll new helloworld
-
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;helloworld
-
-jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;githubio&quot;&gt;github.io&lt;/h3&gt;
-
-&lt;h4 id=&quot;create-a-repository&quot;&gt;Create a repository&lt;/h4&gt;
-
-&lt;p&gt;在GitHub中创建一个名为username.github.io的新仓库，其中username是你在GitHub上的用户名&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201020190937302.png&quot; alt=&quot;image-20201020190937302&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;clone-the-repository&quot;&gt;Clone the repository&lt;/h4&gt;
-
-&lt;p&gt;转到要存储项目的文件夹，然后克隆这个仓库：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/username/username.github.io&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;hello-world&quot;&gt;Hello world&lt;/h4&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;username.github.io
-
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;Hello, world&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; index.html&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;personal-blog&quot;&gt;Personal Blog&lt;/h3&gt;
-
-&lt;h4 id=&quot;run-the-first-blog&quot;&gt;Run the first blog&lt;/h4&gt;
-
-&lt;p&gt;目前有很多的jekyll主题和模板，在这里提供一个网站&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;jekyll themes&lt;/a&gt;和一个教程：&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md&quot;&gt;说明文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;我个人选择了&lt;a href=&quot;http://jekyllthemes.org/themes/monos/&quot;&gt;monos&lt;/a&gt;这个主题，下载该主题后解压到你的项目文件夹下，运行之后会出现一些依赖不存在的情况，只需要按照它所提示的名称和版本安装即可&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;jekyll-theme-monos-master
-
-username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve
-
-Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last:
-
-  10: from /usr/bin/jekyll:7:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&amp;lt;main&amp;gt;&lt;span class=&quot;s1&quot;&gt;&#39;
-
-  9: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:33:in `require_from_bundler&#39;&lt;/span&gt;
-
-  8: from /usr/local/lib/site_ruby/2.5.0/bundler.rb:149:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;setup&lt;span class=&quot;s1&quot;&gt;&#39;
-
-  7: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:20:in `setup&#39;&lt;/span&gt;
-
-  6: from /usr/local/lib/site_ruby/2.5.0/bundler/runtime.rb:101:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;definition_method&lt;span class=&quot;s1&quot;&gt;&#39;
-
-  5: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:226:in `requested_specs&#39;&lt;/span&gt;
-
-  4: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:237:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;specs_for&lt;span class=&quot;s1&quot;&gt;&#39;
-
-  3: from /usr/local/lib/site_ruby/2.5.0/bundler/definition.rb:170:in `specs&#39;&lt;/span&gt;
-
-  2: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;
-
-  1: from /usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:80:in `map!&#39;&lt;/span&gt;
-
-/usr/local/lib/site_ruby/2.5.0/bundler/spec_set.rb:86:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;materialize&lt;span class=&quot;s1&quot;&gt;&#39;: Could not find public_suffix-4.0.3 in any of the sources (Bundler::GemNotFound)
-
-username:/jekyll-theme-monos-master$ sudo gem install bundler:1.17.2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;安装过程中可能会出现如下的错误，安装ruby-dev&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;username:/jekyll-theme-monos-master&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;gem install eventmachine &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 1.2.7
-
-Building native extensions. This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...               
-
-ERROR: Error installing eventmachine:
-
-  ERROR: Failed to build gem native extension.
-
-current directory: /var/lib/gems/2.5.0/gems/eventmachine-1.2.7/ext
-
-/usr/bin/ruby2.5 &lt;span class=&quot;nt&quot;&gt;-I&lt;/span&gt; /usr/local/lib/site_ruby/2.5.0 &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ./siteconf20201020-5764-1v6qrrl.rb extconf.rb  
-
-mkmf.rb can&lt;span class=&quot;s1&quot;&gt;&#39;t find header files for ruby at /usr/lib/ruby/include/ruby.h
-
-​    extconf failed, exit code 1
-
-Gem files will remain installed in /var/lib/gems/2.5.0/gems/eventmachine-1.2.7 for inspection.   
-
-Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/eventmachine-1.2.7/gem_make.out 
-
-username:/jekyll-theme-monos-master$ sudo apt install ruby-dev&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;markdown编译器&quot;&gt;markdown编译器&lt;/h4&gt;
-
-&lt;p&gt;我的第一篇博客如下图所示：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021092055720.png&quot; alt=&quot;image-20201021092055720&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;感觉样式被解析的十分奇怪，这是因为jekyll的markdown语法和github，或简书上的markdown语法很不一样，比如代码高亮部分只能用以下形式:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021104402448.png&quot; alt=&quot;image-20201021104402448&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;当我们查看配置文件时，发现&lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;解析器是默认使用的&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown&lt;/code&gt;，我们可以将其修改为我们需要的markdown解析器，jekyll支持三种markdown解析器：kramdown,redcarpet,rdiscount，同时我们可以通过在&lt;strong&gt;&lt;em&gt;*_config.yml*&lt;/em&gt;&lt;/strong&gt;文件中修改&lt;code class=&quot;highlighter-rouge&quot;&gt;markdown: kramdown&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;kramdown:[]&lt;/code&gt;修改markdown解析器的默认设置。&lt;/p&gt;
-
-&lt;p&gt;Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;将只支持kramdown作为Markdown引擎&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;将只支持Rouge作为Markdown代码语法高亮&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;大幅提升构建速度&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;不再支持Permalinks和Textile&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所以之前的配置方法现在不再适用，我们需要对Jekyll的相应配置重新进行修改。&lt;/p&gt;
-
-&lt;h4 id=&quot;配置github&quot;&gt;配置github&lt;/h4&gt;
-
-&lt;p&gt;在你的github仓库中修改settings设置，&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021101011843.png&quot; alt=&quot;image-20201021101011843&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;当出现提示“Your site is ready to be published at http://2bebetter.github.io”时，配置成功。&lt;/p&gt;
-
-&lt;h4 id=&quot;插入图片&quot;&gt;插入图片&lt;/h4&gt;
-
-&lt;p&gt;我使用的markdown编辑器是typora，插入图片时非常方便，但是不能正确在github上显示，修改typora和配置文件如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;typora&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;偏好设置-&amp;gt;图像-&amp;gt;图像插入时，选择”复制到指定位置”并将地址设为 &lt;code class=&quot;highlighter-rouge&quot;&gt;../img/${filename}&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-10-21-personal-blog/image-20201021103739381.png&quot; alt=&quot;image-20201021103739381&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;jekyll&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在每一篇post的开头配置行中加入&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;这样插入图片的时候，就会自动在_post平级的img文件下面生成一个与post同名的文件夹并放入名称类似&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/in-post/post_name/picture_name.png&lt;/code&gt;的图片,通过&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;引用图片的时候typora会去找&lt;code class=&quot;highlighter-rouge&quot;&gt;../img/post_name/picture_name.png&lt;/code&gt; 能够预览图片，在github pages时&lt;code class=&quot;highlighter-rouge&quot;&gt;typora-root-url: ..&lt;/code&gt; 无效，找的还是&lt;code class=&quot;highlighter-rouge&quot;&gt;/img/post_name/picture_name.png&lt;/code&gt;，能够正确显示图片。&lt;/p&gt;
-
-&lt;h4 id=&quot;目录&quot;&gt;目录&lt;/h4&gt;
-
-&lt;p&gt;plugin：&lt;a href=&quot;https://github.com/jossets/jekyll-toc&quot;&gt;jossets/jekyll-toc&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;这种方法可以兼容github-page：&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;A GitHub Pages compatible Table of Contents generator without a plugin or JavaScript :octocat: https://pure-liquid.allejo.org/&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;使用方法：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;下载最新的&lt;a href=&quot;https://github.com/jossets/jekyll-toc/blob/master/_includes/toc.html&quot;&gt;toc.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;将该文件拖进_includes文件夹下&lt;/li&gt;
-  &lt;li&gt;在模板布局页面中&lt;code class=&quot;highlighter-rouge&quot;&gt;{\{ content \}}&lt;/code&gt;前加入：&lt;code class=&quot;highlighter-rouge&quot;&gt;\{\% include toc.html html=content \%\}&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;数学公式&quot;&gt;数学公式&lt;/h4&gt;
-
-&lt;p&gt;使用latex编写数学公式是十分方便的，但是markdown本身并不支持latex公式，因此需要一些拓展，或者使用Typora编辑器自带的latex公式编辑。&lt;/p&gt;
-
-&lt;p&gt;虽然jekyll并不支持latex，但是可以通过工具来实现，是一个开源的基于 Ajax 的数学公式显示的解决方案，结合多种先进的Web技术，支持主流的浏览器。需要把下面的JS调用代码以及配置插入到你Jekyll博客的header文件中：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/x-mathjax-config&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;MathJax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Hub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;tex2jax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;skipTags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;script&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;noscript&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;style&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;textarea&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pre&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;inlineMath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-</description>
-        <pubDate>Wed, 21 Oct 2020 10:21:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/jekyll/2020/10/21/personal-blog/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/jekyll/2020/10/21/personal-blog/</guid>
-        
-        
-        <category>jekyll</category>
         
       </item>
     
