@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "论文阅读"
-date:   2020-11-24 10:21:40 +0800
+title:  "self learning"
+date:   2020-11-25 10:21:40 +0800
 typora-root-url: ..
 categories: thesis
 ---

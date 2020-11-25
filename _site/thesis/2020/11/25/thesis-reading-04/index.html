@@ -9,13 +9,13 @@
   <meta http-equiv="Cache-Control" content="no-transform"/>
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   
-  <title>Controller placements for latency minimization of both primary and backup paths in SDNs</title>
+  <title>Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</title>
   <meta name="description" content="">
   <link rel="shortcut icon" href="/img/favicon.png">
   <link rel="apple-touch-icon" href="/img/favicon.ico"/>
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://2bebetter.github.io/thesis/2020/11/23/thesis-reading-03/">
+  <link rel="canonical" href="http://2bebetter.github.io/thesis/2020/11/25/thesis-reading-04/">
 
   <link href="/css/highlight.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
@@ -86,10 +86,10 @@
     <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
     <div class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            Controller placements for latency minimization of both primary and backup paths in SDNs
+            Software-Defifined Networking Approaches for Link Failure Recovery: A Survey
         </h1>
         <div class="post-date">
-            <time itemprop="datePublished">Nov 23, 2020</time>
+            <time itemprop="datePublished">Nov 25, 2020</time>
         </div>
     </div>
 </article>
@@ -101,81 +101,80 @@
         </aside>
         <article class="post-content">
             <ul id="markdown-toc">
-  <li><a href="#controller-placements-for-latency-minimization-of-both-primary-and-backup-paths-in-sdns" id="markdown-toc-controller-placements-for-latency-minimization-of-both-primary-and-backup-paths-in-sdns">Controller placements for latency minimization of both primary and backup paths in SDNs</a>    <ul>
-      <li><a href="#problem" id="markdown-toc-problem">Problem</a></li>
-      <li><a href="#methods" id="markdown-toc-methods">Methods</a></li>
-      <li><a href="#流程" id="markdown-toc-流程">流程</a></li>
-      <li><a href="#experiment" id="markdown-toc-experiment">Experiment</a></li>
-      <li><a href="#limits" id="markdown-toc-limits">Limits</a></li>
+  <li><a href="#software-defifined-networking-approaches-for-link-failure-recovery-a-survey" id="markdown-toc-software-defifined-networking-approaches-for-link-failure-recovery-a-survey">Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</a>    <ul>
+      <li><a href="#链路故障检测机制" id="markdown-toc-链路故障检测机制">链路故障检测机制</a></li>
+      <li><a href="#链路故障恢复机制" id="markdown-toc-链路故障恢复机制">链路故障恢复机制</a>        <ul>
+          <li><a href="#proactive" id="markdown-toc-proactive">Proactive</a></li>
+          <li><a href="#reactive" id="markdown-toc-reactive">Reactive</a></li>
+          <li><a href="#laege-scale-sdn" id="markdown-toc-laege-scale-sdn">Laege-scale SDN</a></li>
+          <li><a href="#hybrid-sdn" id="markdown-toc-hybrid-sdn">Hybrid SDN</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
-<p><a href="https://www.sciencedirect.com/science/article/pii/S0140366420319150">Controller placements for latency minimization of both primary and backup paths in SDNs</a></p>
+<h2 id="software-defifined-networking-approaches-for-link-failure-recovery-a-survey">Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</h2>
 
-<h2 id="controller-placements-for-latency-minimization-of-both-primary-and-backup-paths-in-sdns">Controller placements for latency minimization of both primary and backup paths in SDNs</h2>
+<p><a href="https://ideas.repec.org/a/gam/jsusta/v12y2020i10p4255-d361650.html">Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</a></p>
 
-<h3 id="problem">Problem</h3>
+<p>SDN使用主动和被动两种主要方法来处理链路故障。</p>
+
+<p>在主动方法中，备用路径是预先配置的，并且在链路故障的情况下，中断的流将转发到备份路径，不需要与控制器进行交互。</p>
+
+<p>相反，在反应性方案中即被动方法中，需要与控制器联系以寻找替代路径，在控制器计算路径结束之后，重新下发新路径的流表规则。</p>
+
+<p>但是，这两种方案都有其优缺点，同时还要在性能和效率上进行权衡。</p>
+
+<h3 id="链路故障检测机制">链路故障检测机制</h3>
+
+<p>SDN中的故障恢复过程从检测到链路故障开始，如果检测迅速，那么整个恢复过程的总延迟将很小，这就是为什么检测方案对整个过程如此重要。</p>
+
+<p>下表概述了链路故障检测机制，故障链路的检测方法以及检测方案中的相关问题。</p>
 
 <ul>
-  <li>主路径延迟和备用路径延迟的两个目标本质上是冲突的。假设网络是理想的，则倾向于将控制器放置在靠近交换机的位置，以减少主要路径上交换机到控制器之间的延迟。但是，由于发生链接故障时绕行路径较长，因此备用路径延迟可能会很高。</li>
+  <li>在[32，33]中提出的方案使用监视周期的概念来减少链路故障恢复时间。在参考文献[32]中，引入了二进制搜索技术以最小化路径上的跳数。</li>
+  <li>类似地，在参考文献[33,34]中，使用启发式方法[35]将监视分配公式化为邮递员问题，以分配监视周期。</li>
+  <li>OpenFlow使用了与以太网相同的检测信号的机制，通过在节点之间以固定的时间间隔交换心跳消息来确定网络的状态，通过节点之间的hello数据包的交换速率来检查活动性。因此，如果节点在16±8 ms的常规时间间隔内未收到hello数据包，则会向控制器通知发生故障的链路。</li>
+  <li>生成树协议（STP）[38]和反向生成树协议（RSTP）也已在数据链路层上用于链路故障检测。但是，它们的检测时间跨度为几秒钟，不能保证现代技术的延迟要求。</li>
+  <li>SDN社区[36,40,41]中也常规提供OpenFlow快速故障转移（FF）组[1]和双向转发检测（BFD）[39]，用于链路故障检测和恢复。</li>
+  <li>在[42]中提出了一种故障检测机制，称为低错误率故障检测服务（FDLM），它使用心跳消息将检测中的错误最小化。</li>
+  <li>使用多协议标签交换（MPLS）BFD来检测端到端路径中传输网络的故障。该方案通过与数据包一起发送探测消息，当连续的探测消息之间存在间隙时，认为检测到链路故障。</li>
+  <li>在[45]中提出了一种使用基于out 数据包的计数器机制的故障检测方法。对链接上安装的流规则进行标记和监视，然后在目标位置对数据包进行计数。</li>
+  <li>交换机级别的故障检测方案[47]被称为交换机故障检测（SFD），使用故障链路和网络拓扑作为输入。为了识别故障交换机，该算法首先找到故障链路的源和目的地。然后，发现与交换机连接的所有主机，并计算丢包率是否为100％。(<strong>仅限节点故障</strong>)</li>
 </ul>
 
-<h3 id="methods">Methods</h3>
+<p><img src="/img/2020-11-25-thesis-reading-04/image-20201125192853820.png" alt="image-20201125192853820" /></p>
 
-<ul>
-  <li>提出了一种新颖的多目标SDN控制器放置问题，以在没有链路故障和同时发生单链路故障的情况下将切换到控制器的通信延迟降到最低。</li>
-  <li>提出了一种有效的基于元启发式的可靠性感知和面向延迟的控制器放置算法（RALO），用于多目标多控制器放置。该算法通过具有网络分区的贪婪方法构造初始可行解，然后通过可变邻域搜索重复编辑生成新解。同时，为了避免陷入局部最优，该算法对当前解执行微扰和破坏操作。</li>
-</ul>
+<h3 id="链路故障恢复机制">链路故障恢复机制</h3>
 
-<p>根据各种限制条件抽象成数学表达式，包含约束条件和目标函数，之后为该NP问题提出一个算法解。通过将网络节点划分为多个交换机子集并根据交换机到控制器的通信延迟和控制器处理能力在每个交换机子集中分配一个控制器来构造一个初始可行的解决方案，之后使用可变邻域搜索(VNS)生成新的解决方案，检验该方案是否是可行解，并更新不符合条件的方案。</p>
+<h4 id="proactive">Proactive</h4>
 
-<h3 id="流程">流程</h3>
-
-<pre><code class="language-mermaid">graph TD;
-	Initial_solution_construction -- searches the neighborhood to generate new feasible solutions --&gt; Variable_neighborhood_search;
-
-	Variable_neighborhood_search -- Perturbation reassigns some of the switches to other controllers for each node subset --&gt; Perturbation;
-	
-	Perturbation -- Controller relocation attempts to increase the performance of &lt;br&gt; the feasible solutions by moving a controller to a different position &lt;br&gt; in the same node subset --&gt;  Controller_relocation;
-	
-	 Controller_relocation-- Shake destroys the current solution significantly &lt;br&gt; so that the solution can jump to a solution space far away. &lt;br&gt; Shake attempts to find better controllers for the nodes with the &lt;br&gt; largest node-to-controller communication delay in each subset. --&gt; Shake;
-</code></pre>
-
-<p><strong>算法的初始可行解决方案的构建流程：</strong></p>
+<p><img src="/img/2020-11-25-thesis-reading-04/image-20201125202420813.png" alt="image-20201125202420813" /></p>
 
 <ul>
   <li>
-    <p>构造分为两个步骤：节点子集划分和控制器在每个节点子集中的放置。</p>
+    <p>OpenFlow提供了Fast-FailOver用于故障检测和恢复。</p>
   </li>
-  <li>算法1继续在参数𝑟𝑚𝑎𝑥确定的最大迭代次数内迭代找到新解。在每次迭代期间，扰动控制器和开关之间的映射关系，并执行变量邻域搜索，然后改变控制器的位置。</li>
-  <li>如果当前解比所有找到的Pareto最优解差，则当前解决方案会受到Shakes的极大干扰，因此该解可以跳到另一个解空间以避免陷入局部最优。</li>
+  <li>BFD</li>
+  <li>SPIDER</li>
 </ul>
 
-<p><img src="/img/2020-11-23-thesis-reading-03/image-20201123174210356.png" alt="image-20201123174210356" /></p>
+<h4 id="reactive">Reactive</h4>
 
-<ul>
-  <li>每次找到潜在的控制器位置后，算法2会更新所有节点的𝐿𝑖，然后选择具有最大𝐿𝑖的节点作为下一个潜在的控制器位置；</li>
-</ul>
+<p>响应式故障恢复主要依靠SDN控制器。</p>
 
-<p><img src="/img/2020-11-23-thesis-reading-03/image-20201123192701939.png" alt="image-20201123192701939" /></p>
+<p>这种方法的反对者声称反应式方案不能满足CGN的延迟范围，即50毫秒。</p>
 
-<ul>
-  <li>算法3在算法2获得的每个节点子集中选择每个控制器的位置，并在约束条件下将每个节点映射到控制器。在算法3中，将两跳中的节点当中具有最大请求数的那个节点选为每个子集中的控制器位置。该算法按请求数量的非升序对每个子集𝑆𝑘中的所有其他节点进行排序，并在控制器的约束下将每个节点分配给控制器。</li>
-</ul>
+<p><img src="/img/2020-11-25-thesis-reading-04/image-20201125210823088.png" alt="image-20201125210823088" /></p>
 
-<p><img src="/img/2020-11-23-thesis-reading-03/image-20201123193640292.png" alt="image-20201123193640292" /></p>
+<h4 id="laege-scale-sdn">Laege-scale SDN</h4>
 
-<h3 id="experiment">Experiment</h3>
+<p>利用图论对网络进行裁剪。</p>
 
-<p>在仿真中使用的网络拓扑是Internet拓扑zoo中的8种实际网络拓扑，以及由斯坦福网络分析平台（SNAP）生成的两种网络拓扑（生成网络I和生成网络II）。生成网络I是符合ER（Erdos-Renyi）随机模型的一组网络拓扑，而生成网络II是符合小世界模型的一组网络拓扑。每种生成网络均包含10种网络拓扑。</p>
+<p>Distributed controller clustering in software defifined networks.</p>
 
-<p>文章共比较了LARC、RALO、PSA、Survivor和OPT共五种算法在主要路径和备份路径上的平均延时和累计延时，以及运行时间等评估指标上的差异。</p>
+<h4 id="hybrid-sdn">Hybrid SDN</h4>
 
-<h3 id="limits">Limits</h3>
-
-<ul>
-  <li>假设网络中最多存在一个链路故障，因为网络中多链路故障的可能性很小。</li>
-</ul>
 
         </article>
         <!-- <div class="post-content">
