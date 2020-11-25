@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "论文阅读"
+title:  "Controller placements for latency minimization of both primary and backup paths in SDNs"
 date:   2020-11-23 10:21:40 +0800
 typora-root-url: ..
 categories: thesis

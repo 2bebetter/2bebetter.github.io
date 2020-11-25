@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Django Celery Rabbitmq"
+title: "在Django项目中使用Celery+Rabbitmq"
 date:  2020-11-20 12:51:40 +0800
 typora-root-url: ..
 categories: gitlab

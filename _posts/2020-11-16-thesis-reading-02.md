@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "论文阅读"
+title:  "软件定义网络中的网络资源分配与路由策略研究"
 date:   2020-11-16 10:21:40 +0800
 typora-root-url: ..
 categories: thesis

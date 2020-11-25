@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Gitlab CI/CD配置"
+title:  "第一版Gitlab CI/CD配置"
 date:   2020-11-04 10:21:40 +0800
 typora-root-url: ..
 categories: jekyll

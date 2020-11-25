@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Gitlab CI/CD配置"
+title: "修正版Gitlab CI/CD配置"
 date:  2020-11-11 12:51:40 +0800
 typora-root-url: ..
 categories: gitlab

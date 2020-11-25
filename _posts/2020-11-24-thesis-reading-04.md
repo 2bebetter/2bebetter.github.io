@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "论文阅读"
+title:  "Rapid Restoration Techniques for Software-Defined Networks"
 date:   2020-11-24 10:21:40 +0800
 typora-root-url: ..
 categories: thesis
