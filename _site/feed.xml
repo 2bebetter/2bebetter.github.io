@@ -6,9 +6,500 @@
 </description>
     <link>http://2bebetter.github.io/</link>
     <atom:link href="http://2bebetter.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 25 Nov 2020 21:30:36 +0800</pubDate>
-    <lastBuildDate>Wed, 25 Nov 2020 21:30:36 +0800</lastBuildDate>
+    <pubDate>Mon, 15 Mar 2021 09:41:23 +0800</pubDate>
+    <lastBuildDate>Mon, 15 Mar 2021 09:41:23 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>基于时间序列的预测</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#基于时间序列的预测算法&quot; id=&quot;markdown-toc-基于时间序列的预测算法&quot;&gt;基于时间序列的预测算法&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#时间序列&quot; id=&quot;markdown-toc-时间序列&quot;&gt;时间序列&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#introduction-to-time-series-forecasting&quot; id=&quot;markdown-toc-introduction-to-time-series-forecasting&quot;&gt;Introduction to Time Series Forecasting&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#how-to-import-time-series-in-python&quot; id=&quot;markdown-toc-how-to-import-time-series-in-python&quot;&gt;How to import time series in python？&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#what-is-panel-data&quot; id=&quot;markdown-toc-what-is-panel-data&quot;&gt;What is panel data?&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#可视化&quot; id=&quot;markdown-toc-可视化&quot;&gt;可视化&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#patterns-in-a-time-series&quot; id=&quot;markdown-toc-patterns-in-a-time-series&quot;&gt;Patterns in a time series&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#时间序列分解&quot; id=&quot;markdown-toc-时间序列分解&quot;&gt;时间序列分解&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#时间序列的平稳性&quot; id=&quot;markdown-toc-时间序列的平稳性&quot;&gt;时间序列的平稳性&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#arima&quot; id=&quot;markdown-toc-arima&quot;&gt;ARIMA&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#introduction-to-arima-models&quot; id=&quot;markdown-toc-introduction-to-arima-models&quot;&gt;Introduction to ARIMA models&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#what-does-the-p-d-and-q-in-arima-model-mean&quot; id=&quot;markdown-toc-what-does-the-p-d-and-q-in-arima-model-mean&quot;&gt;What does the p, d and q in ARIMA model mean&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;基于时间序列的预测算法&quot;&gt;基于时间序列的预测算法&lt;/h1&gt;
+
+&lt;h2 id=&quot;时间序列&quot;&gt;时间序列&lt;/h2&gt;
+
+&lt;h3 id=&quot;introduction-to-time-series-forecasting&quot;&gt;Introduction to Time Series Forecasting&lt;/h3&gt;
+
+&lt;p&gt;时间序列是按常规时间间隔记录的一系列观测结果。&lt;/p&gt;
+
+&lt;h3 id=&quot;how-to-import-time-series-in-python&quot;&gt;How to import time series in python？&lt;/h3&gt;
+
+&lt;p&gt;时间系列的数据通常以.csv文件或其他电子表格格式存储，并包含两列：日期和观测值。&lt;/p&gt;
+
+&lt;p&gt;使用包panda中的read_csv()函数来读取时间序列的数据集作为pandas的数据框架。添加parse_dates=[“日期”]参数将日期列解析为日期字段.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dateutil.parser&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt; 
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mpl&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;seaborn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rcParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;figure.figsize&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;figure.dpi&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Import as Dataframe&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;https://raw.githubusercontent.com/selva86/datasets/master/a10.csv&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse_dates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;date&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2021-03-12-time-series-forecasting/table_1-min.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;或者，可以用日期作为索引导入它作为panda系列，在pd.read_csv()中指定index_col参数。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;https://raw.githubusercontent.com/selva86/datasets/master/a10.csv&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse_dates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;date&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index_col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;date&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2021-03-12-time-series-forecasting/table_2-min.png&quot; alt=&quot;Series Timeseries&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在该系列中，”value”列的放置高于’date’，以表示它是一个系列。&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-panel-data&quot;&gt;What is panel data?&lt;/h3&gt;
+
+&lt;p&gt;panel data同样也是基于时间的数据集。不同的是，除了时间系列之外，它还包含一个或多个用于同一时间段的相关变量。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# dataset source: https://github.com/rouseguy&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;https://raw.githubusercontent.com/selva86/datasets/master/MarketArrivals.csv&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;market&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;MUMBAI&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2021-03-12-time-series-forecasting/table_3-min-1024x231.png&quot; alt=&quot;Panel Data&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;可视化&quot;&gt;可视化&lt;/h3&gt;
+
+&lt;p&gt;matplotlib&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Time series data source: fpp pacakge in R.&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;https://raw.githubusercontent.com/selva86/datasets/master/a10.csv&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse_dates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;date&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index_col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;date&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Draw Plot&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;plot_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Date&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Value&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dpi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dpi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dpi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;tab:red&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plot_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Monthly anti-diabetic drug sales in Australia from 1992 to 2008.&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2021-03-12-time-series-forecasting/1_visualizing_time_series-1024x360.png&quot; alt=&quot;Visualizing Time Series&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;patterns-in-a-time-series&quot;&gt;Patterns in a time series&lt;/h3&gt;
+
+&lt;p&gt;Any time series may be split into the following components: &lt;strong&gt;Base Level + Trend + Seasonality + Error&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;(余额宝在2014-02-01~2014-07-31期间每日申购的总金额&lt;a href=&quot;https://tianchi.aliyun.com/competition/entrance/231573/information&quot;&gt;（数据来自天池大赛）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2021-03-12-time-series-forecasting/v2-6e6a62447f35e3f1881f4229d06573be_720w.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;趋势：&lt;/strong&gt;趋势是时间序列在某一方向上持续运动，现象是在较长时期内受某种根本性因素作用而形成的总的变动趋势。上图中可以看到从2014年2月到2014年4月，余额宝的申购资金一路下降，这是一个明显的趋势。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;季节变化：&lt;/strong&gt;许多时间序列中包含季节变化，现象是在一年内随着季节的变化而发生的有规律的周期性变动。上图中肉眼很难看出时间序列随季节变化，可以通过时间序列分解（STL）来展示序列中的季节变化。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;序列相关性：时间序列的一个最重要特征是序列相关性，又称为自相关性。&lt;/strong&gt;上图中可以看到，数据之间存在一定的正相关与负相关。例如某天的数据上升，它的前一天或者后一天也上升或者下降。&lt;strong&gt;自相关性是时间序列可以预测未来的前提（序列中存在的规律），如果没有自相关性，就变成了白噪声（无规律）。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;随机噪声：&lt;/strong&gt;它是时间序列中除去趋势、季节变化和自相关性之后的剩余随机扰动。由于时间序列存在不确定性，随机噪声总是夹杂在时间序列中，致使时间序列表现出某种震荡式的无规律运动。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;时间序列分析的核心就是挖掘该时间序列中的自相关性&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;注意：如何区分循环和季节性？&lt;/p&gt;
+
+&lt;p&gt;如果模式不是基于固定日历的频率，则它是循环的。因为，与季节性不同，循环效应通常受商业和其他社会经济因素的影响。&lt;/p&gt;
+
+&lt;h3 id=&quot;时间序列分解&quot;&gt;时间序列分解&lt;/h3&gt;
+
+&lt;p&gt;大多数情况下，业务分析人员很难从高高低低的曲线中找到数据的规律。&lt;strong&gt;通过时间序列分解，可以帮助大家从时间序列的波动中挖掘信息。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;时间序列分解的成功与否，取决于两个因素：一是数据序列本身是隐藏着规律的，不可预测的部分只是其中的一小部分；二是分解的方法要合适，尤其是周期的判断要准确。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;时间序列的平稳性&quot;&gt;时间序列的平稳性&lt;/h3&gt;
+
+&lt;p&gt;平稳性：时间序列的行为并不随时间而改变&lt;/p&gt;
+
+&lt;p&gt;平稳性是时间序列分析的基本假设。&lt;/p&gt;
+
+&lt;p&gt;那么，&lt;strong&gt;为什么&lt;/strong&gt;我们需要&lt;strong&gt;时间序列的统计性质&lt;/strong&gt;关于&lt;strong&gt;时间平移不变&lt;/strong&gt;呢？因为我们研究时间序列很重要的一个应用（或者出发点），是希望通过时间序列的&lt;strong&gt;历史数据&lt;/strong&gt;来得到其&lt;strong&gt;未来的一些预测&lt;/strong&gt;。换句话说，我们希望时间序列在&lt;strong&gt;历史数据上的一些性质，在将来保持不变&lt;/strong&gt;，这不就是时间平移的不变性么？反过来想，如果时间序列不是平稳的，由历史数据得到的统计性质对未来毫无意义，那么研究时间序列还有什么意义呢？&lt;/p&gt;
+
+&lt;p&gt;参考文献：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/21982358&quot;&gt;1. 如何深入理解时间序列分析中的平稳性？&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;arima&quot;&gt;ARIMA&lt;/h2&gt;
+
+&lt;h3 id=&quot;introduction-to-arima-models&quot;&gt;Introduction to ARIMA models&lt;/h3&gt;
+
+&lt;p&gt;ARIMA, short for ‘Auto Regressive Integrated Moving Average’ is actually a class of models that ‘explains’ a given time series based on its own past values, that is, its own lags and the lagged forecast errors, so that equation can be used to forecast future values.&lt;/p&gt;
+
+&lt;p&gt;任何显示模式而不是随机白噪声的”&lt;strong&gt;非季节性&lt;/strong&gt;“时间系列都可以使用 ARIMA 模型进行建模。如果是一个有季节性的时间序列，为ARIMA添加seasonal terms-&amp;gt;SARIMA。&lt;/p&gt;
+
+&lt;p&gt;An ARIMA model is characterized by 3 terms: p, d, q&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;p is the order of the AR term&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;q is the order of the MA term&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;d is the number of differencing required to make the time series stationary&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;what-does-the-p-d-and-q-in-arima-model-mean&quot;&gt;What does the p, d and q in ARIMA model mean&lt;/h3&gt;
+
+</description>
+        <pubDate>Fri, 12 Mar 2021 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2021/03/12/time-series-forecasting/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2021/03/12/time-series-forecasting/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
+    
+      <item>
+        <title>mininet+ryu搭建环境</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#面向软件定义网络的异常识别机制&quot; id=&quot;markdown-toc-面向软件定义网络的异常识别机制&quot;&gt;面向软件定义网络的异常识别机制&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#总体架构&quot; id=&quot;markdown-toc-总体架构&quot;&gt;总体架构&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#mininet&quot; id=&quot;markdown-toc-mininet&quot;&gt;Mininet&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#ryu&quot; id=&quot;markdown-toc-ryu&quot;&gt;Ryu&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#实验环境&quot; id=&quot;markdown-toc-实验环境&quot;&gt;实验环境&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;面向软件定义网络的异常识别机制&quot;&gt;面向软件定义网络的异常识别机制&lt;/h1&gt;
+
+&lt;h2 id=&quot;总体架构&quot;&gt;总体架构&lt;/h2&gt;
+
+&lt;p&gt;本文将会介绍该网络入侵检测系统的内部组成，包括路由转发模块、基于时间序列的预测模块、半监督的机器学习模块等。&lt;/p&gt;
+
+&lt;p&gt;该系统的主要功能由mininet和ryu来实现，&lt;/p&gt;
+
+&lt;p&gt;靶场平台由前端系统、调度系统、网络系统、终端系统（包括实物节点、数学节点、虚拟节点）、监控系统和流量系统构成。前端系统供用户创建演训演训场景（包括创建项目、画拓扑图、部署场景、3D展示等）；调度系统用于接收、解析前端系统下发的场景构建指令，并分别下发给除前端系统和自身外的其他系统进行实际部署；网络系统根据场景网络配置，基于SDN和NFV构建虚拟网络；终端系统各子系统分别根据各自终端配置部署终端节点；监控系统用于监控场景中的网络流量和终端流量；流量系统负责生成场景中的背景流量和特定攻击流量。&lt;/p&gt;
+
+&lt;h3 id=&quot;mininet&quot;&gt;Mininet&lt;/h3&gt;
+
+&lt;h3 id=&quot;ryu&quot;&gt;Ryu&lt;/h3&gt;
+
+&lt;h3 id=&quot;实验环境&quot;&gt;实验环境&lt;/h3&gt;
+
+</description>
+        <pubDate>Thu, 11 Mar 2021 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/sdn/2021/03/11/mininet-ryu/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/sdn/2021/03/11/mininet-ryu/</guid>
+        
+        
+        <category>SDN</category>
+        
+      </item>
+    
+      <item>
+        <title>SDN信息采集</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#umon-flexible-and-fine-grained-traffic-monitoring-in-open-vswitch&quot; id=&quot;markdown-toc-umon-flexible-and-fine-grained-traffic-monitoring-in-open-vswitch&quot;&gt;UMON: Flexible and Fine Grained Traffic Monitoring in Open vSwitch&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#deepguard-efficient-anomaly-detection-in-sdn-with-fine-grained-traffic-flow-monitoring&quot; id=&quot;markdown-toc-deepguard-efficient-anomaly-detection-in-sdn-with-fine-grained-traffic-flow-monitoring&quot;&gt;DeepGuard: Efficient Anomaly Detection in SDN With Fine-Grained Traffic Flow Monitoring&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#countermap-towards-generic-traffic-statistics-collection-and-query-in-software-defined-network&quot; id=&quot;markdown-toc-countermap-towards-generic-traffic-statistics-collection-and-query-in-software-defined-network&quot;&gt;CounterMap: Towards Generic Traffic Statistics Collection and Query in Software Defined Network&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#flow-monitoring-in-software-defined-networks&quot; id=&quot;markdown-toc-flow-monitoring-in-software-defined-networks&quot;&gt;Flow monitoring in Software-Defined Networks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#a-parallel-approach-for-detecting-openflow-rule-anomalies-based-on-a-general-formalism&quot; id=&quot;markdown-toc-a-parallel-approach-for-detecting-openflow-rule-anomalies-based-on-a-general-formalism&quot;&gt;A parallel approach for detecting OpenFlow rule anomalies based on a general formalism&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#deepguard-efficient-anomaly-detection-in-sdnwith-fine-grained-traffic-flow-monitoring太难了看不懂&quot; id=&quot;markdown-toc-deepguard-efficient-anomaly-detection-in-sdnwith-fine-grained-traffic-flow-monitoring太难了看不懂&quot;&gt;DEEPGUARD: Efficient Anomaly Detection in SDNWith Fine-Grained Traffic Flow Monitoring(太难了，看不懂)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#flowstat-adaptive-flow-rule-placement-for-per-flow-statistics-in-sdn&quot; id=&quot;markdown-toc-flowstat-adaptive-flow-rule-placement-for-per-flow-statistics-in-sdn&quot;&gt;FlowStat: Adaptive Flow-Rule Placement for Per-Flow Statistics in SDN&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;umon-flexible-and-fine-grained-traffic-monitoring-in-open-vswitch&quot;&gt;UMON: Flexible and Fine Grained Traffic Monitoring in Open vSwitch&lt;/h3&gt;
+
+&lt;p&gt;来源：CoNEXT: International Conference on emerging Networking EXperiments and Technologies&lt;/p&gt;
+
+&lt;p&gt;发表时间：2015&lt;/p&gt;
+
+&lt;p&gt;分类：细化粒度&lt;/p&gt;
+
+&lt;p&gt;提出问题：现有OVS监控工具既不灵活也不足以支持许多监控应用。&lt;/p&gt;
+
+&lt;p&gt;主要贡献&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设计UMON,将监控与转发分离，并在OVS中提供灵活和细粒度的监控&lt;/li&gt;
+  &lt;li&gt;OVS架构完美集成在UMON&lt;/li&gt;
+  &lt;li&gt;是UMON在可行的代价内完成监控&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;相关工作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pyretic&lt;/li&gt;
+  &lt;li&gt;基于流规则的测量结合动态粒度调整的策略，用于网络异常检测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;deepguard-efficient-anomaly-detection-in-sdn-with-fine-grained-traffic-flow-monitoring&quot;&gt;DeepGuard: Efficient Anomaly Detection in SDN With Fine-Grained Traffic Flow Monitoring&lt;/h3&gt;
+
+&lt;p&gt;来源：&lt;/p&gt;
+
+&lt;p&gt;发表时间：&lt;/p&gt;
+
+&lt;p&gt;分类：细化粒度 机器学习&lt;/p&gt;
+
+&lt;p&gt;提出问题：&lt;/p&gt;
+
+&lt;p&gt;主要贡献&lt;/p&gt;
+
+&lt;p&gt;相关工作&lt;/p&gt;
+
+&lt;h3 id=&quot;countermap-towards-generic-traffic-statistics-collection-and-query-in-software-defined-network&quot;&gt;CounterMap: Towards Generic Traffic Statistics Collection and Query in Software Defined Network&lt;/h3&gt;
+
+&lt;p&gt;来源：IWQoS: IEEE/ACM International Symposium on Quality of Service&lt;/p&gt;
+
+&lt;p&gt;发表时间：2017&lt;/p&gt;
+
+&lt;p&gt;分类：网络流量测量&lt;/p&gt;
+
+&lt;p&gt;提出问题：现缺少一个具有通用性的细粒度流量统计方法&lt;/p&gt;
+
+&lt;p&gt;相关工作&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;传统的流量测量工具：NetFlow，sFlow，Sniffer和SNMP&lt;/li&gt;
+  &lt;li&gt;流量收集方法：FlowSense、PayLess&lt;/li&gt;
+  &lt;li&gt;OpenFlow和sFlow相结合进行异常检测&lt;/li&gt;
+  &lt;li&gt;Frenetic、Pyretic&lt;/li&gt;
+  &lt;li&gt;交换机调度策略：OpenTM、FlowCover&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;主要贡献：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;证明了过期流量对网络应用程序的重要性&lt;/li&gt;
+  &lt;li&gt;设计并实现了CounterMap平台，用于收集SDNl流量统计和查询&lt;/li&gt;
+  &lt;li&gt;提出了一种启发式交换机轮询算法用于减少交换机之间的计数器冗余&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;flow-monitoring-in-software-defined-networks&quot;&gt;Flow monitoring in Software-Defined Networks&lt;/h3&gt;
+
+&lt;p&gt;来源：Computer Networks (Elsevier)&lt;/p&gt;
+
+&lt;p&gt;发表年份：2018&lt;/p&gt;
+
+&lt;p&gt;解决问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用OpenFlow实现流量监控的最直接方法是在交换机表中维护每个流的条目。通过这种方式，监控网络中的所有流量会产生很大的限制，因为现在OpenFlow交换机由于其有限的硬件资源（即TCAM条目数和处理能力）而不支持大量流条目&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用OpenFlow实现流量采样并执行流级别流量分类，特别强调Web和加密流量的识别。&lt;/li&gt;
+  &lt;li&gt;对于每个采样流，我们在交换机中维护一个流条目，记录持续时间以及数据包和字节数。&lt;/li&gt;
+  &lt;li&gt;在交换机中初始安装一些规则，这些规则将自动操作以随机区分要采样的流量。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;a-parallel-approach-for-detecting-openflow-rule-anomalies-based-on-a-general-formalism&quot;&gt;A parallel approach for detecting OpenFlow rule anomalies based on a general formalism&lt;/h3&gt;
+
+&lt;p&gt;解决问题：由于可以动态且经常快速地更新软件定义网络（SDN）网络的策略，因此很容易发生策略之间的冲突。由于典型的SDN网络中有大量的交换机和异构策略，因此检测这些冲突是一项艰巨而艰巨的任务。&lt;/p&gt;
+
+&lt;h3 id=&quot;deepguard-efficient-anomaly-detection-in-sdnwith-fine-grained-traffic-flow-monitoring太难了看不懂&quot;&gt;DEEPGUARD: Efficient Anomaly Detection in SDNWith Fine-Grained Traffic Flow Monitoring(太难了，看不懂)&lt;/h3&gt;
+
+&lt;p&gt;来源：&lt;/p&gt;
+
+&lt;p&gt;发表时间：2020&lt;/p&gt;
+
+&lt;p&gt;解决问题：&lt;/p&gt;
+
+&lt;h3 id=&quot;flowstat-adaptive-flow-rule-placement-for-per-flow-statistics-in-sdn&quot;&gt;FlowStat: Adaptive Flow-Rule Placement for Per-Flow Statistics in SDN&lt;/h3&gt;
+
+&lt;p&gt;来源：IEEE Journal on Selected Areas in Communications&lt;/p&gt;
+
+&lt;p&gt;发表时间：2019&lt;/p&gt;
+
+&lt;p&gt;解决问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;由于TCAM的限制，开关可以插入的流量规则的数量也受到限制。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;方法：&lt;/p&gt;
+</description>
+        <pubDate>Sun, 03 Jan 2021 10:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2021/01/03/SDN-detection/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2021/01/03/SDN-detection/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
+    
+      <item>
+        <title>Multidimensional detection and dynamic defense method for link flooding attack</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#12月赛&quot; id=&quot;markdown-toc-12月赛&quot;&gt;12月赛&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#misc&quot; id=&quot;markdown-toc-misc&quot;&gt;misc&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#capture&quot; id=&quot;markdown-toc-capture&quot;&gt;capture&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#crypto&quot; id=&quot;markdown-toc-crypto&quot;&gt;Crypto&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#affine&quot; id=&quot;markdown-toc-affine&quot;&gt;affine&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;12月赛&quot;&gt;12月赛&lt;/h2&gt;
+
+&lt;p&gt;记12月月赛，虽然感觉这一天都好糟糕&lt;/p&gt;
+
+&lt;h3 id=&quot;misc&quot;&gt;misc&lt;/h3&gt;
+
+&lt;h4 id=&quot;capture&quot;&gt;capture&lt;/h4&gt;
+
+&lt;p&gt;图片隐写题，binwalk查看该图片后发现里面有一个zip文件&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-19-ctf/image-20201219212901718.png&quot; alt=&quot;image-20201219212901718&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;使用dd if=misc_capture.jpg of=flag.zip skip=1230723 bs=1后分离出zip文件，打开该文件后果然发现其中有个flag.txt，但是想要查看该文件的内容时，却发现它被加密了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-19-ctf/image-20201219213047314.png&quot; alt=&quot;image-20201219213047314&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下来有两个思路：（1）判断是否是伪加密；（2）尝试解密。&lt;/p&gt;
+
+&lt;p&gt;（1）使用winhex修改后提示该文件已被损坏，判断不是伪加密。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-19-ctf/image-20201219213208434.png&quot; alt=&quot;image-20201219213208434&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;（2）解密的思路也有两个流程，首先在图片文件中查找是否存在关于密码的提示，没有找到只能尝试暴力破解。&lt;/p&gt;
+
+&lt;p&gt;使用azpr暴力破解后得到密码122947，这里绕了点弯子，因为没有找到提示，所以最开始使用了字母、数字、特殊字符暴力跑的，导致一直没有出结果，以为自己是哪里出了错。后来尝试只用数字之后，蛮快就出结果了，但还是没找到关于密码位数、组成的提醒orz。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-19-ctf/image-20201219213440374.png&quot; alt=&quot;image-20201219213440374&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;打开flag.txt文件后，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-19-ctf/image-20201219213654105.png&quot; alt=&quot;image-20201219213654105&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;之后就比较简单了，直接找一个在线解码工具即可，flag{doyouknowook}。&lt;/p&gt;
+
+&lt;h3 id=&quot;crypto&quot;&gt;Crypto&lt;/h3&gt;
+
+&lt;h4 id=&quot;affine&quot;&gt;affine&lt;/h4&gt;
+
+</description>
+        <pubDate>Sat, 19 Dec 2020 11:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/ctf/2020/12/19/ctf/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/ctf/2020/12/19/ctf/</guid>
+        
+        
+        <category>CTF</category>
+        
+      </item>
+    
+      <item>
+        <title>Multidimensional detection and dynamic defense method for link flooding attack</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#multidimensional-detection-and-dynamic-defense-method-for-link-flooding-attack&quot; id=&quot;markdown-toc-multidimensional-detection-and-dynamic-defense-method-for-link-flooding-attack&quot;&gt;Multidimensional detection and dynamic defense method for link flooding attack&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#链路攻击&quot; id=&quot;markdown-toc-链路攻击&quot;&gt;链路攻击&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#coremelt&quot; id=&quot;markdown-toc-coremelt&quot;&gt;coremelt&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#crossfire&quot; id=&quot;markdown-toc-crossfire&quot;&gt;crossfire&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#methods&quot; id=&quot;markdown-toc-methods&quot;&gt;Methods&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#多维指标检测方法&quot; id=&quot;markdown-toc-多维指标检测方法&quot;&gt;多维指标检测方法&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#基于染色理论的动态部署算法&quot; id=&quot;markdown-toc-基于染色理论的动态部署算法&quot;&gt;基于染色理论的动态部署算法&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#experiment&quot; id=&quot;markdown-toc-experiment&quot;&gt;Experiment&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;multidimensional-detection-and-dynamic-defense-method-for-link-flooding-attack&quot;&gt;Multidimensional detection and dynamic defense method for link flooding attack&lt;/h2&gt;
+
+&lt;h3 id=&quot;链路攻击&quot;&gt;链路攻击&lt;/h3&gt;
+
+&lt;h4 id=&quot;coremelt&quot;&gt;coremelt&lt;/h4&gt;
+
+&lt;h4 id=&quot;crossfire&quot;&gt;crossfire&lt;/h4&gt;
+
+&lt;h3 id=&quot;methods&quot;&gt;Methods&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-04-thesis-reading-06/image-20201204155943072.png&quot; alt=&quot;image-20201204155943072&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;链路监听模块直接连接到数据平面与控制平面之间的链路，它将一直检测链路并感知可能存在的链路拥塞，一旦发现拥塞出现，则将预警信息发送给多维检测模块&lt;/li&gt;
+  &lt;li&gt;多维检测模块在接收到预警信息后，首先对发生拥塞的链路进行定位和判断，若发生拥塞的链路存在构成闭合环路的可能，则对发生拥塞的链路进行检测。当多维检测模块检测到链路洪泛攻击后，将检测信息发送给动态部署模块&lt;/li&gt;
+  &lt;li&gt;染色理论动态部署模块在接收到多维检测模块发送的检测信息后对控制器−交换机的连接关系进行迁移。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;多维指标检测方法&quot;&gt;多维指标检测方法&lt;/h4&gt;
+
+&lt;p&gt;区分正常用户与恶意敌手的关键在于：正常用户不会发送大量的探测报文给目的节点，并且不会发送大量的探测报文。&lt;/p&gt;
+
+&lt;p&gt;假设总有一个正常周期，该周期内只有正常用户的探测行为。在这个时间内，网络空间管理员可以计算正常探测的频率，从而作为参数的正常阈值，两个正常阙值的计算方式如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;源探测频率阈值：计算最大和最小源探测频率，并将两者在多日内的偏差作为平均标准探测偏差，记作$T_{diff}$ 。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;目的探测频率阈值：计算每个小时内目的节点收到的最大探测数量，并将该值在连续多日内的平均值作为阈值，记作$T_{dest}$&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果在任意一个小时内，其平均值超过了$T_{diff}$ 的两倍，则可以判定该探测行为是不正常的，且它可能是一个侦测攻击。下一个阈值用来判断哪个目标节点被攻击者探测。所有被判定进行侦测的僵尸节点用户将在现有情况或者未来检测中被 SDN 控制器认定是僵尸。&lt;/p&gt;
+
+&lt;p&gt;通过会话长度（CL，connection length）、数据分组低速比例（LPR，low packet rate）、数据分组距离均匀性（PDU，packet distance uniformity）、平均低速率数据分组占比（LMPR，low mean packet rate）、低速数据分组占比变化率（LPRV，low packet rate variance）5 维要素对存在异常的转发链路进行多维检测。&lt;/p&gt;
+
+&lt;h4 id=&quot;基于染色理论的动态部署算法&quot;&gt;基于染色理论的动态部署算法&lt;/h4&gt;
+
+&lt;p&gt;通过部署异构交换机增加网络的动态性。&lt;/p&gt;
+
+&lt;p&gt;在 SDN 中，控制器通常按照分域结构进行部署，每个域内网络由独立的一个或者一组控制器负责管理，该控制器（组）负责该子网交换机的管理、流表推送等。核心控制器（组）负责管理各个域内的控制器。&lt;/p&gt;
+
+&lt;p&gt;需要指出的是，当按照控制器组进行管理时，组内仅有一个 Master 控制器，当该控制器出现故障时，组内按照选举算法选取出下一个 Master 控制器接管网络。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-04-thesis-reading-06/image-20201204161028660.png&quot; alt=&quot;image-20201204161028660&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
+
+&lt;p&gt;链路洪泛攻击检测实验和防御缓解实验。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;对比：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;多维指标 vs Renyi 熵&lt;/p&gt;
+
+&lt;p&gt;相同交换机 vs 随机分布 vs 染色分布&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;性能测试：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2020-12-04-thesis-reading-06/image-20201204161429665.png&quot; alt=&quot;image-20201204161429665&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 04 Dec 2020 11:21:40 +0800</pubDate>
+        <link>http://2bebetter.github.io/thesis/2020/12/04/thesis-reading-06/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/12/04/thesis-reading-06/</guid>
+        
+        
+        <category>thesis</category>
+        
+      </item>
     
       <item>
         <title>Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</title>
@@ -55,13 +546,13 @@
   &lt;li&gt;交换机级别的故障检测方案[47]被称为交换机故障检测（SFD），使用故障链路和网络拓扑作为输入。为了识别故障交换机，该算法首先找到故障链路的源和目的地。然后，发现与交换机连接的所有主机，并计算丢包率是否为100％。(&lt;strong&gt;仅限节点故障&lt;/strong&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-thesis-reading-04/image-20201125192853820.png&quot; alt=&quot;image-20201125192853820&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-thesis-reading-05/image-20201125192853820.png&quot; alt=&quot;image-20201125192853820&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;链路故障恢复机制&quot;&gt;链路故障恢复机制&lt;/h3&gt;
 
 &lt;h4 id=&quot;proactive&quot;&gt;Proactive&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-thesis-reading-04/image-20201125202420813.png&quot; alt=&quot;image-20201125202420813&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-thesis-reading-05/image-20201125202420813.png&quot; alt=&quot;image-20201125202420813&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -77,7 +568,7 @@
 
 &lt;p&gt;这种方法的反对者声称反应式方案不能满足CGN的延迟范围，即50毫秒。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-thesis-reading-04/image-20201125210823088.png&quot; alt=&quot;image-20201125210823088&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-thesis-reading-05/image-20201125210823088.png&quot; alt=&quot;image-20201125210823088&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;laege-scale-sdn&quot;&gt;Laege-scale SDN&lt;/h4&gt;
 
@@ -89,27 +580,8 @@
 
 </description>
         <pubDate>Wed, 25 Nov 2020 11:21:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/thesis/2020/11/25/thesis-reading-04/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/25/thesis-reading-04/</guid>
-        
-        
-        <category>thesis</category>
-        
-      </item>
-    
-      <item>
-        <title>self learning</title>
-        <description>&lt;p&gt;我是2019年入学，现在已经是研究生的第二年了，现在正面临着无法毕业、无法找到工作的巨大压力。我是因为喜欢网络安全方向才选择了目前这个学校和专业，但是入学之后才发现能从学校中学习到的毕竟还是很少很少一部分，所以为了之后的招聘(竟然不到一年了orz)准备自学。&lt;/p&gt;
-
-&lt;p&gt;我目前所研究的流域是SDN，所以对网络协议有一定的了解，但是恐怕无法找到一个合适的工作，我暂时也没有继续深入研究下去的打算，所以希望自学的方向是网络攻防方向。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-self-learning/145189195f4fef3c96999d5adfc6e1a0_1440w.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-25-self-learning/v2-62472b01b9ca7a58e390031bfcc5fd8b_1440w.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 25 Nov 2020 10:21:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/thesis/2020/11/25/self-learning/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/25/self-learning/</guid>
+        <link>http://2bebetter.github.io/thesis/2020/11/25/thesis-reading-05/</link>
+        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/25/thesis-reading-05/</guid>
         
         
         <category>thesis</category>
@@ -518,1374 +990,6 @@ pip3 install &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; requirements.txt &
         <pubDate>Mon, 16 Nov 2020 10:21:40 +0800</pubDate>
         <link>http://2bebetter.github.io/thesis/2020/11/16/thesis-reading-02/</link>
         <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/11/16/thesis-reading-02/</guid>
-        
-        
-        <category>thesis</category>
-        
-      </item>
-    
-      <item>
-        <title>修正版Gitlab CI/CD配置</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#概览&quot; id=&quot;markdown-toc-概览&quot;&gt;概览&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#架构图&quot; id=&quot;markdown-toc-架构图&quot;&gt;架构图&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#部署环境&quot; id=&quot;markdown-toc-部署环境&quot;&gt;部署环境&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#账号和ip&quot; id=&quot;markdown-toc-账号和ip&quot;&gt;账号和IP&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#gitlab-runner-repo&quot; id=&quot;markdown-toc-gitlab-runner-repo&quot;&gt;gitlab-runner&amp;lt;-&amp;gt;repo&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#install-gitlab-runner&quot; id=&quot;markdown-toc-install-gitlab-runner&quot;&gt;install gitlab-runner&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#install-from-apt&quot; id=&quot;markdown-toc-install-from-apt&quot;&gt;install from apt&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#install-from-docker&quot; id=&quot;markdown-toc-install-from-docker&quot;&gt;install from docker&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#setup-gitlab-runner&quot; id=&quot;markdown-toc-setup-gitlab-runner&quot;&gt;setup gitlab-runner&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#register-gitlab-runner&quot; id=&quot;markdown-toc-register-gitlab-runner&quot;&gt;register gitlab-runner&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#run-gitlab-runner&quot; id=&quot;markdown-toc-run-gitlab-runner&quot;&gt;run gitlab-runner&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#自定义docker-镜像&quot; id=&quot;markdown-toc-自定义docker-镜像&quot;&gt;自定义docker 镜像&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#dockerfile&quot; id=&quot;markdown-toc-dockerfile&quot;&gt;Dockerfile&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#docker-commit&quot; id=&quot;markdown-toc-docker-commit&quot;&gt;docker commit&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#runner变量&quot; id=&quot;markdown-toc-runner变量&quot;&gt;runner变量&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#gitlab-runner---production_env&quot; id=&quot;markdown-toc-gitlab-runner---production_env&quot;&gt;gitlab-runner &amp;lt;-&amp;gt; production_env&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#ansible&quot; id=&quot;markdown-toc-ansible&quot;&gt;ansible&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#ansible-playbook&quot; id=&quot;markdown-toc-ansible-playbook&quot;&gt;ansible-playbook&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#key-pair&quot; id=&quot;markdown-toc-key-pair&quot;&gt;key pair&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#配置生产环境&quot; id=&quot;markdown-toc-配置生产环境&quot;&gt;配置生产环境&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#production_env---repo&quot; id=&quot;markdown-toc-production_env---repo&quot;&gt;production_env -&amp;gt; repo&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#trouble-shooting&quot; id=&quot;markdown-toc-trouble-shooting&quot;&gt;Trouble shooting&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#docker-is-not-active&quot; id=&quot;markdown-toc-docker-is-not-active&quot;&gt;docker is not active&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#docker-pull-error&quot; id=&quot;markdown-toc-docker-pull-error&quot;&gt;docker pull error&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#本地调试&quot; id=&quot;markdown-toc-本地调试&quot;&gt;本地调试&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#cd导致的权限问题&quot; id=&quot;markdown-toc-cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。&lt;/p&gt;
-
-&lt;h2 id=&quot;概览&quot;&gt;概览&lt;/h2&gt;
-
-&lt;h3 id=&quot;架构图&quot;&gt;架构图&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph LR;
-	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner;
-
-	gitlab_runner-- clone repo, private ssh key by manual configure --&amp;gt; vm01;
-	
-	gitlab_runner-- clone repo, private ssh key by manual configure --&amp;gt; vm02;
-	
-	gitlab_runner-- clone repo, private ssh key by manual configure --&amp;gt; vm03;
-	
-	gitlab_runner-- clone repo, private ssh key by manual configure --&amp;gt; vm04;
-	
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;图示解释：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;gitlab runner从repo下拉代码。进行构建，测试等操作，其权限来自与runner配置时使用的token，不需要额外配置，只要正常注册了gitlab runner就可以，由gitlab帮我们搞定；&lt;/li&gt;
-  &lt;li&gt;gitlab runner通过sshkey 来访问production_env进行部署代码。需要登录到production_env，使用的ssh private key，需要提前手动设置，生成ssh key pair，将private key保存到gitlab CI/CD设置的secret变量中，public key通过ssh-copy-id上传到production_env；&lt;/li&gt;
-  &lt;li&gt;production_env访问repo下拉代码。需要提前手动配置ssh key，这不仅是为了部署时使用，紧急需要时，可以登录production_env手动下拉代码。ssh key配置和用户在gitlab或者github上传ssh key是一样的。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;关于为什么要单独设置gitlab-runner：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;便于项目的迁移，只需要调整少部分runner的设置即可以重新复现整个项目。&lt;/li&gt;
-  &lt;li&gt;对于一些企业和公司，runner大多是作为单独的服务被出租的，也就意味着开发者只能接触到自己的开发环境，而不需要关心runner和git之间的互动，减少开发的工作量。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;但是这样同样也会带来一些不便利的地方，例如在添加生产环境之前需要单独配置生产服务器所需的环境。&lt;/p&gt;
-
-&lt;h3 id=&quot;部署环境&quot;&gt;部署环境&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;gitlab-runner&lt;/p&gt;
-
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;环境&lt;/th&gt;
-          &lt;th&gt;描述&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;操作系统&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;ubuntu&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;3.5&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;image:&lt;br /&gt;   gitlab-runner:lastest&lt;br /&gt;   localhost:5000/&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;production_env&lt;/p&gt;
-
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;环境&lt;/th&gt;
-          &lt;th&gt;描述&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;操作系统&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;ubuntu 14.04.5 LTS&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python&lt;/code&gt;s&lt;/td&gt;
-          &lt;td&gt;3.5&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt; &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;openvswitch-switch&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;2.0.2&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;账号和ip&quot;&gt;账号和IP&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;gitlab-runner&lt;/p&gt;
-
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;环境&lt;/th&gt;
-          &lt;th&gt;描述&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;IP&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;10.10.20.3&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ACCOUNT&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;ubuntu&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;production_env&lt;/p&gt;
-
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;环境&lt;/th&gt;
-          &lt;th&gt;描述&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;IP&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;192.168.120.11-14&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ACCOUNT&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;ubuntu&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;PASSWD&lt;/td&gt;
-          &lt;td&gt;crnetworksys&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;gitlab-runner-repo&quot;&gt;gitlab-runner&amp;lt;-&amp;gt;repo&lt;/h2&gt;
-
-&lt;h3 id=&quot;install-gitlab-runner&quot;&gt;install gitlab-runner&lt;/h3&gt;
-
-&lt;h4 id=&quot;install-from-apt&quot;&gt;install from apt&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash
-apt-get install gitlab-runner
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;install-from-docker&quot;&gt;install from docker&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;修改apt的源：&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Update the &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; package index and install packages to allow &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; to use a repository over HTTPS:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;su
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; upgrade
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; install &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    apt-transport-https &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    ca-certificates &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    curl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    gnupg-agent &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    software-properties-common
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Add Docker’s official GPG key:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key add -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Verify that you now have the key with the fingerprint&lt;code class=&quot;highlighter-rouge&quot;&gt;9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88&lt;/code&gt;, by searching for the last 8 characters of the fingerprint.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-key fingerprint 0EBFCD88
-/etc/apt/trusted.gpg
-&lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt;
-pub   1024D/437D05B5 2004-09-12
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 6302 39CC 130E 1A7F D81A  27B1 4097 6EAF 437D 05B5
-uid                  Ubuntu Archive Automatic Signing Key &amp;lt;ftpmaster@ubuntu.com&amp;gt;
-sub   2048g/79164387 2004-09-12
-
-pub   1024D/FBB75451 2004-12-30
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; C598 6B4F 1257 FFA8 6632  CBA7 4618 1433 FBB7 5451
-uid                  Ubuntu CD Image Automatic Signing Key &amp;lt;cdimage@ubuntu.com&amp;gt;
-
-pub   4096R/C0B21F32 2012-05-11
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 790B C727 7767 219C 42C8  6F93 3B4F E6AC C0B2 1F32
-uid                  Ubuntu Archive Automatic Signing Key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2012&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;ftpmaster@ubuntu.com&amp;gt;
-
-pub   4096R/EFE21092 2012-05-11
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 8439 38DF 228D 22F7 B374  2BC0 D94A A3F0 EFE2 1092
-uid                  Ubuntu CD Image Automatic Signing Key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2012&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;cdimage@ubuntu.com&amp;gt;
-
-pub   4096R/0EBFCD88 2017-02-22
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-uid                  Docker Release &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CE deb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;docker@docker.com&amp;gt;
-sub   4096R/F273FCD8 2017-02-22
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Use the following command to set up the &lt;strong&gt;stable&lt;/strong&gt; repository. To add the &lt;strong&gt;nightly&lt;/strong&gt; or &lt;strong&gt;test&lt;/strong&gt; repository, add the word &lt;code class=&quot;highlighter-rouge&quot;&gt;nightly&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt; (or both) after the word &lt;code class=&quot;highlighter-rouge&quot;&gt;stable&lt;/code&gt; in the commands below. &lt;a href=&quot;https://docs.docker.com/engine/install/&quot;&gt;Learn about &lt;strong&gt;nightly&lt;/strong&gt; and &lt;strong&gt;test&lt;/strong&gt; channels&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;add-apt-repository &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   stable&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;在尝试了几次之后发现这一步骤对ubuntu14.04.6并不适用，将源更换为阿里源后成功&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;add-apt-repository &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64]  
-   http://mirrors.aliyun.com/docker-ce/linux/ubuntu &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   stable&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;install docker engine&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; install docker-ce
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;service docker start
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;setup-gitlab-runner&quot;&gt;setup gitlab-runner&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# pull image&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker pull gitlab/gitlab-runner
-Using default tag: latest
-latest: Pulling from gitlab/gitlab-runner
-d72e567cc804: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;0f3630e5ff08: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;b6a83d81d1f4: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;795a1e0f662d: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;e26343354a23: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;df2906232f5a: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;e9423d1eea92: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;45a5486ea8e3: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;Digest: sha256:07d7c6d82b11646aa048427fadd9a1c0e5faa1efcea7e06689eadcf9b52da006
-Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;gitlab/gitlab-runner:latest
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;register-gitlab-runner&quot;&gt;register gitlab-runner&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;register gitlab-runner using docker&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;参考：&lt;a href=&quot;https://docs.gitlab.com/runner/register/index.html#docker&quot;&gt;configure gitlab-runner&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
-Runtime platform                                    &lt;span class=&quot;nv&quot;&gt;arch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;amd64 &lt;span class=&quot;nv&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;linux &lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6 &lt;span class=&quot;nv&quot;&gt;revision&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fa86510e &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;11.9.2
-Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;system-mode.                            
-                                                   
-Please enter the gitlab-ci coordinator URL &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. https://gitlab.com/&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-http://gitlab.cr.net/
-Please enter the gitlab-ci token &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner:
-&lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt;
-Please enter the gitlab-ci description &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner:
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;a902a1cd5b80]: django-test
-Please enter the gitlab-ci tags &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;comma separated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-django, &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;或者使用命令行注册&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ PROJECT_REGISTRATION_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MbagsxLmj9pYugNaiQdL&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--executor&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-image&lt;/span&gt; python:3.4 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://gitlab.cr.net/&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--registration-token&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vm-04&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--tag-list&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;crvroute&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--run-untagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-tlsverify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-extra-hosts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;register gitlab-runner&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;直接使用gitlab-runner注册&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ PROJECT_REGISTRATION_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MbagsxLmj9pYugNaiQdL&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner register &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--executor&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-image&lt;/span&gt; python:3.4 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://gitlab.cr.net/&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--registration-token&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vm-04&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--tag-list&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;crvroute&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--run-untagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-tlsverify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-extra-hosts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;更多配置请参考文档：     &lt;a href=&quot;https://docs.gitlab.com/runner/configuration/advanced-configuration.html&quot;&gt;advanced configure&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;run-gitlab-runner&quot;&gt;run gitlab-runner&lt;/h3&gt;
-
-&lt;p&gt;运行docker中的gitlab-runner镜像&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# run to check it&#39;s ok&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; gitlab-runner &lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt; always &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gitlab.cr.net:192.168.102.25 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/run/docker.sock:/var/run/docker.sock &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   gitlab/gitlab-runner:latest
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;或者直接启动gitlab-runner服务&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner start
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;自定义docker-镜像&quot;&gt;自定义docker 镜像&lt;/h3&gt;
-
-&lt;p&gt;由于runner需要与生产环境之间进行通信，所以需要openssl、rsync等应用软件，而由于网络的原因，配置runner所需的环境会花费很长的时间，所以可以自己制作docker镜像，将这些依赖都准备好，加快测试和部署的速度。&lt;/p&gt;
-
-&lt;h4 id=&quot;dockerfile&quot;&gt;Dockerfile&lt;/h4&gt;
-
-&lt;p&gt;Dockerfile&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Dockerfile&quot;&gt;# Use an official Python runtime as a parent image
-FROM python:3.4
-
-# Copy the current directory contents into the container at /app
-COPY requirements.txt /requirements.txt
-
-# Install any needed packages specified in requirement.txt
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
-
-# Update
-RUN apt-get update -y &amp;amp;&amp;amp; \
-  apt-get install -y expect, openssh-client, rsync &amp;amp;&amp;amp; \
-  apt-get install -y software-properties-common &amp;amp;&amp;amp; \
-  apt-get install -y openvswitch-switch &amp;amp;&amp;amp; \
-  apt-get autoremove -y &amp;amp;&amp;amp; \
-  apt-get clean
-
-# Make port 80 available to the world outside this container
-# EXPOSE 80
-
-# Define environment variable
-# ENV NAME World
-
-# Run app.py when the container launches
-# CMD [&quot;python&quot;, &quot;app.py&quot;]
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker build &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; crsys-gitlab-runner:2.0 &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker image tag crsys-gitlab-runner:2.0 192.168.120.11:5002/crsys-gitlab-runner:2.0
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker push 192.168.120.11:5002/crsys-gitlab-runner:2.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;change .gitlab-ci.yml&lt;/p&gt;
-
-&lt;h4 id=&quot;docker-commit&quot;&gt;docker commit&lt;/h4&gt;
-
-&lt;p&gt;启动一个docker容器并进入该容器&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; production python:3.5
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; eb789ffd636f /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;配置production容器的依赖环境&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@eb789ffd636f:/# cp /etc/apt/sources.list /etc/apt/sources.list_bak
-root@eb789ffd636f:/# sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;s/deb.debian.org/mirrors.ustc.edu.cn/g&#39;&lt;/span&gt; /etc/apt/sources.list
-root@eb789ffd636f:/# apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
-root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; openvswitch-switch
-root@eb789ffd636f:/# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /usr/local/etc/openvswitch
-root@eb789ffd636f:/# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /var/run/openvswitch/
-root@eb789ffd636f:/# ovsdb-tool create usr/local/etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema
-root@eb789ffd636f:/# ovsdb-server /usr/local/etc/openvswitch/conf.db &lt;span class=&quot;nt&quot;&gt;--remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;punix:/var/run/openvswitch/db.sock &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt;
-root@eb789ffd636f:/# ovs-vsctl &lt;span class=&quot;nt&quot;&gt;--no-wait&lt;/span&gt; init
-root@eb789ffd636f:/# ovs-vswitchd &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--log-file&lt;/span&gt;
-root@eb789ffd636f:/# pip install virtualenv
-root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; expect openssh-client
-root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; software-properties-common
-root@eb789ffd636f:/# apt-get autoremove &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
-root@eb789ffd636f:/# apt-get clean
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;打包该镜像&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker commit &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;wmh&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;production env&quot;&lt;/span&gt; 容器名称或id crsys-gitlab-runner:3.0
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker image tag crsys-gitlab-runner:3.0 192.168.120.11:5002/crsys-gitlab-runner:3.0
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker push 192.168.120.11:5002/crsys-gitlab-runner:3.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;runner变量&quot;&gt;runner变量&lt;/h3&gt;
-
-&lt;p&gt;gitlab的变量配置如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201112202853609.png&quot; alt=&quot;image-20201112202853609&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;deploy_key_file：存放生产环境中用来访问gitlab的公钥文件路径。&lt;/li&gt;
-  &lt;li&gt;flask_dir：flask app所在的路径&lt;/li&gt;
-  &lt;li&gt;git_repo_src：git仓库地址&lt;/li&gt;
-  &lt;li&gt;prod_env_passwd：生产环境的sudo密码&lt;/li&gt;
-  &lt;li&gt;production_dir：生产环境存放从git上拉取的文件路径&lt;/li&gt;
-  &lt;li&gt;ssh_private_key：gitlab-runner免密登录生产环境所需的私钥&lt;/li&gt;
-  &lt;li&gt;virtualenv_dirname：虚拟环境的名称&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;gitlab-runner---production_env&quot;&gt;gitlab-runner &amp;lt;-&amp;gt; production_env&lt;/h2&gt;
-
-&lt;p&gt;gitlab-runner的管道中可以存在多个task，一般默认为test build deploy。在这些阶段中设置runner与production通信，下发相关命令到生产环境中实现项目的部署。&lt;/p&gt;
-
-&lt;h3 id=&quot;ansible&quot;&gt;ansible&lt;/h3&gt;
-
-&lt;p&gt;ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能，Ansible默认通过 SSH 协议管理机器。&lt;/p&gt;
-
-&lt;p&gt;ansible是基于模块工作的，本身没有批量部署的能力。真正具有批量部署的是ansible所运行的模块，ansible只是提供一种框架。主要包括：&lt;/p&gt;
-
-&lt;p&gt;(1)、连接插件connection plugins：负责和被监控端实现通信；&lt;/p&gt;
-
-&lt;p&gt;(2)、host inventory：指定操作的主机，是一个配置文件里面定义监控的主机；&lt;/p&gt;
-
-&lt;p&gt;(3)、各种模块核心模块、command模块、自定义模块；&lt;/p&gt;
-
-&lt;p&gt;(4)、借助于插件完成记录日志邮件等功能；&lt;/p&gt;
-
-&lt;p&gt;(5)、playbook：剧本执行多个任务时，非必需可以让节点一次性运行多个任务。&lt;/p&gt;
-
-&lt;h3 id=&quot;ansible-playbook&quot;&gt;ansible-playbook&lt;/h3&gt;
-
-&lt;p&gt;Playbooks 与 adhoc 相比,是一种完全不同的运用 ansible 的方式.&lt;/p&gt;
-
-&lt;p&gt;简单来说,playbooks 是一种简单的配置管理系统与多机器部署系统的基础.与现有的其他系统有不同之处,且非常适合于复杂应用的部署.&lt;/p&gt;
-
-&lt;p&gt;Playbooks 可用于声明配置,更强大的地方在于,在 playbooks 中可以编排有序的执行过程,甚至于做到在多组机器间,来回有序的执行特别指定的步骤.并且可以同步或异步的发起任务.&lt;/p&gt;
-
-&lt;p&gt;我们使用 adhoc 时,主要是使用 /usr/bin/ansible 程序执行任务.而使用 playbooks 时,更多是将之放入源码控制之中,用之推送你的配置或是用于确认你的远程系统的配置是否符合配置规范.&lt;/p&gt;
-
-&lt;p&gt;Playbooks 的格式是YAML（详见:&lt;a href=&quot;http://www.ansible.com.cn/docs/YAMLSyntax.html&quot;&gt;&lt;em&gt;YAML 语法&lt;/em&gt;&lt;/a&gt;）,语法做到最小化,意在避免 playbooks 成为一种编程语言或是脚本,但它也并不是一个配置模型或过程的模型.&lt;/p&gt;
-
-&lt;p&gt;playbook 由一个或多个 ‘plays’ 组成.它的内容是一个以 ‘plays’ 为元素的列表.&lt;/p&gt;
-
-&lt;p&gt;在 play 之中,一组机器被映射为定义好的角色.在 ansible 中,play 的内容,被称为 tasks,即任务.在基本层次的应用中,一个任务是一个对 ansible 模块的调用.&lt;/p&gt;
-
-&lt;p&gt;配置文件的代码如下所示，可以分为三个阶段：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;拉取代码&lt;/p&gt;
-
-    &lt;p&gt;设置生产环境从gitlab-runner中拉取代码，避免runner和production_env之间的文件传输。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;安装虚拟环境&lt;/p&gt;
-
-    &lt;p&gt;将项目所需的应用软件安装到虚拟环境中，注意虚拟环境中的pip版本可能和实际的生产环境中的有所不同。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;启动项目&lt;/p&gt;
-
-    &lt;p&gt;创建项目所需的日志和运行文件夹：/var/log/cr-vroute /var/run/cr-vroute。&lt;/p&gt;
-
-    &lt;p&gt;调整权限后重启服务。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;pull code from  to &quot;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;clone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;accept_hostkey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;key_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;force&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;true&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;python&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requirements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;virtualenv&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; 
-    &lt;span class=&quot;n&quot;&gt;virtualenv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;//&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;virtualenv_python&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python3&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requirements&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/requirements.txt&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;extra_args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;-i https://pypi.tuna.tsinghua.edu.cn/simple/ --trusted-host pypi.tuna.tsinghua.edu.cn&quot;&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dictionary&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;does&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vroute&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;0755&#39;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dictionary&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dictionary&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;does&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vroute&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;0755&#39;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dictionary&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scripts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bin/cr-vroute&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;touch&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;0755&#39;&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vroute&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bin/cr-vroute stop&quot;&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vroute&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bin/cr-vroute start&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;key-pair&quot;&gt;key pair&lt;/h3&gt;
-
-&lt;p&gt;利用ssh的密钥对实现gitlab-runner和生产环境之间的免密登录。首先生成一对秘钥，将公钥发送到ubuntu@ADDR_VM01，并在gitlab CI/CD配置中添加secret变量：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;变量名为 SSH_PRIVATE_KEY，内容填写输出的私钥&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@eb789ffd636f:/# ssh-keygen
-Generating public/private rsa key pair.
-Enter file &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;which to save the key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/root/.ssh/id_rsa&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-Created directory &lt;span class=&quot;s1&quot;&gt;&#39;/root/.ssh&#39;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-Enter passphrase &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;empty &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;no passphrase&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-Enter same passphrase again: 
-Your identification has been saved &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /root/.ssh/id_rsa.
-Your public key has been saved &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /root/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:jBNpEw4YHXCax+eu6JU6KOakMs+F9h7LGZSGavq2IuI root@baseimage
-The key&lt;span class=&quot;s1&quot;&gt;&#39;s randomart image is:
-+---[RSA 2048]----+
-|  o=+..          |
-|  .=.o o         |
-|  o o B          |
-|   o = =         |
-|  . + + S        |
-| . + o .         |
-|.+o * .          |
-|&amp;amp;+oB *           |
-|@EO+B            |
-+----[SHA256]-----+
-root@baseimage:/# ssh-copy-id -i ~/.ssh/id_rsa username@$production_env
-/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: &quot;/root/.ssh/id_rsa.pub&quot;
-/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-nsr@192.168.xxx.xxx&#39;&lt;/span&gt;s password: 
-
-Number of key&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; added: 1
-
-Now try logging into the machine, with:   &lt;span class=&quot;s2&quot;&gt;&quot;ssh &#39;username@192.168.xxx.xxx&#39;&quot;&lt;/span&gt;
-and check to make sure that only the key&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; you wanted were added.
-root@baseimage:/# &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ~/.ssh/id_rsa
-&lt;span class=&quot;nt&quot;&gt;-----BEGIN&lt;/span&gt; RSA PRIVATE KEY-----
-MIIEpQIBAAKCAQEAxx0Dt1ryLXVHBkPuvra3l85nLeDPRKLyR00Z8XR/aFv8v0vF
-ZJecQ289n6aySm+uJ9gXUWfeDx/PuRGTgoa8ZDNew9I2+NKiwOKVFu7tsnCU6B2b
-nenL8ScO6sk9NcJZuNBZITeuK/LAC7pa9fl39ixdWPBoe4n8hRa2nEWmrPek7v6I
-mtRIDPUgKhLrqogmWWTT4j2r3Gr/UjgnIEbkq3LIUQTJIdkZLQmDi9s+H9Kct+NB
-ndnRBFHjuR5MN1gTtfXT7HkphNCyJzF+IGn7VsJsY1f7wZaSlGKZn3NnejBT3G76
-KYsH5UJcmvEckM4nZjX26DQEh5ihHw+utzIK5QIDAQABAoIBAQCqtNJp0XwNwx1Y
-XseCFG7EpL3LFJE+vCDRRmX2n7VXyH2hmBmsy1q6adXAWY9DyAncuSQMs+sqtlBF
-z67S2icMFQqrAkAFBblpexjtJ3z8Xg8cDb5MHZSutJjSbCOhQnXfwCiaFP2rShyi
-MWwotG/Hy3NgfARn3f50L+vxgLmMUeNwdl6rvNkyHhI9/uto4+i+2kgrhv0n1YuB
-18/5MQd8G9kYjvrHxhlqqLPvKawCjNVDoUv6s4MDjjkNTkooPV5CkCbisrRyENQm
-+1Jv6e3pm/JCx/CVGJCLA32f/q2fWrREsVyFGo4/vxJxMk7Uu1GLIVgq9HVbp8hR
-BPrJGoLlAoGBAPscvNZTNAMjslrbKubUEqCGRIQjk9y/DuYPkHk6M5+olM3GD2YY
-0s5AtuquzzZ5JnyOigGwHwrQs75b8SgxfsF2T/iKKt09wB6ayNRfioT3BXFzIIVj
-VPyHU/VcdyL30QJYBlEg1PFQPh59RgV5Az5fujET64q/5H4bdGUb7CEjAoGBAMr9
-LCdtvbBfy0hKOx0ADSHnSY8N4tOy9I6hmI7cndbVCzK7lQV5eh/atlt269bmCCOj
-7lcGKrjBhRyBGJE6c9tPGJuUWBRZ4p3pAKuPp650Nue1MvfiChoqN4DgOmSxuBIV
-c/oZwqJpMrAVdGEKRONRo4UTMBpkA1eVp5lsAphXAoGAfboEvlaISy4bRaxITaxO
-6zpuoa5igPrUDdIrJtdCM6UnY+PPn/G70nLKYrRFoWOFJoYDiRbSZArcg+nq05H8
-gganwawEDCO3xlr/RH3Vj/9SJVxcIwz55zomiknSiJqFdmP2PbZvh6cCgyd74I+X
-VSp+wcXUf/LWB2HdpCYX0vsCgYEAxMwjbK6Wg1K8UP+2w+zyznXf+RNrX/dV5pqA
-v7DgThIKY0s9tSsK3as7tP1ctOIb7gHW5wQRk0H7faEjYlmbTXonz15I7qIedR4b
-CjmiRh5hxM8F9RFu3eMkIIxD0LAEV3P5Fva2nqMDA3gpdpNwKjtSH4h00IE6REXR
-UYtIEM0CgYEA18yX+rzOOSS/V/ut8ajRUUuxFnUAbMIg+3wk2lkrt2pA/5QmQI/7
-IVxCHmtzYiMFK/lNqwadg75B2Syw8/nQI5YU6E94b3S+l1rzGoItYdRIQsdWL/iL
-VryMAG1U4bce34bs5pKA4WFiXmbcD/OECguYARj2zSQjvg+o6j3FTDo&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-----END&lt;/span&gt; RSA PRIVATE KEY-----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;配置生产环境&quot;&gt;配置生产环境&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; openvswitch-switch
-ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /usr/local/etc/openvswitch
-ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /var/run/openvswitch/
-ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ovsdb-tool create usr/local/etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema
-ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ovsdb-server /usr/local/etc/openvswitch/conf.db &lt;span class=&quot;nt&quot;&gt;--remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;punix:/var/run/openvswitch/db.sock &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt;
-ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ovs-vsctl &lt;span class=&quot;nt&quot;&gt;--no-wait&lt;/span&gt; init
-ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ovs-vswitchd &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--log-file&lt;/span&gt;
-ubuntu@vRoute:/# &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip install virtualenv
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;production_env---repo&quot;&gt;production_env -&amp;gt; repo&lt;/h2&gt;
-
-&lt;p&gt;同上生成ssh key pair,不同的是在生产环境系统下操作，之后将公钥上传到gitlab。&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ubuntu@production_env:/# ssh-keygen 
-Generating public/private rsa key pair.
-Enter file &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;which to save the key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/root/.ssh/id_rsa&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-Enter passphrase &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;empty &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;no passphrase&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
-Enter same passphrase again: 
-Your identification has been saved &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /root/.ssh/id_rsa.
-Your public key has been saved &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /root/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:DCCgzLEbQDzgMO03qsLyCeMlH/rnOU31oF6Vt3icG+E root@production_env
-The key&lt;span class=&quot;s1&quot;&gt;&#39;s randomart image is:
-+---[RSA 2048]----+
-|X=. .            |
-|B++. .           |
-|.B.   .     .    |
-|  + o  o o o o   |
-| . o .  S + = +  |
-|  .    o . o E   |
-|+o o  + .   . o  |
-|=+=..o.o     .   |
-|o++ooo.          |
-+----[SHA256]-----+
-
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;至此，就实现了repo、gitlab-runner和production_env之间的互相通信。&lt;/p&gt;
-
-&lt;h2 id=&quot;trouble-shooting&quot;&gt;Trouble shooting&lt;/h2&gt;
-
-&lt;h3 id=&quot;docker-is-not-active&quot;&gt;docker is not active&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201104160836058.png&quot; alt=&quot;image-20201104160836058&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这是因为镜像没有启动&lt;/p&gt;
-
-&lt;h3 id=&quot;docker-pull-error&quot;&gt;docker pull error&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201105203130082.png&quot; alt=&quot;image-20201105203130082&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;因为docker在之后的版本中默认使用了https设置，导致协议不匹配所以出现了错误&lt;/p&gt;
-
-&lt;p&gt;编辑/etc/default/docker，在其中添加:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_OPTS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--insecure-registry=192.168.120.11:5002&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;重启docker后发现仍然存在错误：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201105204840077.png&quot; alt=&quot;image-20201105204840077&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;是因为5000端口已经被uwsgi占用，因此docker无法解析该应用回复的响应。&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull registry:2
-docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 5002:5000 &lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;always registry:2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;运行成功之后使用curl http://localhost:5002却出现connect refused的错误，经过对端口进行检查之后发现&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201106094918602.png&quot; alt=&quot;image-20201106094918602&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;修改ubuntu的网络设置，禁用tcp6。打开/etc/sysctl.conf，添加如下三条设置&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   net.ipv6.conf.all.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
-   net.ipv6.conf.default.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
-   net.ipv6.conf.lo.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;保存后退出，执行sudo sysctl -p。经过测试后发现不是这个原因，可能是因为宿主机和容器端口映射设置错误，将启动容器的端口设置修改为-p 5002:5000后可以成功访问http://localhost:5002。&lt;/p&gt;
-
-&lt;p&gt;为了使gitlab-runner中的docker可以接受http协议，在启动gitlab-runner容器的时候设定tls_vertify=true&lt;/p&gt;
-
-&lt;h3 id=&quot;本地调试&quot;&gt;本地调试&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201106102748598.png&quot; alt=&quot;image-20201106102748598&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;一直push到gitlab上太麻烦了，所以使用gitlab-runner exec进行本地调试&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;docker test_staging 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;在docker的镜像中进行本地调试会出现很多错误：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;无法正确clone&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;修改.gitlab.yml，添加如下内容：&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;variables&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GIT_STRATEGY&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;none&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;docker无法启动&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;启动docker时设置–privilege&lt;/p&gt;
-
-&lt;h3 id=&quot;cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-11-gitlab-CI-configure/image-20201109000402307.png&quot; alt=&quot;image-20201109000402307&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 11 Nov 2020 12:51:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/gitlab/2020/11/11/gitlab-CI-configure/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/gitlab/2020/11/11/gitlab-CI-configure/</guid>
-        
-        
-        <category>gitlab</category>
-        
-      </item>
-    
-      <item>
-        <title>第一版Gitlab CI/CD配置</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#概览&quot; id=&quot;markdown-toc-概览&quot;&gt;概览&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#注册gitlab-runner&quot; id=&quot;markdown-toc-注册gitlab-runner&quot;&gt;注册gitlab runner&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#install-gitlab-runner&quot; id=&quot;markdown-toc-install-gitlab-runner&quot;&gt;install gitlab-runner&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#install-from-apt&quot; id=&quot;markdown-toc-install-from-apt&quot;&gt;install from apt&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#install-from-docker&quot; id=&quot;markdown-toc-install-from-docker&quot;&gt;install from docker&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#setup-gitlab-runner&quot; id=&quot;markdown-toc-setup-gitlab-runner&quot;&gt;setup gitlab-runner&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#register-gitlab-runner&quot; id=&quot;markdown-toc-register-gitlab-runner&quot;&gt;register gitlab-runner&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#run-gitlab-runner&quot; id=&quot;markdown-toc-run-gitlab-runner&quot;&gt;run gitlab-runner&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#自定义docker-镜像&quot; id=&quot;markdown-toc-自定义docker-镜像&quot;&gt;自定义docker 镜像&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#dockerfile&quot; id=&quot;markdown-toc-dockerfile&quot;&gt;Dockerfile&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#docker-commit&quot; id=&quot;markdown-toc-docker-commit&quot;&gt;docker commit&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#trouble-shooting&quot; id=&quot;markdown-toc-trouble-shooting&quot;&gt;Trouble shooting&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#docker-is-not-active&quot; id=&quot;markdown-toc-docker-is-not-active&quot;&gt;docker is not active&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#docker-pull-error&quot; id=&quot;markdown-toc-docker-pull-error&quot;&gt;docker pull error&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#本地调试&quot; id=&quot;markdown-toc-本地调试&quot;&gt;本地调试&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#cd导致的权限问题&quot; id=&quot;markdown-toc-cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#todo&quot; id=&quot;markdown-toc-todo&quot;&gt;ToDo&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;cyberrange项目cr-vroute子系统gitlab CI/CD配置说明。&lt;/p&gt;
-
-&lt;h2 id=&quot;概览&quot;&gt;概览&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph TD;
-	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner1;
-	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner2;
-	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner3;
-	Repo-- clone repo, by gitlab internal --&amp;gt; gitlab_runner4;
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;图示解释：&lt;/p&gt;
-
-&lt;p&gt;gitlab runner从repo下拉代码。进行构建，测试等操作，其权限来自与runner配置时使用的token，不需要额外配置，只要正常注册了gitlab runner就可以，由gitlab帮我们搞定。&lt;/p&gt;
-
-&lt;h2 id=&quot;注册gitlab-runner&quot;&gt;注册gitlab runner&lt;/h2&gt;
-
-&lt;p&gt;根据文档运行gitlab-runner，并注册到相应的repo即可，参考&lt;a href=&quot;https://docs.gitlab.com/ee/ci/&quot;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;install-gitlab-runner&quot;&gt;install gitlab-runner&lt;/h3&gt;
-
-&lt;h4 id=&quot;install-from-apt&quot;&gt;install from apt&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash
-apt-get install gitlab-runner
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;install-from-docker&quot;&gt;install from docker&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;修改apt的源：&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Update the &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; package index and install packages to allow &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; to use a repository over HTTPS:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;su
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; upgrade
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; install &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    apt-transport-https &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    ca-certificates &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    curl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    gnupg-agent &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    software-properties-common
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Add Docker’s official GPG key:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key add -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Verify that you now have the key with the fingerprint&lt;code class=&quot;highlighter-rouge&quot;&gt;9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88&lt;/code&gt;, by searching for the last 8 characters of the fingerprint.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-key fingerprint 0EBFCD88
-/etc/apt/trusted.gpg
-&lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt;
-pub   1024D/437D05B5 2004-09-12
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 6302 39CC 130E 1A7F D81A  27B1 4097 6EAF 437D 05B5
-uid                  Ubuntu Archive Automatic Signing Key &amp;lt;ftpmaster@ubuntu.com&amp;gt;
-sub   2048g/79164387 2004-09-12
-
-pub   1024D/FBB75451 2004-12-30
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; C598 6B4F 1257 FFA8 6632  CBA7 4618 1433 FBB7 5451
-uid                  Ubuntu CD Image Automatic Signing Key &amp;lt;cdimage@ubuntu.com&amp;gt;
-
-pub   4096R/C0B21F32 2012-05-11
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 790B C727 7767 219C 42C8  6F93 3B4F E6AC C0B2 1F32
-uid                  Ubuntu Archive Automatic Signing Key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2012&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;ftpmaster@ubuntu.com&amp;gt;
-
-pub   4096R/EFE21092 2012-05-11
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 8439 38DF 228D 22F7 B374  2BC0 D94A A3F0 EFE2 1092
-uid                  Ubuntu CD Image Automatic Signing Key &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2012&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;cdimage@ubuntu.com&amp;gt;
-
-pub   4096R/0EBFCD88 2017-02-22
-      Key fingerprint &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-uid                  Docker Release &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CE deb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;docker@docker.com&amp;gt;
-sub   4096R/F273FCD8 2017-02-22
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Use the following command to set up the &lt;strong&gt;stable&lt;/strong&gt; repository. To add the &lt;strong&gt;nightly&lt;/strong&gt; or &lt;strong&gt;test&lt;/strong&gt; repository, add the word &lt;code class=&quot;highlighter-rouge&quot;&gt;nightly&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt; (or both) after the word &lt;code class=&quot;highlighter-rouge&quot;&gt;stable&lt;/code&gt; in the commands below. &lt;a href=&quot;https://docs.docker.com/engine/install/&quot;&gt;Learn about &lt;strong&gt;nightly&lt;/strong&gt; and &lt;strong&gt;test&lt;/strong&gt; channels&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;add-apt-repository &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   stable&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;在尝试了几次之后发现这一步骤对ubuntu14.04.6并不适用，将源更换为阿里源后成功&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;add-apt-repository &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64]  
-   http://mirrors.aliyun.com/docker-ce/linux/ubuntu &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-   stable&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;install docker engine&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; install docker-ce
- &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;service docker start
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;setup-gitlab-runner&quot;&gt;setup gitlab-runner&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# pull image&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker pull gitlab/gitlab-runner
-Using default tag: latest
-latest: Pulling from gitlab/gitlab-runner
-d72e567cc804: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;0f3630e5ff08: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;b6a83d81d1f4: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;795a1e0f662d: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;e26343354a23: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;df2906232f5a: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;e9423d1eea92: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;45a5486ea8e3: Pull &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;Digest: sha256:07d7c6d82b11646aa048427fadd9a1c0e5faa1efcea7e06689eadcf9b52da006
-Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;gitlab/gitlab-runner:latest
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;register-gitlab-runner&quot;&gt;register gitlab-runner&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;register gitlab-runner using docker&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;参考：&lt;a href=&quot;https://docs.gitlab.com/runner/register/index.html#docker&quot;&gt;configure gitlab-runner&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
-Runtime platform                                    &lt;span class=&quot;nv&quot;&gt;arch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;amd64 &lt;span class=&quot;nv&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;linux &lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6 &lt;span class=&quot;nv&quot;&gt;revision&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fa86510e &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;11.9.2
-Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;system-mode.                            
-                                                   
-Please enter the gitlab-ci coordinator URL &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. https://gitlab.com/&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-http://gitlab.cr.net/
-Please enter the gitlab-ci token &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner:
-&lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt;
-Please enter the gitlab-ci description &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner:
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;a902a1cd5b80]: django-test
-Please enter the gitlab-ci tags &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;this runner &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;comma separated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-django, &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;或者使用命令行注册&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ PROJECT_REGISTRATION_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MbagsxLmj9pYugNaiQdL&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--executor&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-image&lt;/span&gt; python:3.4 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://gitlab.cr.net/&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--registration-token&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;crvroutesys&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--tag-list&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;crvroute&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--run-untagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-tlsverify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-extra-hosts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;register gitlab-runner&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;直接使用gitlab-runner注册&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ PROJECT_REGISTRATION_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MbagsxLmj9pYugNaiQdL&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner register &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--executor&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-image&lt;/span&gt; python:3.4 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://gitlab.cr.net/&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--registration-token&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_REGISTRATION_TOKEN&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vm-04&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--tag-list&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;crvroute&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--run-untagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-tlsverify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--docker-extra-hosts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gitlab.cr.net:192.168.102.25&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;更多配置请参考文档：     &lt;a href=&quot;https://docs.gitlab.com/runner/configuration/advanced-configuration.html&quot;&gt;advanced configure&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;run-gitlab-runner&quot;&gt;run gitlab-runner&lt;/h3&gt;
-
-&lt;p&gt;运行docker中的gitlab-runner镜像&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# run to check it&#39;s ok&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; gitlab-runner &lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt; always &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;--add-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gitlab.cr.net:192.168.102.25 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /srv/gitlab-runner/config:/etc/gitlab-runner &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/run/docker.sock:/var/run/docker.sock &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   gitlab/gitlab-runner:latest
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;或者直接启动gitlab-runner服务&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner start
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;自定义docker-镜像&quot;&gt;自定义docker 镜像&lt;/h2&gt;
-
-&lt;p&gt;由于网络的原因，每次下载rsync以及更新requirements.txt都很耗时，可以自己制作docker镜像，将这些依赖都准备好，加快测试和部署的速度。&lt;/p&gt;
-
-&lt;h3 id=&quot;dockerfile&quot;&gt;Dockerfile&lt;/h3&gt;
-
-&lt;p&gt;Dockerfile&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Dockerfile&quot;&gt;# Use an official Python runtime as a parent image
-FROM python:3.4
-
-# Copy the current directory contents into the container at /app
-COPY requirements.txt /requirements.txt
-
-# Install any needed packages specified in requirement.txt
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
-
-# Update
-RUN apt-get update -y &amp;amp;&amp;amp; \
-  apt-get install -y expect, openssh-client, rsync &amp;amp;&amp;amp; \
-  apt-get install -y software-properties-common &amp;amp;&amp;amp; \
-  apt-get install -y openvswitch-switch &amp;amp;&amp;amp; \
-  apt-get autoremove -y &amp;amp;&amp;amp; \
-  apt-get clean
-
-# Make port 80 available to the world outside this container
-# EXPOSE 80
-
-# Define environment variable
-# ENV NAME World
-
-# Run app.py when the container launches
-# CMD [&quot;python&quot;, &quot;app.py&quot;]
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker build &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; crsys-gitlab-runner:2.0 &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker image tag crsys-gitlab-runner:2.0 192.168.120.11:5002/crsys-gitlab-runner:2.0
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker push 192.168.120.11:5002/crsys-gitlab-runner:2.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;change .gitlab-ci.yml&lt;/p&gt;
-
-&lt;h3 id=&quot;docker-commit&quot;&gt;docker commit&lt;/h3&gt;
-
-&lt;p&gt;启动一个docker容器并进入该容器&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; production python:3.4
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; eb789ffd636f /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;配置production容器的依赖环境&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@eb789ffd636f:/# cp /etc/apt/sources.list /etc/apt/sources.list_bak
-root@eb789ffd636f:/# sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;s/deb.debian.org/mirrors.ustc.edu.cn/g&#39;&lt;/span&gt; /etc/apt/sources.list
-root@eb789ffd636f:/# apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; update
-root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; openvswitch-switch
-root@eb789ffd636f:/# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /usr/local/etc/openvswitch
-root@eb789ffd636f:/# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /var/run/openvswitch/
-root@eb789ffd636f:/# ovsdb-tool create usr/local/etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema
-root@eb789ffd636f:/# ovsdb-server /usr/local/etc/openvswitch/conf.db &lt;span class=&quot;nt&quot;&gt;--remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;punix:/var/run/openvswitch/db.sock &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt;
-root@eb789ffd636f:/# ovs-vsctl &lt;span class=&quot;nt&quot;&gt;--no-wait&lt;/span&gt; init
-root@eb789ffd636f:/# ovs-vswitchd &lt;span class=&quot;nt&quot;&gt;--pidfile&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--log-file&lt;/span&gt;
-root@eb789ffd636f:/# pip install virtualenv
-root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; expect openssh-client
-root@eb789ffd636f:/# apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; software-properties-common
-root@eb789ffd636f:/# apt-get autoremove &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
-root@eb789ffd636f:/# apt-get clean
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;打包该镜像&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker commit &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;wmh&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;production env&quot;&lt;/span&gt; 容器名称或id crsys-gitlab-runner:3.0
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker image tag crsys-gitlab-runner:3.0 192.168.120.11:5002/crsys-gitlab-runner:3.0
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker push 192.168.120.11:5002/crsys-gitlab-runner:3.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;trouble-shooting&quot;&gt;Trouble shooting&lt;/h2&gt;
-
-&lt;h3 id=&quot;docker-is-not-active&quot;&gt;docker is not active&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2020-11-04-gitlab-CI-configure/image-20201104160836058.png&quot; alt=&quot;image-20201104160836058&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这是因为镜像没有启动&lt;/p&gt;
-
-&lt;h3 id=&quot;docker-pull-error&quot;&gt;docker pull error&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105203130082.png&quot; alt=&quot;image-20201105203130082&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;因为docker在之后的版本中默认使用了https设置，导致协议不匹配所以出现了错误&lt;/p&gt;
-
-&lt;p&gt;编辑/etc/default/docker，在其中添加:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_OPTS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--insecure-registry=192.168.120.11:5002&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;重启docker后发现仍然存在错误：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201105204840077.png&quot; alt=&quot;image-20201105204840077&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;是因为5000端口已经被uwsgi占用，因此docker无法解析该应用回复的响应。&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull registry:2
-docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 5002:5000 &lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;always registry:2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;运行成功之后使用curl http://localhost:5002却出现connect refused的错误，经过对端口进行检查之后发现&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106094918602.png&quot; alt=&quot;image-20201106094918602&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;修改ubuntu的网络设置，禁用tcp6。打开/etc/sysctl.conf，添加如下三条设置&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   net.ipv6.conf.all.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
-   net.ipv6.conf.default.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
-   net.ipv6.conf.lo.disable_ipv6 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;保存后退出，执行sudo sysctl -p。经过测试后发现不是这个原因，可能是因为宿主机和容器端口映射设置错误，将启动容器的端口设置修改为-p 5002:5000后可以成功访问http://localhost:5002。&lt;/p&gt;
-
-&lt;p&gt;为了使gitlab-runner中的docker可以接受http协议，在启动gitlab-runner容器的时候设定tls_vertify=true&lt;/p&gt;
-
-&lt;h3 id=&quot;本地调试&quot;&gt;本地调试&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201106102748598.png&quot; alt=&quot;image-20201106102748598&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;一直push到gitlab上太麻烦了，所以使用gitlab-runner exec进行本地调试&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitlab-runner &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;docker test_staging 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;在docker的镜像中进行本地调试会出现很多错误：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;无法正确clone&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;修改.gitlab.yml，添加如下内容：&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;variables&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GIT_STRATEGY&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;none&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;docker无法启动&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;启动docker时设置privilege&lt;/p&gt;
-
-&lt;h3 id=&quot;cd导致的权限问题&quot;&gt;cd导致的权限问题&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;D:\Git\github\2bebetter.github.io\img\2020-11-04-gitlab-CI-configure\image-20201109000402307.png&quot; alt=&quot;image-20201109000402307&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在gitlab-runner中使用了cd [dictionary]会导致文件夹只读。&lt;/p&gt;
-
-&lt;h2 id=&quot;todo&quot;&gt;ToDo&lt;/h2&gt;
-
-&lt;p&gt;由于rsync同步文件存在着诸多权限问题，所以为每个服务器创建了一个runner，但实际上这些runner所做的工作是相同的，后续需要精简，而且将生产环境与gitlab-runner分离对于部署、调试工作都有很大的帮助，因此后续可能会更改为gitlab+production的工作模式。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 04 Nov 2020 10:21:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/jekyll/2020/11/04/gitlab-CI-configure/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/jekyll/2020/11/04/gitlab-CI-configure/</guid>
-        
-        
-        <category>jekyll</category>
-        
-      </item>
-    
-      <item>
-        <title>SDN Related Work</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#sdn-related-work&quot; id=&quot;markdown-toc-sdn-related-work&quot;&gt;SDN Related Work&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#sdn-routing&quot; id=&quot;markdown-toc-sdn-routing&quot;&gt;SDN Routing&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#machine-learning&quot; id=&quot;markdown-toc-machine-learning&quot;&gt;Machine Learning&lt;/a&gt;            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#cfr-rl-traffic-engineering-with-reinforcement-learning-in-sdn&quot; id=&quot;markdown-toc-cfr-rl-traffic-engineering-with-reinforcement-learning-in-sdn&quot;&gt;CFR-RL: Traffic Engineering With Reinforcement Learning in SDN&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#routenet-leveraging-graph-neural-networks-for-network-modeling-and-optimization-in-sdn&quot; id=&quot;markdown-toc-routenet-leveraging-graph-neural-networks-for-network-modeling-and-optimization-in-sdn&quot;&gt;RouteNet: Leveraging Graph Neural Networks for Network Modeling and Optimization in SDN&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#sdn-security&quot; id=&quot;markdown-toc-sdn-security&quot;&gt;SDN Security&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#related-work&quot; id=&quot;markdown-toc-related-work&quot;&gt;Related work&lt;/a&gt;            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#bloomstore-dynamic-bloom-filter-based-secure-rule-space-management-scheme-in-sdn&quot; id=&quot;markdown-toc-bloomstore-dynamic-bloom-filter-based-secure-rule-space-management-scheme-in-sdn&quot;&gt;BloomStore: Dynamic Bloom-Filter-based Secure Rule-Space Management Scheme in SDN&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#an-efficient-approach-to-robust-sdn-controller-placement-for-security&quot; id=&quot;markdown-toc-an-efficient-approach-to-robust-sdn-controller-placement-for-security&quot;&gt;An Efficient Approach to Robust SDN Controller Placement for Security&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#load-balancing&quot; id=&quot;markdown-toc-load-balancing&quot;&gt;Load balancing&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot; id=&quot;markdown-toc-an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot;&gt;An energy-efficient load distribution framework for SDN controllers&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#a-trust-management-framework-for-software-defined-network-applications&quot; id=&quot;markdown-toc-a-trust-management-framework-for-software-defined-network-applications&quot;&gt;A trust management framework for software-defined network applications&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#self-healing-and-sdn-bridging-the-gap&quot; id=&quot;markdown-toc-self-healing-and-sdn-bridging-the-gap&quot;&gt;Self-healing and SDN: bridging the gap&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#multi-domain-virtual-network-embedding-with-dynamic-flow-migration-in-software-defined-networks&quot; id=&quot;markdown-toc-multi-domain-virtual-network-embedding-with-dynamic-flow-migration-in-software-defined-networks&quot;&gt;Multi-domain virtual network embedding with dynamic flow migration in software-defined networks&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;sdn-related-work&quot;&gt;SDN Related Work&lt;/h1&gt;
-
-&lt;h2 id=&quot;sdn-routing&quot;&gt;SDN Routing&lt;/h2&gt;
-
-&lt;h3 id=&quot;machine-learning&quot;&gt;Machine Learning&lt;/h3&gt;
-
-&lt;h4 id=&quot;cfr-rl-traffic-engineering-with-reinforcement-learning-in-sdn&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=4&amp;amp;cacheurlFromRightClick=no&quot;&gt;CFR-RL: Traffic Engineering With Reinforcement Learning in SDN&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;传统的交通工程(TE)解决方案可以通过重新路由尽可能多的流来获得最优或接近最优的性能。然而，当频繁地在网络中重新路由流时，他们通常不会考虑负面影响，比如数据包次序混乱。为了减轻网络干扰的影响，一个有前景的TE解决方案是使用等成本多路径(ECMP)转发大部分流量，并使用软件定义网络(SDN)选择性地重新路由少数关键流量，以平衡网络的链路利用率，其中关键流定义为对网络性能有主要影响的流（例如，最拥塞的链路上的流）。关键流重新路由问题可以分解为两个子问题：（1）识别关键流（2）重新路由它们以实现良好的性能。此外，基于规则的启发式算法不能适应流量矩阵和网络动态的变化，因此不可能基于固定的简单规则来设计该问题的启发式算法。在本文中，我们提出了CFR-RL(临界流重定向-强化学习)，这是一个基于强化学习的方案，它学习一个策略来为每个给定的交通矩阵自动选择临界流。然后，CFR-RL通过制定和解决一个简单的线性规划(LP)问题，重新路由这些选定的关键流，以平衡网络的链路利用率。广泛的评估表明，CFR-RL仅重新路由总流量的10%-21.3%，从而实现接近最佳的性能。&lt;/p&gt;
-
-&lt;h4 id=&quot;routenet-leveraging-graph-neural-networks-for-network-modeling-and-optimization-in-sdn&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=5&quot;&gt;RouteNet: Leveraging Graph Neural Networks for Network Modeling and Optimization in SDN&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;网络建模是实现自驱动软件定义网络高效运行的关键因素。然而，我们仍然缺乏能够在有限成本下对关键性能指标(KPI)产生准确预测的功能性网络模型，如延迟、抖动或损失。本文提出了一种基于图神经网络(GNN)的新型网络模型RouteNet，该模型能够理解拓扑、路由和输入流量之间的复杂关系，从而准确估计每个源/目的地每个包的时延分布和丢失。RouteNet利用了GNN学习和建模图结构信息，因此，我们的模型能够泛化任意拓扑、路由方案和流量强度。在我们的评估中，我们发现RouteNet能够准确地预测训练中看不到的拓扑、路由和流量的时延分布(平均时延和抖动)和损失(最坏情况MRE = 15.4%)。此外，我们还展示了几个利用我们的GNN模型的KPI预测来实现高效路由优化和网络规划的用例。&lt;/p&gt;
-
-&lt;h2 id=&quot;sdn-security&quot;&gt;SDN Security&lt;/h2&gt;
-
-&lt;h3 id=&quot;related-work&quot;&gt;Related work&lt;/h3&gt;
-
-&lt;h4 id=&quot;bloomstore-dynamic-bloom-filter-based-secure-rule-space-management-scheme-in-sdn&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=7&amp;amp;cacheurlFromRightClick=no&quot;&gt;BloomStore: Dynamic Bloom-Filter-based Secure Rule-Space Management Scheme in SDN&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;软件定义网络(SDN)通过将复杂和严格的计算任务转移到集中式控制器，提供了一种有效的管理流量负载的方法。它减轻了交换机的负担，交换机的任务是执行基于规则操作对的路由。但是，交换机的流表存储容量有限。它可能不得不面对性能瓶颈，而这又会导致严重的安全漏洞和性能下降。因此，本文提出了SDN中基于动态Bloom-Filter的安全规则空间管理方案BloomStore。BloomStore通过管理网络资源动态地处理数据流量。双重安全检查用于安全数据传输使用双重哈希，即两个独立的哈希函数被用来生成k哈希函数。此外，还提出了分区哈希在bloom数组的bucket中进行插入和查询的方法。结果分析表明，在各种性能参数方面，BloomStore的性能都优于竞争对手的变体。&lt;/p&gt;
-
-&lt;h4 id=&quot;an-efficient-approach-to-robust-sdn-controller-placement-for-security&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=14&amp;amp;cacheurlFromRightClick=no&quot;&gt;An Efficient Approach to Robust SDN Controller Placement for Security&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;安全是传统网络的关键问题之一。软件定义网络(SDN)通过分离网络的控制平面和数据平面，提高了网络的安全性。为了提高SDN网络的性能，研究人员设计了许多先进的控制器原型，并考虑了控制器的放置问题。然而，链路失效是网络中非常重要的安全问题，极大地影响了SDN网络的安全。在今天，对于链路失败的控制器放置问题仍然是一个挑战。在本文中，我们分别研究了单链路和多链路失效情况下的SDN控制器配置问题。对于单链路故障，我们开发了一种启发式算法来解决控制器配置问题。对于多链路故障，我们引入蒙特卡罗模拟来减少计算开销。我们对真实网络拓扑进行了实验，仿真结果表明启发式算法在取得良好性能的同时，比最优算法节省了更多的时间。&lt;/p&gt;
-
-&lt;h2 id=&quot;load-balancing&quot;&gt;Load balancing&lt;/h2&gt;
-
-&lt;h4 id=&quot;an-energy-efficient-load-distribution-framework-for-sdn-controllers&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=18&amp;amp;cacheurlFromRightClick=no&quot;&gt;An energy-efficient load distribution framework for SDN controllers&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;软件定义网络(SDN)由于能够根据不同的需求动态配置网络，已经发展成为未来Internet的一个有效平台。我们观察到，随着通信网络的增长，SDN设备的负载和能量需求显著增加。因此，需要对SDN控制器进行高效的建模，平衡负载，优化设备能耗。在本文中，我们提出了一个节能的负荷分配框架和有效的负荷分配和客观上优化网络能耗的流量路由控制器系统模型。该模型通过引入高效节能的路由算法选择过程，实现了基于异构流量需求的负载均衡，降低了能耗。负载均衡方案采用多控制器同步切换迁移技术，而高效路由的新颖之处在于网络设备的休眠和主动模式。为了提高网络的性能，我们提出了负载均衡和节能路由之间的相互作用。大量的仿真结果表明，我们所提出的控制器系统模型的有效性得到了证明，能耗降低了约25%，性能提高了约20%。该模型适用于满足绿色通信标准的现实网络环境。&lt;/p&gt;
-
-&lt;h4 id=&quot;a-trust-management-framework-for-software-defined-network-applications&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=22&quot;&gt;A trust management framework for software-defined network applications&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;(评估框架)&lt;/p&gt;
-
-&lt;p&gt;SDN (software-defined network, SDN)的出现给现有网络带来了前所未有的创新。SDN的两个最显著的特性是解耦性和可编程性。解耦使得网络管理集中在一个控制平面上。同时，得益于SDN的可编程特性，可以很容易地实现新的组网功能。然而，这些特性也给SDN带来了新的安全问题。通过SDN提供的编程接口，软件工程师可以轻松开发网络应用程序，生成SDN控制平面的组网策略，以指导网络路由。然而，这些新应用的安全性和质量很难保证。恶意或低质量的应用程序可能会破坏整个网络。为了解决这个问题，本文提出了一种新的SDN应用信任管理框架。它可以根据应用程序对网络性能(如时延、丢包率、吞吐量等)的影响来评估应用程序的信任值。这些信任值对SDN中应用程序的管理和选择起到了决定性的作用。我们通过一个基于泛光灯控制器的原型系统来评估该框架的性能。实验结果表明了设计的正确性和有效性。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=23&quot;&gt;ArchSDN: a reinforcement learning-based autonomous OpenFlow controller with distributed management properties&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;网络控制器的屏蔽能力对网络运营商有信心继续扩展通信网络至关重要。今天的网络可以使用该软件定义网络(SDN)概念分离控制和转换层面，并使用自主自治特性快速应对任何网络活动,同时为网络提供必要的灵活性,支持自定义服务级别协议(SLA)的客户,同时降低资本和运营开支。SDN和自主管理的概念都有一个集中式的架构，需要一个单一的实体管理网络的方方面面，这使得在庞大的物联网世界中管理整个网络变得困难，在这些网络中服务往往是靠近用户，基于边缘的方法是支持5G和超越服务的关键。要支持这种动态和灵活的网络，需要一种方法，通过多个自主的OpenFlow控制器(我们称之为ArchSDN控制器)来分配网络管理职责。通过将OpenFlow交换机分配给不同的ArchSDN控制器，将网络划分为不同的扇区，每个扇区由一个ArchSDN控制器独占控制。这些控制者协调他们的行动，并使用基于强化学习的决策机制来探索、学习和实现接近最佳的端到端通信路径。评估结果表明，所提出的决策系统能够找到接近最优的解决方案，从已获得的结果中学习以改进未来的服务激活结果，并能在不到100毫秒的时间内响应，使网络快速适应通信链路的丢失。&lt;/p&gt;
-
-&lt;h4 id=&quot;self-healing-and-sdn-bridging-the-gap&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=4&amp;amp;SID=6DsnaK11My1YwUPVlix&amp;amp;page=1&amp;amp;doc=27&amp;amp;cacheurlFromRightClick=no&quot;&gt;Self-healing and SDN: bridging the gap&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;随着分布式交互应用的普及，为了获得良好的参与者交互体验，必须考虑网络资源的高效和公平分配。在软件定义的网络中，中央控制器的存在为交互式应用程序部署可定制的路由提供了一种新颖的解决方案，它允许对DIAs进行细粒度的资源分配，以实现参与者之间的公平性。但是机遇总是伴随着挑战，广泛分布的用户位置往往需要分配控制器来满足应用的要求。因此，参与者之间的延迟直接受到控制器处理时间的影响。在此背景下，我们解决了DIAs在计算和链路负载方面的公平资源配置问题，目的是平衡SDN网络中多流之间的可实现请求率和公平性。首先，我们将问题表示为控制器加载和路由优化的组合。然后，提出了基于深度学习的主动分配控制器算法和公平路径分配算法来共享瓶颈环节。与目前最先进的贪婪分配算法和优先级分配算法相比，通过跟踪驱动仿真验证了该算法在控制器和链路负载方面具有更好的公平性。&lt;/p&gt;
-
-&lt;h4 id=&quot;multi-domain-virtual-network-embedding-with-dynamic-flow-migration-in-software-defined-networks&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=3&amp;amp;SID=5FUOQZPzuNrS9dmyBmq&amp;amp;page=1&amp;amp;doc=34&amp;amp;cacheurlFromRightClick=no&quot;&gt;Multi-domain virtual network embedding with dynamic flow migration in software-defined networks&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;软件定义网络(SDN)解耦了网络的控制面和数据面，并使用一个中央控制器来提供有效使用网络资源和方便的服务提供。SDN中的虚拟化使虚拟SDN网络能够共享公共的物理网络基础设施，从而使它们能够提供通用的服务。在这种设置下，SDN hypervisor支持多个虚拟SDN网络(vSDN)，其中每个vSDN网络都有自己的控制器。为了建立虚拟网络，实现物理网络资源的优化共享，设计了虚拟网络嵌入算法。单域虚拟虚拟机是虚拟虚拟机研究的一个热点问题。然而，在大多数实际场景中，VNs是跨属于不同基础设施提供者(InPs)的异构管理域供应的。&lt;/p&gt;
-
-&lt;p&gt;本文利用不规则细胞学习自动机(ICLA)提出了一种用于多域SDN网络的VNE算法，即vSDN-CLA。我们考虑了两个方面——虚拟节点和链路在多域基片网络中的最优映射，以及SDN控制器在吞吐量和端到端延迟方面的最优配置。我们通过考虑动态流迁移来扩展vSDN-CLA，以实现资源最优路由。我们使用Mininet评估了提议的方案，我们观察到提议的方案在吞吐量、端到端延迟和虚拟网络请求接受率方面优于现有的基准方案在单域和多域环境下。&lt;/p&gt;
-</description>
-        <pubDate>Tue, 27 Oct 2020 12:51:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/thesis/2020/10/27/SDN-related-work/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/10/27/SDN-related-work/</guid>
-        
-        
-        <category>thesis</category>
-        
-      </item>
-    
-      <item>
-        <title>Edge Cloud Network</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#edge-cloud-network&quot; id=&quot;markdown-toc-edge-cloud-network&quot;&gt;Edge Cloud Network&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#definition&quot; id=&quot;markdown-toc-definition&quot;&gt;Definition&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#benefits&quot; id=&quot;markdown-toc-benefits&quot;&gt;Benefits&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#related-work&quot; id=&quot;markdown-toc-related-work&quot;&gt;Related work&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn&quot; id=&quot;markdown-toc-a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn&quot;&gt;A Novel Load Balancing and Low Response Delay Framework for Edge-Cloud Network Based on SDN&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks&quot; id=&quot;markdown-toc-optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks&quot;&gt;Optimal VNF Placement via Deep Reinforcement Learning in SDN/NFV-Enabled Networks&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets&quot; id=&quot;markdown-toc-an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets&quot;&gt;An optimal delay aware task assignment scheme for wireless SDN networked edge cloudlets&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;edge-cloud-network&quot;&gt;Edge Cloud Network&lt;/h1&gt;
-
-&lt;h2 id=&quot;definition&quot;&gt;Definition&lt;/h2&gt;
-
-&lt;p&gt;边缘云架构用于将权力分散(处理)到网络的边缘(客户端/设备)。传统服务器的计算能力用于执行数据最小化或创建先进的分布式系统等任务。在云模型中，这样的“智能”任务由服务器执行，因此它们可以被转移到其他计算能力较低或几乎没有计算能力的设备上。&lt;/p&gt;
-
-&lt;p&gt;有了边缘云，这些处理任务的很大一部分都被转移到了客户端，这也被称为边缘计算(Edge Computing)。边缘计算通常指物联网(IOT)设备，但也指在设备上处理遥测数据(而不是将原始数据发送到云)的游戏硬件。&lt;/p&gt;
-
-&lt;p&gt;这为企业创造了很多机会，特别是当他们希望在整个应用程序或高密度平台使用中提供低延迟服务时。&lt;/p&gt;
-
-&lt;h2 id=&quot;benefits&quot;&gt;Benefits&lt;/h2&gt;
-
-&lt;p&gt;相较于传统的客户机连接到服务器的模型，边缘云架构中数以千计的客户机相互连接可以更加快速有效地执行较小的处理任务。理想的边缘计算环境使数以百万计的物联网设备形成一个庞大的智能网络，可以执行通常只有在非常大的数据中心才可能执行的任务。&lt;/p&gt;
-
-&lt;p&gt;通过结合Edge和Cloud，我们可以利用分布式系统的力量，在设备上处理数据，然后将数据发送到云中。在这里，可以使用更少(甚至不可用)的处理能力来处理、分析或保存它。&lt;/p&gt;
-
-&lt;p&gt;例如：得益于Edge云架构，共享信息的联网汽车能够自己分析数据，而不用使用服务器的处理能力。与需要在中央服务器上处理的大量数据回程不同，大部分处理工作已经由连接的设备自己完成了。&lt;/p&gt;
-
-&lt;p&gt;边缘云的好处还有很多，包括以服务提供商的身份有效部署新服务，或为联网汽车司机或在线游戏玩家提供低延迟体验。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Contrail Edge Cloud等解决方案将计算、存储和网络资源在基站、集线器、交换站点和中央办公室等轻量级边缘环境中抽象和虚拟化。&lt;/li&gt;
-  &lt;li&gt;通过低延迟、自动化和简单的交付，边缘云架构在不牺牲多租户安全云的丰富功能的情况下，加速了网络边缘的服务创建。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;related-work&quot;&gt;Related work&lt;/h2&gt;
-
-&lt;h3 id=&quot;a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn&quot;&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/document/8892518&quot;&gt;A Novel Load Balancing and Low Response Delay Framework for Edge-Cloud Network Based on SDN&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;基于软件定义网络(SDNs)的云计算，需要收集更多的数据到云中进行分析，由于互联网容量有限，这会导致更多的冗余数据和更长的服务响应时间。针对这一问题，提出了一种新的服务编排与数据聚合框架(SODA)，该框架将数据编排为服务，并对数据包进行聚合，以减少数据冗余和服务响应延迟。在SODA中，网络被分为三层。1)数据中心层(DCL)。数据中心(DCs)向网络中的所有设备发布具有特定功能的软件，设备将数据编配为服务，并使用软件聚合数据包以减少服务响应延迟。2)中间路由层(MRL)。根据数据包与路由距离的相关性调整该层数据包的路由路径。数据包相关性越高，路由距离越短，为了减少冗余数据，数据包沿同一路由路径传输的概率就越高。3)车辆网络层(VNL)。移动车辆用于在设备之间传输数据包和服务。进行了一系列的实验和仿真。结果表明，与传统方案相比，该方案具有更好的性能。&lt;/p&gt;
-
-&lt;h3 id=&quot;optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=8&amp;amp;SID=7Fz7cFld277jLHIz9RY&amp;amp;page=1&amp;amp;doc=30&amp;amp;cacheurlFromRightClick=no&quot;&gt;Optimal VNF Placement via Deep Reinforcement Learning in SDN/NFV-Enabled Networks&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;新兴的范式——软件定义网络(SDN)和网络功能虚拟化(NFV)——使得在商用设备上运行虚拟网络功能(VNFs)变得可行且可伸缩，从而以更低的成本提供各种网络服务。得益于集中的网络管理，可以在支持SDN/ nfv的网络中收集关于网络设备、流量和资源的大量信息，根据收集到的信息利用机器学习定制算法，有效优化网络性能。本文研究了SDN/ nfv支持的网络中的VNF布局问题，它可以自然地表述为二进制整数规划(BIP)问题。利用深度强化学习，提出了一种基于双深度Q网络的VNF布局算法(DDQN-VNFPA)。具体来说，DDQN从一个巨大的解决方案空间确定最佳解决方案，然后DDQN- vnfpa按照基于阈值的策略放置VNF实例(VNFIs)。我们在一个真实的网络拓扑中通过跟踪驱动模拟来评估DDQN-VNFPA。评估结果表明，与已有文献中的算法相比，DDQN-VNFPA在业务功能链请求的拒绝数和拒绝率、吞吐量、端到端延迟、VNFI运行时间和负载均衡等方面均有较好的网络性能。&lt;/p&gt;
-
-&lt;h3 id=&quot;an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets&quot;&gt;&lt;a href=&quot;https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;amp;search_mode=AdvancedSearch&amp;amp;qid=8&amp;amp;SID=7Fz7cFld277jLHIz9RY&amp;amp;page=1&amp;amp;doc=31&quot;&gt;An optimal delay aware task assignment scheme for wireless SDN networked edge cloudlets&lt;/a&gt;&lt;/h3&gt;
-
-</description>
-        <pubDate>Mon, 26 Oct 2020 12:51:40 +0800</pubDate>
-        <link>http://2bebetter.github.io/thesis/2020/10/26/edge-cloud-network/</link>
-        <guid isPermaLink="true">http://2bebetter.github.io/thesis/2020/10/26/edge-cloud-network/</guid>
         
         
         <category>thesis</category>

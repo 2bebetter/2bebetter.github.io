@@ -9,13 +9,13 @@
   <meta http-equiv="Cache-Control" content="no-transform"/>
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   
-  <title>Edge Cloud Network</title>
+  <title>Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</title>
   <meta name="description" content="">
   <link rel="shortcut icon" href="/img/favicon.png">
   <link rel="apple-touch-icon" href="/img/favicon.ico"/>
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://2bebetter.github.io/thesis/2020/10/26/edge-cloud-network/">
+  <link rel="canonical" href="http://2bebetter.github.io/thesis/2020/11/25/thesis-reading-05/">
 
   <link href="/css/highlight.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
@@ -86,10 +86,10 @@
     <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
     <div class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            Edge Cloud Network
+            Software-Defifined Networking Approaches for Link Failure Recovery: A Survey
         </h1>
         <div class="post-date">
-            <time itemprop="datePublished">Oct 26, 2020</time>
+            <time itemprop="datePublished">Nov 25, 2020</time>
         </div>
     </div>
 </article>
@@ -101,55 +101,79 @@
         </aside>
         <article class="post-content">
             <ul id="markdown-toc">
-  <li><a href="#edge-cloud-network" id="markdown-toc-edge-cloud-network">Edge Cloud Network</a>    <ul>
-      <li><a href="#definition" id="markdown-toc-definition">Definition</a></li>
-      <li><a href="#benefits" id="markdown-toc-benefits">Benefits</a></li>
-      <li><a href="#related-work" id="markdown-toc-related-work">Related work</a>        <ul>
-          <li><a href="#a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn" id="markdown-toc-a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn">A Novel Load Balancing and Low Response Delay Framework for Edge-Cloud Network Based on SDN</a></li>
-          <li><a href="#optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks" id="markdown-toc-optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks">Optimal VNF Placement via Deep Reinforcement Learning in SDN/NFV-Enabled Networks</a></li>
-          <li><a href="#an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets" id="markdown-toc-an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets">An optimal delay aware task assignment scheme for wireless SDN networked edge cloudlets</a></li>
+  <li><a href="#software-defifined-networking-approaches-for-link-failure-recovery-a-survey" id="markdown-toc-software-defifined-networking-approaches-for-link-failure-recovery-a-survey">Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</a>    <ul>
+      <li><a href="#链路故障检测机制" id="markdown-toc-链路故障检测机制">链路故障检测机制</a></li>
+      <li><a href="#链路故障恢复机制" id="markdown-toc-链路故障恢复机制">链路故障恢复机制</a>        <ul>
+          <li><a href="#proactive" id="markdown-toc-proactive">Proactive</a></li>
+          <li><a href="#reactive" id="markdown-toc-reactive">Reactive</a></li>
+          <li><a href="#laege-scale-sdn" id="markdown-toc-laege-scale-sdn">Laege-scale SDN</a></li>
+          <li><a href="#hybrid-sdn" id="markdown-toc-hybrid-sdn">Hybrid SDN</a></li>
         </ul>
       </li>
     </ul>
   </li>
 </ul>
+<h2 id="software-defifined-networking-approaches-for-link-failure-recovery-a-survey">Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</h2>
 
-<h1 id="edge-cloud-network">Edge Cloud Network</h1>
+<p><a href="https://ideas.repec.org/a/gam/jsusta/v12y2020i10p4255-d361650.html">Software-Defifined Networking Approaches for Link Failure Recovery: A Survey</a></p>
 
-<h2 id="definition">Definition</h2>
+<p>SDN使用主动和被动两种主要方法来处理链路故障。</p>
 
-<p>边缘云架构用于将权力分散(处理)到网络的边缘(客户端/设备)。传统服务器的计算能力用于执行数据最小化或创建先进的分布式系统等任务。在云模型中，这样的“智能”任务由服务器执行，因此它们可以被转移到其他计算能力较低或几乎没有计算能力的设备上。</p>
+<p>在主动方法中，备用路径是预先配置的，并且在链路故障的情况下，中断的流将转发到备份路径，不需要与控制器进行交互。</p>
 
-<p>有了边缘云，这些处理任务的很大一部分都被转移到了客户端，这也被称为边缘计算(Edge Computing)。边缘计算通常指物联网(IOT)设备，但也指在设备上处理遥测数据(而不是将原始数据发送到云)的游戏硬件。</p>
+<p>相反，在反应性方案中即被动方法中，需要与控制器联系以寻找替代路径，在控制器计算路径结束之后，重新下发新路径的流表规则。</p>
 
-<p>这为企业创造了很多机会，特别是当他们希望在整个应用程序或高密度平台使用中提供低延迟服务时。</p>
+<p>但是，这两种方案都有其优缺点，同时还要在性能和效率上进行权衡。</p>
 
-<h2 id="benefits">Benefits</h2>
+<h3 id="链路故障检测机制">链路故障检测机制</h3>
 
-<p>相较于传统的客户机连接到服务器的模型，边缘云架构中数以千计的客户机相互连接可以更加快速有效地执行较小的处理任务。理想的边缘计算环境使数以百万计的物联网设备形成一个庞大的智能网络，可以执行通常只有在非常大的数据中心才可能执行的任务。</p>
+<p>SDN中的故障恢复过程从检测到链路故障开始，如果检测迅速，那么整个恢复过程的总延迟将很小，这就是为什么检测方案对整个过程如此重要。</p>
 
-<p>通过结合Edge和Cloud，我们可以利用分布式系统的力量，在设备上处理数据，然后将数据发送到云中。在这里，可以使用更少(甚至不可用)的处理能力来处理、分析或保存它。</p>
-
-<p>例如：得益于Edge云架构，共享信息的联网汽车能够自己分析数据，而不用使用服务器的处理能力。与需要在中央服务器上处理的大量数据回程不同，大部分处理工作已经由连接的设备自己完成了。</p>
-
-<p>边缘云的好处还有很多，包括以服务提供商的身份有效部署新服务，或为联网汽车司机或在线游戏玩家提供低延迟体验。</p>
+<p>下表概述了链路故障检测机制，故障链路的检测方法以及检测方案中的相关问题。</p>
 
 <ul>
-  <li>Contrail Edge Cloud等解决方案将计算、存储和网络资源在基站、集线器、交换站点和中央办公室等轻量级边缘环境中抽象和虚拟化。</li>
-  <li>通过低延迟、自动化和简单的交付，边缘云架构在不牺牲多租户安全云的丰富功能的情况下，加速了网络边缘的服务创建。</li>
+  <li>在[32，33]中提出的方案使用监视周期的概念来减少链路故障恢复时间。在参考文献[32]中，引入了二进制搜索技术以最小化路径上的跳数。</li>
+  <li>类似地，在参考文献[33,34]中，使用启发式方法[35]将监视分配公式化为邮递员问题，以分配监视周期。</li>
+  <li>OpenFlow使用了与以太网相同的检测信号的机制，通过在节点之间以固定的时间间隔交换心跳消息来确定网络的状态，通过节点之间的hello数据包的交换速率来检查活动性。因此，如果节点在16±8 ms的常规时间间隔内未收到hello数据包，则会向控制器通知发生故障的链路。</li>
+  <li>生成树协议（STP）[38]和反向生成树协议（RSTP）也已在数据链路层上用于链路故障检测。但是，它们的检测时间跨度为几秒钟，不能保证现代技术的延迟要求。</li>
+  <li>SDN社区[36,40,41]中也常规提供OpenFlow快速故障转移（FF）组[1]和双向转发检测（BFD）[39]，用于链路故障检测和恢复。</li>
+  <li>在[42]中提出了一种故障检测机制，称为低错误率故障检测服务（FDLM），它使用心跳消息将检测中的错误最小化。</li>
+  <li>使用多协议标签交换（MPLS）BFD来检测端到端路径中传输网络的故障。该方案通过与数据包一起发送探测消息，当连续的探测消息之间存在间隙时，认为检测到链路故障。</li>
+  <li>在[45]中提出了一种使用基于out 数据包的计数器机制的故障检测方法。对链接上安装的流规则进行标记和监视，然后在目标位置对数据包进行计数。</li>
+  <li>交换机级别的故障检测方案[47]被称为交换机故障检测（SFD），使用故障链路和网络拓扑作为输入。为了识别故障交换机，该算法首先找到故障链路的源和目的地。然后，发现与交换机连接的所有主机，并计算丢包率是否为100％。(<strong>仅限节点故障</strong>)</li>
 </ul>
 
-<h2 id="related-work">Related work</h2>
+<p><img src="/img/2020-11-25-thesis-reading-05/image-20201125192853820.png" alt="image-20201125192853820" /></p>
 
-<h3 id="a-novel-load-balancing-and-low-response-delay-framework-for-edge-cloud-network-based-on-sdn"><a href="https://ieeexplore.ieee.org/document/8892518">A Novel Load Balancing and Low Response Delay Framework for Edge-Cloud Network Based on SDN</a></h3>
+<h3 id="链路故障恢复机制">链路故障恢复机制</h3>
 
-<p>基于软件定义网络(SDNs)的云计算，需要收集更多的数据到云中进行分析，由于互联网容量有限，这会导致更多的冗余数据和更长的服务响应时间。针对这一问题，提出了一种新的服务编排与数据聚合框架(SODA)，该框架将数据编排为服务，并对数据包进行聚合，以减少数据冗余和服务响应延迟。在SODA中，网络被分为三层。1)数据中心层(DCL)。数据中心(DCs)向网络中的所有设备发布具有特定功能的软件，设备将数据编配为服务，并使用软件聚合数据包以减少服务响应延迟。2)中间路由层(MRL)。根据数据包与路由距离的相关性调整该层数据包的路由路径。数据包相关性越高，路由距离越短，为了减少冗余数据，数据包沿同一路由路径传输的概率就越高。3)车辆网络层(VNL)。移动车辆用于在设备之间传输数据包和服务。进行了一系列的实验和仿真。结果表明，与传统方案相比，该方案具有更好的性能。</p>
+<h4 id="proactive">Proactive</h4>
 
-<h3 id="optimal-vnf-placement-via-deep-reinforcement-learning-in-sdnnfv-enabled-networks"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=8&amp;SID=7Fz7cFld277jLHIz9RY&amp;page=1&amp;doc=30&amp;cacheurlFromRightClick=no">Optimal VNF Placement via Deep Reinforcement Learning in SDN/NFV-Enabled Networks</a></h3>
+<p><img src="/img/2020-11-25-thesis-reading-05/image-20201125202420813.png" alt="image-20201125202420813" /></p>
 
-<p>新兴的范式——软件定义网络(SDN)和网络功能虚拟化(NFV)——使得在商用设备上运行虚拟网络功能(VNFs)变得可行且可伸缩，从而以更低的成本提供各种网络服务。得益于集中的网络管理，可以在支持SDN/ nfv的网络中收集关于网络设备、流量和资源的大量信息，根据收集到的信息利用机器学习定制算法，有效优化网络性能。本文研究了SDN/ nfv支持的网络中的VNF布局问题，它可以自然地表述为二进制整数规划(BIP)问题。利用深度强化学习，提出了一种基于双深度Q网络的VNF布局算法(DDQN-VNFPA)。具体来说，DDQN从一个巨大的解决方案空间确定最佳解决方案，然后DDQN- vnfpa按照基于阈值的策略放置VNF实例(VNFIs)。我们在一个真实的网络拓扑中通过跟踪驱动模拟来评估DDQN-VNFPA。评估结果表明，与已有文献中的算法相比，DDQN-VNFPA在业务功能链请求的拒绝数和拒绝率、吞吐量、端到端延迟、VNFI运行时间和负载均衡等方面均有较好的网络性能。</p>
+<ul>
+  <li>
+    <p>OpenFlow提供了Fast-FailOver用于故障检测和恢复。</p>
+  </li>
+  <li>BFD</li>
+  <li>SPIDER</li>
+</ul>
 
-<h3 id="an-optimal-delay-aware-task-assignment-scheme-for-wireless-sdn-networked-edge-cloudlets"><a href="https://apps-webofknowledge-com.webvpn.las.ac.cn/full_record.do?product=UA&amp;search_mode=AdvancedSearch&amp;qid=8&amp;SID=7Fz7cFld277jLHIz9RY&amp;page=1&amp;doc=31">An optimal delay aware task assignment scheme for wireless SDN networked edge cloudlets</a></h3>
+<h4 id="reactive">Reactive</h4>
+
+<p>响应式故障恢复主要依靠SDN控制器。</p>
+
+<p>这种方法的反对者声称反应式方案不能满足CGN的延迟范围，即50毫秒。</p>
+
+<p><img src="/img/2020-11-25-thesis-reading-05/image-20201125210823088.png" alt="image-20201125210823088" /></p>
+
+<h4 id="laege-scale-sdn">Laege-scale SDN</h4>
+
+<p>利用图论对网络进行裁剪。</p>
+
+<p>Distributed controller clustering in software defifined networks.</p>
+
+<h4 id="hybrid-sdn">Hybrid SDN</h4>
 
 
         </article>
