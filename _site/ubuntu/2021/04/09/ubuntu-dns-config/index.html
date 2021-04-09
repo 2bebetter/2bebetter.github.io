@@ -9,13 +9,13 @@
   <meta http-equiv="Cache-Control" content="no-transform"/>
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   
-  <title>Multidimensional detection and dynamic defense method for link flooding attack</title>
+  <title>修改ubuntu18的DNS配置</title>
   <meta name="description" content="">
   <link rel="shortcut icon" href="/img/favicon.png">
   <link rel="apple-touch-icon" href="/img/favicon.ico"/>
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://2bebetter.github.io/ctf/2020/12/19/ctf/">
+  <link rel="canonical" href="http://2bebetter.github.io/ubuntu/2021/04/09/ubuntu-dns-config/">
 
   <link href="/css/highlight.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
@@ -86,10 +86,10 @@
     <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
     <div class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            Multidimensional detection and dynamic defense method for link flooding attack
+            修改ubuntu18的DNS配置
         </h1>
         <div class="post-date">
-            <time itemprop="datePublished">Dec 19, 2020</time>
+            <time itemprop="datePublished">Apr 09, 2021</time>
         </div>
     </div>
 </article>
@@ -101,55 +101,119 @@
         </aside>
         <article class="post-content">
             <ul id="markdown-toc">
-  <li><a href="#12月赛" id="markdown-toc-12月赛">12月赛</a>    <ul>
-      <li><a href="#misc" id="markdown-toc-misc">misc</a>        <ul>
-          <li><a href="#capture" id="markdown-toc-capture">capture</a></li>
-        </ul>
-      </li>
-      <li><a href="#crypto" id="markdown-toc-crypto">Crypto</a>        <ul>
-          <li><a href="#affine" id="markdown-toc-affine">affine</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+  <li><a href="#修改ubuntu18的网络配置" id="markdown-toc-修改ubuntu18的网络配置">修改ubuntu18的网络配置</a></li>
 </ul>
-<h2 id="12月赛">12月赛</h2>
 
-<p>记12月月赛，虽然感觉这一天都好糟糕</p>
+<h1 id="修改ubuntu18的网络配置">修改ubuntu18的网络配置</h1>
 
-<h3 id="misc">misc</h3>
+<p>本来以为是很简单的一个配置过程，但是因为DNS配置一直不能生效，所以还是耽误了很长时间，简单记录一下这个过程。</p>
 
-<h4 id="capture">capture</h4>
+<ol>
+  <li>配置网卡地址</li>
+</ol>
 
-<p>图片隐写题，binwalk查看该图片后发现里面有一个zip文件</p>
+<p>编辑/etc/network/interfaces文件：</p>
 
-<p><img src="/img/2020-12-19-ctf/image-20201219212901718.png" alt="image-20201219212901718" /></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auto eno1
+iface eno1 inet static
+        address 192.168.xxx
+        gateway 192.168.228.1
+        netmask 255.255.255.0
+        dns-nameserver 8.8.8.8
+        dns-nameserver 114.114.114.114
+</code></pre></div></div>
 
-<p>使用dd if=misc_capture.jpg of=flag.zip skip=1230723 bs=1后分离出zip文件，打开该文件后果然发现其中有个flag.txt，但是想要查看该文件的内容时，却发现它被加密了。</p>
+<p>sudo service networking restart 重启网络服务。</p>
 
-<p><img src="/img/2020-12-19-ctf/image-20201219213047314.png" alt="image-20201219213047314" /></p>
+<ol>
+  <li>配置DNS</li>
+</ol>
 
-<p>接下来有两个思路：（1）判断是否是伪加密；（2）尝试解密。</p>
+<p>上述步骤配置了DNS后，查看/etc/resolv.conf发现配置并未生效：</p>
 
-<p>（1）使用winhex修改后提示该文件已被损坏，判断不是伪加密。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nameserver 127.0.0.53
+options edns0
+</code></pre></div></div>
 
-<p><img src="/img/2020-12-19-ctf/image-20201219213208434.png" alt="image-20201219213208434" /></p>
+<p>找了几个网络上提供的方式：</p>
 
-<p>（2）解密的思路也有两个流程，首先在图片文件中查找是否存在关于密码的提示，没有找到只能尝试暴力破解。</p>
+<p>（1） 修改/etc/resolvconf/resolv.conf.d/base</p>
 
-<p>使用azpr暴力破解后得到密码122947，这里绕了点弯子，因为没有找到提示，所以最开始使用了字母、数字、特殊字符暴力跑的，导致一直没有出结果，以为自己是哪里出了错。后来尝试只用数字之后，蛮快就出结果了，但还是没找到关于密码位数、组成的提醒orz。</p>
+<p>手动修改/etc/resolv.conf，添加你想要使用的dns-server(这一步仅仅是临时的)，sudo apt-get install resolvconf安装resolvconf，之后修改/etc/resolvconf/resolv.conf.d/base文件：</p>
 
-<p><img src="/img/2020-12-19-ctf/image-20201219213440374.png" alt="image-20201219213440374" /></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nameserver 8.8.8.8
+nameserver 114.114.114.114
+</code></pre></div></div>
 
-<p>打开flag.txt文件后，如下图所示：</p>
+<p>sudo resolvconf -u或者sudo service resolvconf restart重启服务</p>
 
-<p><img src="/img/2020-12-19-ctf/image-20201219213654105.png" alt="image-20201219213654105" /></p>
+<p>查看/etc/resolv.conf发现配置失败</p>
 
-<p>之后就比较简单了，直接找一个在线解码工具即可，flag{doyouknowook}。</p>
+<p>(2) 通过/etc/network/interfaces配置</p>
 
-<h3 id="crypto">Crypto</h3>
+<p>编辑/etc/network/interfaces文件：</p>
 
-<h4 id="affine">affine</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auto eno1
+iface eno1 inet static
+        address 192.168.xxx
+        gateway 192.168.228.1
+        netmask 255.255.255.0
+        dns-nameserver 8.8.8.8
+        dns-nameserver 114.114.114.114
+</code></pre></div></div>
+
+<p>重启网络服务后发现配置还是失败。</p>
+
+<p><strong>（3）修改/etc/systemd/resolved.conf</strong></p>
+
+<p>最终只能观察/etc/resolv.conf文件，发现文件头标明：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)</span>
+<span class="c">#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN</span>
+<span class="c"># 127.0.0.53 is the systemd-resolved stub resolver.</span>
+<span class="c"># run "systemd-resolve --status" to see details about the actual nameservers.</span>
+</code></pre></div></div>
+
+<p>于是去修改/etc/systemd文件夹下的resolved.conf文件：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#  This file is part of systemd.</span>
+<span class="c">#</span>
+<span class="c">#  systemd is free software; you can redistribute it and/or modify it</span>
+<span class="c">#  under the terms of the GNU Lesser General Public License as published by</span>
+<span class="c">#  the Free Software Foundation; either version 2.1 of the License, or</span>
+<span class="c">#  (at your option) any later version.</span>
+<span class="c">#</span>
+<span class="c"># Entries in this file show the compile time defaults.</span>
+<span class="c"># You can change settings by editing this file.</span>
+<span class="c"># Defaults can be restored by simply deleting this file.</span>
+<span class="c">#</span>
+<span class="c"># See resolved.conf(5) for details</span>
+
+<span class="o">[</span>Resolve]
+<span class="nv">DNS</span><span class="o">=</span>8.8.8.8 114.114.114.114
+<span class="c">#FallbackDNS=</span>
+<span class="c">#Domains=</span>
+<span class="c">#LLMNR=no</span>
+<span class="c">#MulticastDNS=no</span>
+<span class="c">#DNSSEC=no</span>
+<span class="c">#Cache=yes</span>
+<span class="c">#DNSStubListener=yes</span>
+</code></pre></div></div>
+
+<p>重启networking、resolvconf服务后查看/etc/resolv.conf:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)</span>
+<span class="c">#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN</span>
+<span class="c"># 127.0.0.53 is the systemd-resolved stub resolver.</span>
+<span class="c"># run "systemd-resolve --status" to see details about the actual nameservers.</span>
+
+nameserver 8.8.8.8
+nameserver 114.114.114.114
+nameserver 127.0.0.53
+options edns0
+</code></pre></div></div>
+
+<p>配置成功。</p>
 
 
         </article>
