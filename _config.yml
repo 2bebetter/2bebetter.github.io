@@ -15,6 +15,15 @@ keyword: ""
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://2bebetter.github.io"           # your host, for absolute URL
 
+#header
+header:
+  pages:
+    - name: Home
+      slug: /     # <-- index.md
+    - name: Blog  # <-- blog.md
+    - name: Work  # <-- work.md
+    - name: About # <-- about.md
+
 #Social settings
 weibo_id: 5731069177
 weibo_username: 盼西楼雅集
@@ -33,16 +42,8 @@ comments :
     admin : 
 
 # Build settings
-highlighter-theme: monokai
 
-date_format: "%Y-%M-%D"
-highlighter: rouge
-permalink: pretty
-gems: [jekyll-paginate]
-paginate: 10
-paginate_path: "/page/:num/"
-anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
-
+# Build settings
 markdown: kramdown
 kramdown:
   input:                     GFM
@@ -55,6 +56,31 @@ kramdown:
   hard_wrap:                 false
   transliterated_header_ids: true
   footnote_backlink:         "&#8617;&#xfe0e;"
+sass:
+    style: :compressed
+plugins_dir:
+  - jekyll-feed
+
+# Excluded items
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - feed.xml
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+date_format: "%Y-%M-%D"
+highlighter: rouge
+permalink: pretty
+gems: [jekyll-paginate]
+paginate: 10
+paginate_path: "/page/:num/"
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 category_dir: category/
 tag_dir: tag/

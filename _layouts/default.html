@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
-
   {% include head.html %}
 
-  <body class="bg-grey" gtools_scp_screen_capture_injected="true">
-
+  <body>
     {% include header.html %}
 
-    {{ content }}
-    
+    <div class="page-content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </div>
+
     {% include footer.html %}
 
+    {% include foot.html %}
   </body>
 </html>

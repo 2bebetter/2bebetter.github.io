@@ -1,105 +1,131 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-  <meta name="renderer" content="webkit">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta http-equiv="Cache-Control" content="no-transform"/>
-  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
   
-  <title>Multidimensional detection and dynamic defense method for link flooding attack</title>
-  <meta name="description" content="">
-  <link rel="shortcut icon" href="/img/favicon.png">
-  <link rel="apple-touch-icon" href="/img/favicon.ico"/>
+  
 
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://2bebetter.github.io/ctf/2020/12/19/ctf/">
+  
+  
+  
 
-  <link href="/css/highlight.css" rel="stylesheet">
-  <link href="/css/style.css" rel="stylesheet">
-  <!-- iconfont is in the include -->
-  <!-- <link rel="stylesheet" href="/style/css/iconfont/iconfont.css"> -->
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        inlineMath: [['$','$']]
-        }
-    });
+  
+  
+  
+
+  
+
+  
+  
+
+  
+
+  <!-- Primary Meta Tags -->
+  <title>2bebetter | Multidimensional detection and dynamic defense method for link flooding attack</title>
+  <meta name="title" content="2bebetter | Multidimensional detection and dynamic defense method for link flooding attack"/>
+  <meta name="description" content="to be a better man
+"/>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="2bebetter | Multidimensional detection and dynamic defense method for link flooding attack"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="http://2bebetter.github.io/ctf/2020/12/19/ctf/"/>
+  <meta property="og:title" content="2bebetter | Multidimensional detection and dynamic defense method for link flooding attack"/>
+  <meta property="og:description" content="to be a better man
+"/>
+  <meta property="og:image" content="http://2bebetter.github.io"/>
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image"/>
+  <meta property="twitter:url" content="http://2bebetter.github.io/ctf/2020/12/19/ctf/"/>
+  <meta property="twitter:title" content="2bebetter | Multidimensional detection and dynamic defense method for link flooding attack"/>
+  <meta property="twitter:description" content="to be a better man
+"/>
+  <meta property="twitter:image" content="http://2bebetter.github.io"/>
+  
+
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="canonical" href="http://2bebetter.github.io/ctf/2020/12/19/ctf/"/>
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon"/>
+
+  <!-- Google Analytics -->
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', "", "auto");
+    ga('send', "pageview");
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-  <!-- <script type="text/javascript">
-    var documentHeight = 0;
-    var topPadding = 15;
-    $(function() {
-        var offset = $("#navigation").offset();
-        documentHeight = $(document).height();
-        $(window).scroll(function() {
-            var sideBarHeight = $("#navigation").height();
-            if ($(window).scrollTop() > offset.top) {
-                var newPosition = ($(window).scrollTop() - offset.top) + topPadding;
-                var maxPosition = documentHeight - (sideBarHeight + 368);
-                if (newPosition > maxPosition) {
-                    newPosition = maxPosition;
-                }
-                $("#navigation").stop().animate({
-                    marginTop: newPosition
-                });
-            } else {
-                $("#navigation").stop().animate({
-                    marginTop: 0
-                });
-            };
-        });
-    });
-    </script> -->
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
 </head>
 
 
+  <body>
+    <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="http://2bebetter.github.io/">
+      <img src="/img/logo.png" alt="2bebetter" />
+    </a>
 
-  <body class="bg-grey" gtools_scp_screen_capture_injected="true">
+    <nav class="site-nav">
+      <a href="#" class="menu-icon"></a>
 
-    <header id="header" class="header bg-white">
-  <div class="navbar-container">
-      <a href="/" class="navbar-logo">
-          <img src="/img/logo.jpg" alt="2bebetter" />
-          <span>2bebetter</span>
-      </a>
-      <div class="navbar-menu">
-          <a href="/index">Home</a>
-          <a href="/about">About</a>
+      <div class="menu">
+        
+          
+          
+          <a class="page-link" href="/">
+            Home
+          </a>
+        
+          
+          
+          <a class="page-link" href="/blog">
+            Blog
+          </a>
+        
+          
+          
+          <a class="page-link" href="/work">
+            Work
+          </a>
+        
+          
+          
+          <a class="page-link" href="/about">
+            About
+          </a>
+        
       </div>
-      <div class="navbar-mobile-menu" onclick="">
-          <span class="icon-menu cross"><span class="middle"></span></span>
-          <ul>
-              <li><a href="/index">Home</a></li>
-              <li><a href="/about">About</a></li>
-          </ul>
-      </div>
+    </nav>
   </div>
 </header>
 
 
-    <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
-    <div class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            Multidimensional detection and dynamic defense method for link flooding attack
-        </h1>
-        <div class="post-date">
-            <time itemprop="datePublished">Dec 19, 2020</time>
-        </div>
-    </div>
-</article>
-<div class="main-container">
-    <div class="post-container">
-        <aside class="navigation" id="navigation">
-            <h1>Contents</h1>
-            <ul class="nav sidenav"></ul>
-        </aside>
-        <article class="post-content">
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+          <header class="post-header">
+
+            
+
+            <h1 class="post-title">
+            
+              Multidimensional detection and dynamic defense method for link flooding attack
+            
+            </h1>
+
+            
+            <p class="post-meta"><span class="post-date">December 19, 2020
+            </span></p>
+          </header>
+
+          <article class="post-content">
             <ul id="markdown-toc">
   <li><a href="#12月赛" id="markdown-toc-12月赛">12月赛</a>    <ul>
       <li><a href="#misc" id="markdown-toc-misc">misc</a>        <ul>
@@ -152,30 +178,14 @@
 <h4 id="affine">affine</h4>
 
 
-        </article>
-        <!-- <div class="post-content">
-         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<div id="gitalk-container"></div>
+          </article>
 
-<script data-no-instant type="text/javascript">
-const gitalk = new Gitalk({
-  clientID: '',
-  clientSecret: '',
-  repo: '',
-  owner: '',
-  admin: [''],
-  id: location.pathname,      // Ensure uniqueness and length less than 50
-  distractionFreeMode: true  // Facebook-like distraction free mode
-})
+          
 
-gitalk.render('gitalk-container')
-</script>
-        </div> -->
+      </div>
+      </div>
     </div>
-</div>
 
-    
     <footer id="footer" class="footer bg-white">
   <div class="footer-social">
       <div class="footer-container clearfix">
@@ -276,6 +286,10 @@ gitalk.render('gitalk-container')
 
 
 
+
+    <script type="text/javascript" src="/js/vendor/retina-1.3.0.min.js"></script>
+<script type="text/javascript" src="/js/vendor/cash-4.1.5.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
 
   </body>
 </html>

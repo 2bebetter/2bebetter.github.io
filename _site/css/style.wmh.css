@@ -1,0 +1,111 @@
+@charset "UTF-8";
+
+html {
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+    display: block;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+::selection {
+	color: #fff;
+	background-color: #eb5055
+}
+
+code {
+  padding: 2px 4px;
+  word-wrap: break-word;
+  color: #eaeaea;
+  background: #000;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+body {
+    margin: 0 auto;
+}
+
+.container {
+    position: relative;
+    min-height: 100%;
+}
+
+/*
+header的样式共分为三部分：
+	1.header-tile
+		标题【logo-文字】
+	2.header-nav
+		2.1 left-header-nav
+		2.2 right-header-nav
+		2.3 header-serach-nav
+*/
+.header {
+	display: block;
+	width: 100%;
+	height: 200px;
+	position:relative;
+}
+
+.header .header-nav {
+	display: block;
+	top: 10px;
+	left: 10px;
+	width:98%;
+	border-bottom: 1px solid #ddd;
+}
+
+.header .header-nav .header-nav-toggle {
+  display: none;
+  top: 10px;
+  left: 10px;
+}
+
+.header .header-nav .header-left-nav {
+	float: left;
+}
+
+.header .header-nav .header-left-nav .nav-item{
+	font-size: 13px;
+	padding: 20px 15px 20px 15px;
+}
+
+.header .header-nav .header-right-nav {
+
+}
+
+.header .header-nav .header-search-nav {
+
+}
+
+.header .header-title {
+	text-align: center;
+}
+
+.header .header-title .header-logo {
+	/*宽度设置*/
+	max-width: 30%;
+}
+
+.header .header-title span {
+	font-size: 30px;
+	font-family: "Microsoft YaHei";
+	text-decoration: none;
+}
+
+/*
+文章列表的样式
+
+
+*/
+
+.main-content {
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 16px;
+	background: #fff;
+	-webkit-animation: fade-in .5s;
+	animation: fade-in;
+	animation-duration: .5s
+}
